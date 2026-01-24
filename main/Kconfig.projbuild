@@ -1,0 +1,14 @@
+menu "App config"
+    choice DEVICE_ROLE
+        prompt "Device role"
+        default ROLE_TX
+        help
+            Select whether this firmware behaves as the sender or receiver.
+
+        config ROLE_TX
+            bool "Sender (transmit ESP-NOW on HIGH)"
+
+        config ROLE_RX
+            bool "Receiver (listen for ESP-NOW; do not transmit on remote HIGH)"
+    endchoice
+endmenu

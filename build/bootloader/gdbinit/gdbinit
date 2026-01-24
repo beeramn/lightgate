@@ -1,0 +1,2 @@
+source /Users/brandon/Projects/lightgate/build/bootloader/gdbinit/symbols
+source /Users/brandon/Projects/lightgate/build/bootloader/gdbinit/connect
