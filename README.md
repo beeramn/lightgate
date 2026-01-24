@@ -1,107 +1,111 @@
 # lightgate
-zoom
 
+## Overview
 
-# HOW TO RUN TS  
+- **Sender**: reads sensor data, detects threshold events, and transmits messages  
+- **Receiver**: listens for ESP-NOW messages and triggers an LED on HIGH events  
 
+The device role is selected at **build time** using `menuconfig`.
+
+---
+
+## How to Run
+
+### 1. Clone and set up the project
+```bash
 git clone <repo>
-
 cd <repo>
-
-
 source ~/esp/esp-idf/export.sh
-
-
 idf.py build
+```
 
-select if you're uploading to the sender or receiver with: idf.py menuconfig
 
-Menu will look like this: 
+### 2. Select device role
+```bash
+idf.py menuconfig
+```
+Navigate to: 
+
 App config
-└── Device role
-    ├── Sender (transmit ESP-NOW on HIGH)
-    └── Receiver (listen for ESP-NOW; do not transmit on remote HIGH)
+* Device role
+  
+** Sender   (transmit ESP-NOW on HIGH)
 
-** S - to save ** 
-
-then ur good to run, flash, build
+** Receiver (listen for ESP-NOW; no transmit on remote HIGH)
 
 
 
+### Project Architecture
+High-level Flow
 
-# What's happening
+- main.c is the program entry point
+- A single role is chosen at build time
 
-+------------------------------------------------------------------+
-|                           main.c                                 |
-|------------------------------------------------------------------|
-| Responsibilities:                                                |
-|  1) Select role entrypoint (compile-time)                         |
-|     - calls app_role_start()                                      |
-|                                                                  |
-| Build-time choice (menuconfig):                                  |
-|   CONFIG_ROLE_TX  -> sender.c provides app_role_start()           |
-|   CONFIG_ROLE_RX  -> receiver.c provides app_role_start()         |
-+------------------------------------|-----------------------------+
-                                     |
-                                     | calls role entrypoint
-                                     v
-                +----------------------------------------------+
-                |                 app_role_start()             |
-                +---------------------------+------------------+
-                                            |
-                 +--------------------------+--------------------------+
-                 |                                                     |
-                 v                                                     v
-+------------------------------------------------------------------+  +------------------------------------------------------------------+
-|                           sender.c                               |  |                          receiver.c                             |
-|------------------------------------------------------------------|  |------------------------------------------------------------------|
-| Responsibilities (TX role):                                      |  | Responsibilities (RX role):                                      |
-|  1) Initialize ESP-NOW (WiFi + peer + send callback)             |  |  1) Initialize ESP-NOW (WiFi + recv callback)                     |
-|  2) Initialize + start sensor subsystem                          |  |  2) Setup LED GPIO + LED task                                     |
-|  3) Define thresholds + state machine (LOW/MID/HIGH)             |  |  3) On receiving HIGH message -> notify LED task                  |
-|  4) Decide when to send messages                                 |  |  4) Print/log received seq/type                                   |
-|  5) Print/log high-level results                                 |  |                                                                  |
-|                                                                  |  | Message handling:                                                 |
-| Uses sensor.c like a "data provider":                            |  |  - espnow_recv_cb() parses high_msg_t                              |
-|   - calls sensor_init(channels)                                  |  |  - if msg_type==1 -> LED blink                                    |
-|   - calls sensor_start()                                         |  |                                                                  |
-|   - repeatedly calls sensor_read_window(500ms, &w)               |  | (No sensor usage in RX role)                                      |
-|     -> gets window summary: min/max/avg/count                    |  |                                                                  |
-|                                                                  |  |                                                                  |
-| Then:                                                            |  |                                                                  |
-|   if (w.max_raw >= HIGH_THRESH) => send ESPNOW msg (HIGH)         |  |                                                                  |
-|   if (w.min_raw <= LOW_THRESH)  => low action                    |  |                                                                  |
-+-----------------------------|------------------------------------+  +------------------------------------------------------------------+
-                              |
-                              | sensor_* API calls (TX only)
-                              v
-+------------------------------------------------------------------+
-|                            sensor.c                              |
-|------------------------------------------------------------------|
-| Responsibilities:                                                |
-|  1) Configure ADC continuous mode                                |
-|     - sample rate, bit width, attenuation, channels              |
-|  2) Register ADC ISR callback (conversion done)                  |
-|  3) Drain ADC driver buffer                                      |
-|  4) Aggregate samples into a time window (500ms)                 |
-|     - tracks: min_raw, max_raw, sum_raw, count                   |
-|     - computes avg_raw                                           |
-|  5) Return sensor_window_t back to sender.c                      |
-|                                                                  |
-| Internals:                                                       |
-|  - ADC driver calls ISR -> notifies waiting task                 |
-|  - sensor_read_window() blocks until window complete             |
-+-----------------------------|------------------------------------+
-                              |
-                              | (ESP-IDF ADC driver events)
-                              v
-+------------------------------------------------------------------+
-|               ESP-IDF ADC Continuous Driver (IDF)                |
-|------------------------------------------------------------------|
-| - hardware sampling + DMA                                        |
-| - buffers raw ADC samples                                        |
-| - triggers "conversion done" event                               |
-+------------------------------------------------------------------+
+- The selected role provides app_role_start()
+
+- main.c calls app_role_start() to start role-specific logic
+
+### File Responsibilities
+main.c
+- Role-agnostic entry point
+
+- Calls app_role_start()
+
+- Role selection is determined at build time:
+
+- CONFIG_ROLE_TX → sender.c
+
+- CONFIG_ROLE_RX → receiver.c
+
+sender.c (TX role)
+Handles sensing, classification, and transmission.
+
+- Initialize ESP-NOW
+
+- Wi-Fi setup
+
+- Peer registration
+
+- Send callback
+
+- Initialize and start sensor subsystem
+
+- Define thresholds and state machine (LOW / MID / HIGH)
+
+- Decide when to transmit ESP-NOW messages
+
+- Log system behavior
+
+- Sensor workflow:
+
+- - Calls:
+
+* * sensor_init(channels)
+
+* * sensor_start()
+
+* * sensor_read_window(500 ms, &window)
+
+- Decision logic:
+
+* * If window.max_raw >= HIGH_THRESH → send ESP-NOW HIGH message
+
+* * If window.min_raw <= LOW_THRESH → perform LOW action
+
+receiver.c (RX role)
+
+Handles reception and actuation.
 
 
- 
+- Initialize ESP-NOW
+
+- Wi-Fi setup
+
+- Receive callback
+
+- Configure LED GPIO
+
+- Run LED task
+
+- Parse and log received messages
+
