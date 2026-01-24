@@ -1,6 +1,6 @@
 # lightgate
 
-## Overview
+## Overview (As of rn)
 
 - **Sender**: reads sensor data, detects threshold events, and transmits messages  
 - **Receiver**: listens for ESP-NOW messages and triggers an LED on HIGH events  
