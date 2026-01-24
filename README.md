@@ -5,8 +5,13 @@ zoom
 # HOW TO RUN TS  
 
 git clone <repo>
+
 cd <repo>
+
+
 source ~/esp/esp-idf/export.sh
+
+
 idf.py build
 
 select if you're uploading to the sender or receiver with: idf.py menuconfig
