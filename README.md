@@ -1,5 +1,8 @@
 # lightgate
 
+![diagram](biggest.png)
+
+
 ## Overview (As of rn)
 
 - **Sender**: reads sensor data, detects threshold events, and transmits messages  
