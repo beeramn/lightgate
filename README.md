@@ -5,8 +5,8 @@
 
 ## Overview (As of rn)
 
-- **Sender**: reads sensor data, detects threshold events, and transmits messages  
-- **Receiver**: listens for ESP-NOW messages and triggers an LED on HIGH events  
+- **Sender**: reads sensor data, detects voltage threshold events, and transmits messages  
+- **Receiver**: listens for ESP-NOW messages, records time the message was received t_m, records time the sensor voltage went below threshold(gate was triggered) t_f. Calculates speed as v = d/t, d = distance between gates (3m rn). So v = 3m/(t_f - t_m)
 
 The device role is selected at **build time** using `menuconfig`.
 
