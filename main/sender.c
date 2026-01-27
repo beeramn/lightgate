@@ -10,7 +10,7 @@
 
 #include "sdkconfig.h"
 
-#if CONFIG_ROLE_TX  // <-- Only compile this file's logic when Sender is selected
+#if CONFIG_ROLE_TX  // Only compile this file's logic when Sender is selected
 
 #include "esp_log.h"
 #include "esp_err.h"
@@ -34,14 +34,36 @@
 static const char *TAG = "SENDER";
 
 // ---------------- User knobs ----------------
-#define READ_INTERVAL_TICKS         pdMS_TO_TICKS(500)  // 0.5s window
 
-// Software thresholds in raw ADC units for rn 
-#define HIGH_THRESH_RAW             0x258
-#define LOW_THRESH_RAW              0x020
+// Match receiver timing approach
+#ifndef SENSOR_WINDOW_MS
+#define SENSOR_WINDOW_MS 5
+#endif
 
-// Choose channel to get sensor data
+// Require N consecutive windows below threshold before triggering (noise filter)
+#ifndef TRIGGER_CONSECUTIVE_WINDOWS
+#define TRIGGER_CONSECUTIVE_WINDOWS 2
+#endif
+
+// Throttle status printing so 5ms windows don't spam logs
+#ifndef PRINT_EVERY_MS
+#define PRINT_EVERY_MS 200
+#endif
+
+// Voltage threshold (beam broken if voltage goes BELOW this)
+// Adjust this based on your actual sensor output.
+#ifndef LOW_THRESH_V
+#define LOW_THRESH_V 1.20f
+#endif
+
+// Re-arm only after voltage rises ABOVE (LOW_THRESH_V + HYST_V)
+#ifndef HYST_V
+#define HYST_V 0.10f
+#endif
+
+// ADC channel
 static adc_channel_t channel[1] = { ADC_CHANNEL_2 };
+
 // ------------------------------------------------
 
 // Receiver STA MAC (the other ESP32-S2)
@@ -50,27 +72,19 @@ static uint8_t s_peer_mac[ESP_NOW_ETH_ALEN] = {
 };
 
 typedef struct __attribute__((packed)) {
-    uint8_t  msg_type;     // 1 = HIGH
+    uint8_t  msg_type;     // 1 = BEAM_BROKEN (LOW)
     uint32_t seq;
-    uint32_t max_raw;      // send the max raw value
-    int64_t  ts_us;        // timestamp
-} high_msg_t;
+    float    min_v;        // voltage metric that triggered (min voltage in window)
+    int64_t  ts_us;        // timestamp: FIRST qualifying window start
+} low_msg_t;
 
 static uint32_t s_seq = 0;
-
-// Optional: state to avoid repeatedly calling high/low every print window
-typedef enum {
-    LEVEL_MID = 0,
-    LEVEL_LOW,
-    LEVEL_HIGH,
-} level_t;
 
 static void espnow_send_cb(const wifi_tx_info_t *tx_info,
                            esp_now_send_status_t status)
 {
-    // tx_info can be NULL in some cases, so be defensive.
     if (tx_info) {
-        const uint8_t *da = tx_info->des_addr;   // destination MAC (peer)
+        const uint8_t *da = tx_info->des_addr;
         printf("ESP-NOW send to %02X:%02X:%02X:%02X:%02X:%02X -> %s\n",
                da[0], da[1], da[2], da[3], da[4], da[5],
                status == ESP_NOW_SEND_SUCCESS ? "OK" : "FAIL");
@@ -82,7 +96,6 @@ static void espnow_send_cb(const wifi_tx_info_t *tx_info,
 
 static void espnow_init_and_add_peer(const uint8_t peer_mac[ESP_NOW_ETH_ALEN], uint8_t wifi_channel)
 {
-    // NVS is required by Wi-Fi in ESP-IDF
     esp_err_t ret = nvs_flash_init();
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
         ESP_ERROR_CHECK(nvs_flash_erase());
@@ -97,22 +110,18 @@ static void espnow_init_and_add_peer(const uint8_t peer_mac[ESP_NOW_ETH_ALEN], u
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
     ESP_ERROR_CHECK(esp_wifi_init(&cfg));
 
-    // ESPNOW STA only
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
     ESP_ERROR_CHECK(esp_wifi_start());
 
-    // Both devices must be on the same Wi-Fi channel for ESP-NOW to work reliably
     ESP_ERROR_CHECK(esp_wifi_set_channel(wifi_channel, WIFI_SECOND_CHAN_NONE));
 
-    // Init ESP-NOW
     ESP_ERROR_CHECK(esp_now_init());
     ESP_ERROR_CHECK(esp_now_register_send_cb(espnow_send_cb));
 
-    // Add peer
     esp_now_peer_info_t peer = {0};
     memcpy(peer.peer_addr, peer_mac, ESP_NOW_ETH_ALEN);
     peer.ifidx = WIFI_IF_STA;
-    peer.channel = wifi_channel;   // must match the channel being set
+    peer.channel = wifi_channel;
     peer.encrypt = false;
 
     esp_err_t err = esp_now_add_peer(&peer);
@@ -125,18 +134,23 @@ static void espnow_init_and_add_peer(const uint8_t peer_mac[ESP_NOW_ETH_ALEN], u
     ESP_LOGI(TAG, "ESP-NOW ready. Peer added.");
 }
 
-static void low_thresh(void)
+static inline float raw_to_volts(uint32_t raw)
 {
-    // TODO: add low threshold behavior if needed
+    // NOTE: This assumes 0..(2^bitwidth-1) maps to 0..3.3V.
+    // That’s a reasonable first approximation, but absolute accuracy depends on
+    // ADC calibration/attenuation. For thresholding it’s usually fine.
+    const float vref = 3.3f;
+    const float fullscale = (float)((1U << SOC_ADC_DIGI_MAX_BITWIDTH) - 1U);
+    return (raw * vref) / fullscale;
 }
 
-static void high_thresh(uint32_t max_raw)
+static void send_beam_broken(float min_v, int64_t t_event_us)
 {
-    high_msg_t msg = {
+    low_msg_t msg = {
         .msg_type = 1,
         .seq = s_seq++,
-        .max_raw = max_raw,
-        .ts_us = esp_timer_get_time()
+        .min_v = min_v,
+        .ts_us = t_event_us,
     };
 
     esp_err_t err = esp_now_send(s_peer_mac, (uint8_t *)&msg, sizeof(msg));
@@ -145,70 +159,99 @@ static void high_thresh(uint32_t max_raw)
     }
 }
 
-/**
- * Role entrypoint called by main.c's app_main().
- * Only exists in TX builds.
- */
 void app_role_start(void)
 {
-    // ESP-NOW init
     espnow_init_and_add_peer(s_peer_mac, 1);
 
-    // Sensor init/start
     ESP_ERROR_CHECK(sensor_init(channel, 1));
     ESP_ERROR_CHECK(sensor_start());
 
-    const char unit_str[] = "ADC_UNIT_1";
+    ESP_LOGI(TAG,
+             "TX started: ch=%d window=%dms consec=%d thresh=%.3fV hyst=%.3fV",
+             (int)channel[0],
+             (int)SENSOR_WINDOW_MS,
+             (int)TRIGGER_CONSECUTIVE_WINDOWS,
+             (double)LOW_THRESH_V,
+             (double)HYST_V);
 
-    // Precompute for voltage conversion
-    const float vref = 3.3f;
-    const float adc_fullscale = (float)((1U << SOC_ADC_DIGI_MAX_BITWIDTH) - 1U);
+    const TickType_t window_ticks = pdMS_TO_TICKS(SENSOR_WINDOW_MS);
 
-    // Track threshold state (prevents repeated triggers)
-    level_t last_level = LEVEL_MID;
+    // Print throttling
+    const uint32_t print_every_windows =
+        (PRINT_EVERY_MS <= SENSOR_WINDOW_MS) ? 1u : (uint32_t)(PRINT_EVERY_MS / SENSOR_WINDOW_MS);
+    uint32_t print_div = 0;
+
+    // Debounce + timestamping like RX
+    int below_count = 0;
+    int64_t first_below_window_start_us = -1;
+    bool armed = true;
 
     while (1) {
+        // Timestamp start of window (used when first qualifies)
+        int64_t window_start_us = esp_timer_get_time();
+
         sensor_window_t w = {0};
-        ESP_ERROR_CHECK(sensor_read_window(READ_INTERVAL_TICKS, &w));
+        ESP_ERROR_CHECK(sensor_read_window(window_ticks, &w));
 
-        if (w.count > 0) {
-            float v_min = (w.min_raw * vref) / adc_fullscale;
-            float v_max = (w.max_raw * vref) / adc_fullscale;
-            float v_avg = (w.avg_raw * vref) / adc_fullscale;
+        if (w.count == 0) {
+            ESP_LOGW(TAG, "No samples collected in window (unexpected).");
+            continue;
+        }
 
+        // Convert window metrics to volts
+        float v_min = raw_to_volts(w.min_raw);
+        float v_max = raw_to_volts(w.max_raw);
+        float v_avg = raw_to_volts((uint32_t)w.avg_raw);
+
+        // Optional periodic status print (calm output)
+        if (++print_div >= print_every_windows) {
+            print_div = 0;
             ESP_LOGI(TAG,
-                     "Unit:%s Ch:%" PRIu32 " window=500ms samples=%" PRIu32
-                     " raw[min=%" PRIu32 " max=%" PRIu32 " avg=%.1f] V[min=%.3f max=%.3f avg=%.3f]",
-                     unit_str,
-                     (uint32_t)channel[0],
+                     "window=%dms samples=%" PRIu32
+                     " V[min=%.3f max=%.3f avg=%.3f]",
+                     (int)SENSOR_WINDOW_MS,
                      w.count,
-                     w.min_raw, w.max_raw, w.avg_raw,
-                     v_min, v_max, v_avg);
+                     (double)v_min, (double)v_max, (double)v_avg);
+        }
 
-            // Decide current level based on window (uses max/min)
-            level_t level_now = LEVEL_MID;
-            if (w.max_raw >= HIGH_THRESH_RAW) {
-                level_now = LEVEL_HIGH;
-            } else if (w.min_raw <= LOW_THRESH_RAW) {
-                level_now = LEVEL_LOW;
+        // Beam broken detection uses MIN voltage in the window
+        bool below = (v_min < LOW_THRESH_V);
+
+        if (armed) {
+            if (below) {
+                below_count++;
+                if (below_count == 1) {
+                    // record FIRST window start
+                    first_below_window_start_us = window_start_us;
+                }
+            } else {
+                below_count = 0;
+                first_below_window_start_us = -1;
             }
 
-            // Trigger actions only on changes (prevents spam)
-            if (level_now != last_level) {
-                last_level = level_now;
+            if (below_count >= TRIGGER_CONSECUTIVE_WINDOWS) {
+                int64_t t_event_us = (first_below_window_start_us >= 0)
+                                   ? first_below_window_start_us
+                                   : window_start_us;
 
-                if (level_now == LEVEL_HIGH) {
-                    ESP_LOGI(TAG, "HIGH (software threshold)");
-                    high_thresh(w.max_raw);
-                } else if (level_now == LEVEL_LOW) {
-                    ESP_LOGI(TAG, "LOW (software threshold)");
-                    low_thresh();
-                } else {
-                    ESP_LOGI(TAG, "MID (back in range)");
-                }
+                ESP_LOGI(TAG, "BEAM BROKEN (v_min=%.3fV) t_event_us=%" PRIi64,
+                         (double)v_min, t_event_us);
+
+                send_beam_broken(v_min, t_event_us);
+
+                // disarm until signal returns above threshold + hysteresis
+                armed = false;
+                below_count = 0;
+                first_below_window_start_us = -1;
             }
         } else {
-            ESP_LOGW(TAG, "No samples collected in window (unexpected).");
+            // re-arm when voltage rises back above threshold + hysteresis
+            if (v_min > (LOW_THRESH_V + HYST_V)) {
+                armed = true;
+                below_count = 0;
+                first_below_window_start_us = -1;
+                ESP_LOGI(TAG, "Re-armed (v_min=%.3fV)", (double)v_min);
+            }
         }
     }
 }

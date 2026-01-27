@@ -503,8 +503,8 @@ CONFIG_PARTITION_TABLE_MD5=y
 #
 # App config
 #
-CONFIG_ROLE_TX=y
-# CONFIG_ROLE_RX is not set
+# CONFIG_ROLE_TX is not set
+CONFIG_ROLE_RX=y
 # end of App config
 
 #
