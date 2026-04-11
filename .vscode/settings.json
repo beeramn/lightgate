@@ -1,4 +1,5 @@
 {
     "idf.flashType": "UART",
-    "idf.port": "/dev/tty.SLAB_USBtoUART"
+    "idf.port": "/dev/tty.usbserial-1110",
+    "idf.currentSetup": "/Users/brandon/esp/v5.5.2/esp-idf"
 }

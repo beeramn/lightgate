@@ -1013,6 +1013,16 @@
         "children": [],
         "depends_on": null,
         "help": null,
+        "id": "SOC_GPIO_SUPPORT_HOLD_IO_IN_DSLP",
+        "name": "SOC_GPIO_SUPPORT_HOLD_IO_IN_DSLP",
+        "range": null,
+        "title": null,
+        "type": "bool"
+    },
+    {
+        "children": [],
+        "depends_on": null,
+        "help": null,
         "id": "SOC_DEDIC_GPIO_OUT_CHANNELS_NUM",
         "name": "SOC_DEDIC_GPIO_OUT_CHANNELS_NUM",
         "range": null,
@@ -1543,8 +1553,8 @@
         "children": [],
         "depends_on": null,
         "help": null,
-        "id": "SOC_RMT_SUPPORT_ASYNC_STOP",
-        "name": "SOC_RMT_SUPPORT_ASYNC_STOP",
+        "id": "SOC_RMT_SUPPORT_TX_ASYNC_STOP",
+        "name": "SOC_RMT_SUPPORT_TX_ASYNC_STOP",
         "range": null,
         "title": null,
         "type": "bool"
@@ -3385,7 +3395,7 @@
                     }
                 ],
                 "depends_on": null,
-                "help": "Select the way the application is built.\n\nBy default, the application is built as a binary file in a format compatible with\nthe ESP-IDF bootloader. In addition to this application, 2nd stage bootloader is\nalso built. Application and bootloader binaries can be written into flash and\nloaded/executed from there.\n\nAnother option, useful for only very small and limited applications, is to only link\nthe .elf file of the application, such that it can be loaded directly into RAM over\nJTAG or UART. Note that since IRAM and DRAM sizes are very limited, it is not possible\nto build any complex application this way. However for some kinds of testing and debugging,\nthis option may provide faster iterations, since the application does not need to be\nwritten into flash.\n\nNote: when APP_BUILD_TYPE_RAM is selected and loaded with JTAG, ESP-IDF does not contain\nall the startup code required to initialize the CPUs and ROM memory (data/bss).\nTherefore it is necessary to execute a bit of ROM code prior to executing the application.\nA gdbinit file may look as follows (for ESP32):\n\n    # Connect to a running instance of OpenOCD\n    target remote :3333\n    # Reset and halt the target\n    mon reset halt\n    # Run to a specific point in ROM code,\n    #  where most of initialization is complete.\n    thb *0x40007d54\n    c\n    # Load the application into RAM\n    load\n    # Run till app_main\n    tb app_main\n    c\n\nExecute this gdbinit file as follows:\n\n    xtensa-esp32-elf-gdb build/app-name.elf -x gdbinit\n\nExample gdbinit files for other targets can be found in tools/test_apps/system/gdb_loadable_elf/\n\nWhen loading the BIN with UART, the ROM will jump to ram and run the app after finishing the ROM\nstartup code, so there's no additional startup initialization required. You can use the\n`load_ram` in esptool.py to load the generated .bin file into ram and execute.\n\nExample:\n    esptool.py --chip {chip} -p {port} -b {baud} --no-stub load_ram {app.bin}\n\nRecommended sdkconfig.defaults for building loadable ELF files is as follows.\nCONFIG_APP_BUILD_TYPE_RAM is required, other options help reduce application\nmemory footprint.\n\n    CONFIG_APP_BUILD_TYPE_RAM=y\n    CONFIG_VFS_SUPPORT_TERMIOS=\n    CONFIG_LIBC_NEWLIB_NANO_FORMAT=y\n    CONFIG_ESP_SYSTEM_PANIC_PRINT_HALT=y\n    CONFIG_ESP_DEBUG_STUBS_ENABLE=\n    CONFIG_ESP_ERR_TO_NAME_LOOKUP=",
+                "help": "Select the way the application is built.\n\nBy default, the application is built as a binary file in a format compatible with\nthe ESP-IDF bootloader. In addition to this application, 2nd stage bootloader is\nalso built. Application and bootloader binaries can be written into flash and\nloaded/executed from there.\n\nAnother option, useful for only very small and limited applications, is to only link\nthe .elf file of the application, such that it can be loaded directly into RAM over\nJTAG or UART. Note that since IRAM and DRAM sizes are very limited, it is not possible\nto build any complex application this way. However for some kinds of testing and debugging,\nthis option may provide faster iterations, since the application does not need to be\nwritten into flash.\n\nNote: when APP_BUILD_TYPE_RAM is selected and loaded with JTAG, ESP-IDF does not contain\nall the startup code required to initialize the CPUs and ROM memory (data/bss).\nTherefore it is necessary to execute a bit of ROM code prior to executing the application.\nA gdbinit file may look as follows (for ESP32):\n\n    # Connect to a running instance of OpenOCD\n    target remote :3333\n    # Reset and halt the target\n    mon reset halt\n    # Run to a specific point in ROM code,\n    #  where most of initialization is complete.\n    thb *0x40007d54\n    c\n    # Load the application into RAM\n    load\n    # Run till app_main\n    tb app_main\n    c\n\nExecute this gdbinit file as follows:\n\n    xtensa-esp32-elf-gdb build/app-name.elf -x gdbinit\n\nExample gdbinit files for other targets can be found in tools/test_apps/system/gdb_loadable_elf/\n\nWhen loading the BIN with UART, the ROM will jump to ram and run the app after finishing the ROM\nstartup code, so there's no additional startup initialization required. You can use the\n`load_ram` in esptool.py to load the generated .bin file into ram and execute.\n\nExample:\n    esptool.py --chip {chip} -p {port} -b {baud} --no-stub load_ram {app.bin}\n\nRecommended sdkconfig.defaults for building loadable ELF files is as follows.\nCONFIG_APP_BUILD_TYPE_RAM is required, other options help reduce application\nmemory footprint.\n\n    CONFIG_APP_BUILD_TYPE_RAM=y\n    CONFIG_VFS_SUPPORT_TERMIOS=\n    CONFIG_NEWLIB_NANO_FORMAT=y\n    CONFIG_ESP_SYSTEM_PANIC_PRINT_HALT=y\n    CONFIG_ESP_DEBUG_STUBS_ENABLE=\n    CONFIG_ESP_ERR_TO_NAME_LOOKUP=",
                 "id": "build-type-application-build-type",
                 "name": "APP_BUILD_TYPE",
                 "title": "Application build type",
@@ -3586,48 +3596,27 @@
                         "children": [
                             {
                                 "children": [],
-                                "depends_on": "BOOTLOADER_RECOVERY_ENABLE",
-                                "help": "Flash address where the recovery bootloader is stored.\nThis value must be written to the eFuse field (ESP_EFUSE_RECOVERY_BOOTLOADER_FLASH_SECTOR)\nto activate the recovery bootloader in the ROM bootloader. The eFuse can be programmed\nusing espefuse.py or in the user application with the API esp_efuse_set_recovery_bootloader_offset().\nSetting this value in the config allows parttool.py to verify that it does not overlap with existing\npartitions in the partition table.\n\nThe address must be a multiple of the flash sector size (0x1000 bytes).\nThe eFuse field stores the offset in sectors.\nIf the feature is no longer needed or unused, you can burn the 0xFFF value to disable this feature in\nthe ROM bootloader.",
-                                "id": "BOOTLOADER_RECOVERY_OFFSET",
-                                "name": "BOOTLOADER_RECOVERY_OFFSET",
+                                "depends_on": "BOOTLOADER_ANTI_ROLLBACK_ENABLE",
+                                "help": "The secure version is the sequence number stored in the header of each bootloader.\n\nThe ROM Bootloader which runs the 2nd stage bootloader (PRIMARY or RECOVERY) checks that\nthe security version is greater or equal that recorded in the eFuse field.\nBootloaders that have a secure version in the image < secure version in efuse will not boot.\n\nThe security version is worth increasing if in previous versions there is\na significant vulnerability and their use is not acceptable.",
+                                "id": "BOOTLOADER_SECURE_VERSION",
+                                "name": "BOOTLOADER_SECURE_VERSION",
                                 "range": null,
-                                "title": "Recovery Bootloader Flash Offset",
-                                "type": "hex"
-                            },
-                            {
-                                "children": [
-                                    {
-                                        "children": [],
-                                        "depends_on": "BOOTLOADER_ANTI_ROLLBACK_ENABLE",
-                                        "help": "The secure version is the sequence number stored in the header of each bootloader.\n\nThe ROM Bootloader which runs the 2nd stage bootloader (PRIMARY or RECOVERY) checks that\nthe security version is greater or equal that recorded in the eFuse field.\nBootloaders that have a secure version in the image < secure version in efuse will not boot.\n\nThe security version is worth increasing if in previous versions there is\na significant vulnerability and their use is not acceptable.",
-                                        "id": "BOOTLOADER_SECURE_VERSION",
-                                        "name": "BOOTLOADER_SECURE_VERSION",
-                                        "range": null,
-                                        "title": "Secure version of bootloader",
-                                        "type": "int"
-                                    }
-                                ],
-                                "depends_on": "BOOTLOADER_RECOVERY_ENABLE",
-                                "help": "This option prevents rollback to previous bootloader image with lower security version.",
-                                "id": "BOOTLOADER_ANTI_ROLLBACK_ENABLE",
-                                "name": "BOOTLOADER_ANTI_ROLLBACK_ENABLE",
-                                "range": null,
-                                "title": "Enable bootloader rollback support",
-                                "type": "bool"
+                                "title": "Secure version of bootloader",
+                                "type": "int"
                             }
                         ],
                         "depends_on": "SOC_RECOVERY_BOOTLOADER_SUPPORTED",
-                        "help": "The recovery bootloader feature is implemented in the ROM bootloader. It is required for safe OTA\nupdates of the bootloader. The feature is activated when the eFuse field\n(ESP_EFUSE_RECOVERY_BOOTLOADER_FLASH_SECTOR) is set, which defines the flash address of the\nrecovery bootloader. If activated and the primary bootloader fails to load, the ROM bootloader\nwill attempt to load the recovery bootloader from the address specified in eFuse.",
-                        "id": "BOOTLOADER_RECOVERY_ENABLE",
-                        "name": "BOOTLOADER_RECOVERY_ENABLE",
+                        "help": "This option prevents rollback to previous bootloader image with lower security version.",
+                        "id": "BOOTLOADER_ANTI_ROLLBACK_ENABLE",
+                        "name": "BOOTLOADER_ANTI_ROLLBACK_ENABLE",
                         "range": null,
-                        "title": "Enable Recovery Bootloader",
+                        "title": "Enable bootloader rollback support",
                         "type": "bool"
                     }
                 ],
                 "depends_on": null,
-                "id": "bootloader-config-recovery-bootloader-and-rollback",
-                "title": "Recovery Bootloader and Rollback",
+                "id": "bootloader-config-bootloader-rollback",
+                "title": "Bootloader Rollback",
                 "type": "menu"
             },
             {
@@ -4508,20 +4497,10 @@
                         "range": null,
                         "title": "Using ECC curve NISTP256 (Recommended)",
                         "type": "bool"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": "SECURE_SIGNED_APPS_ECDSA_V2_SCHEME && SOC_ECDSA_SUPPORT_CURVE_P384 && <choice SECURE_BOOT_ECDSA_KEY_LEN_SIZE>",
-                        "help": null,
-                        "id": "SECURE_BOOT_ECDSA_KEY_LEN_384_BITS",
-                        "name": "SECURE_BOOT_ECDSA_KEY_LEN_384_BITS",
-                        "range": null,
-                        "title": "Using ECC curve NISTP384 (Recommended)",
-                        "type": "bool"
                     }
                 ],
                 "depends_on": "SECURE_SIGNED_APPS_ECDSA_V2_SCHEME",
-                "help": "Select the ECDSA key size. Three key sizes are supported depending upon on the target:\n\n- 192 bit key using NISTP192 curve\n- 256 bit key using NISTP256 curve (Recommended)\n- 384 bit key using NISTP384 curve (Recommended)\n\nThe advantage of using 384 and 256 bit keys is the extra randomness which makes it difficult to be\nbruteforced compared to 192 bit key.\nAt present, both key sizes are practically implausible to bruteforce.",
+                "help": "Select the ECDSA key size. Two key sizes are supported\n\n- 192 bit key using NISTP192 curve\n- 256 bit key using NISTP256 curve (Recommended)\n\nThe advantage of using 256 bit key is the extra randomness which makes it difficult to be\nbruteforced compared to 192 bit key.\nAt present, both key sizes are practically implausible to bruteforce.",
                 "id": "security-features-ecdsa-key-size",
                 "name": "SECURE_BOOT_ECDSA_KEY_LEN_SIZE",
                 "title": "ECDSA key size",
@@ -4854,16 +4833,6 @@
                     },
                     {
                         "children": [],
-                        "depends_on": "SOC_ECDSA_SUPPORT_CURVE_P384 && SOC_FLASH_ENCRYPTION_XTS_AES_SUPPORT_PSEUDO_ROUND",
-                        "help": "If not set (default, recommended), on the first boot when Secure Boot is enabled for\ntargets that support Secure Boot using ECDSA-P384, the bootloader will burn the write-protection bit of\nof SECURE_BOOT_SHA384_EN that could be shared by multiple other efuse bits like\nSECURE_FLASH_PSEUDO_ROUND_FUNC_STRENGTH / XTS_DPA_PSEUDO_LEVEL.\n\nOnce this efuse bit is write-protected you cannot update the values of the shared efuses, for example,\nthe security strength value of XTS_DPA_PSEUDO_LEVEL or setting ECC_FORCE_CONST_TIME.\n\nList of eFuses with the same write protection bit:\n\nESP32-C5: XTS_DPA_PSEUDO_LEVEL and ECC_FORCE_CONST_TIME",
-                        "id": "SECURE_BOOT_SKIP_WRITE_PROTECTION_SCA",
-                        "name": "SECURE_BOOT_SKIP_WRITE_PROTECTION_SCA",
-                        "range": null,
-                        "title": "Skip write-protection of SECURE_FLASH_PSEUDO_ROUND_FUNC_STRENGTH",
-                        "type": "bool"
-                    },
-                    {
-                        "children": [],
                         "depends_on": "SECURE_FLASH_ENCRYPTION_MODE_DEVELOPMENT",
                         "help": "If not set (default), the bootloader will permanently disable UART bootloader encryption access on\nfirst boot. If set, the UART bootloader will still be able to access hardware encryption.\n\nIt is recommended to only set this option in testing environments.",
                         "id": "SECURE_FLASH_UART_BOOTLOADER_ALLOW_ENC",
@@ -4925,7 +4894,7 @@
                 "id": "SECURE_FLASH_ENCRYPT_ONLY_IMAGE_LEN_IN_APP_PART",
                 "name": "SECURE_FLASH_ENCRYPT_ONLY_IMAGE_LEN_IN_APP_PART",
                 "range": null,
-                "title": "Encrypt contents upto app image length in app partition",
+                "title": "Encrypt only the app image that is present in the partition of type app",
                 "type": "bool"
             },
             {
@@ -4974,14 +4943,14 @@
                             }
                         ],
                         "depends_on": "SECURE_FLASH_PSEUDO_ROUND_FUNC",
-                        "help": "The strength of the pseudo rounds functions can be configured to low, medium and high,\neach denoting the values that would be stored in the efuses field.\nBy default the value to set to low.\n\nIt is recommended that the required strength of the pseudo rounds function should be set during the\nfirst boot itself. If your workflow needs to update the function's strength after the first boot,\nyou should enable CONFIG_SECURE_BOOT_SKIP_WRITE_PROTECTION_SCA to avoid write protecting this\nbit during the boot up for targets that support Secure Boot using ECDSA-P384.\n\nYou can configure the strength of the pseudo rounds functions according to your use cases,\nfor example, increasing the strength would provide higher security but would slow down the\nflash encryption/decryption operations.\nFor more info regarding the performance impact, please checkout the pseudo round function section of the\nsecurity guide documentation.",
+                        "help": "The strength of the pseudo rounds functions can be configured to low, medium and high,\neach denoting the values that would be stored in the efuses field.\nBy default the value to set to low.\nYou can configure the strength of the pseudo rounds functions according to your use cases,\nfor example, increasing the strength would provide higher security but would slow down the\nflash encryption/decryption operations.\nFor more info regarding the performance impact, please checkout the pseudo round function section of the\nsecurity guide documentation.",
                         "id": "security-features-permanently-enable-xts-aes-s-pseudo-rounds-function-strength-of-the-pseudo-rounds-function",
                         "name": "SECURE_FLASH_PSEUDO_ROUND_FUNC_STRENGTH",
                         "title": "Strength of the pseudo rounds function",
                         "type": "choice"
                     }
                 ],
-                "depends_on": "SECURE_FLASH_ENC_ENABLED && SOC_FLASH_ENCRYPTION_XTS_AES_SUPPORT_PSEUDO_ROUND",
+                "depends_on": "SECURE_FLASH_ENCRYPTION_MODE_RELEASE && SOC_FLASH_ENCRYPTION_XTS_AES_SUPPORT_PSEUDO_ROUND",
                 "help": "If set (default), the bootloader will permanently enable the XTS-AES peripheral's pseudo rounds function.\nNote: Enabling this config would burn an efuse.",
                 "id": "SECURE_FLASH_PSEUDO_ROUND_FUNC",
                 "name": "SECURE_FLASH_PSEUDO_ROUND_FUNC",
@@ -5024,7 +4993,7 @@
                     {
                         "children": [],
                         "depends_on": "SOC_SUPPORTS_SECURE_DL_MODE && <choice SECURE_UART_ROM_DL_MODE>",
-                        "help": "If set, during startup the app will burn an eFuse bit to permanently switch the UART ROM\nDownload Mode into a separate Secure Download mode. This option can only work if\nDownload Mode is not already disabled by eFuse.\n\nSecure Download mode limits the use of Download Mode functions to update SPI config,\nchanging baud rate, basic flash write and a command to return a summary of currently\nenabled security features (`get_security_info`).\n\nSecure Download mode is not compatible with the esptool.py flasher stub feature,\nespefuse.py, read/writing memory or registers, encrypted download, or any other\nfeatures that interact with unsupported Download Mode commands.\n\nSecure Download mode should be enabled in any application where Flash Encryption\nand/or Secure Boot is enabled. Disabling this option does not immediately cancel\nthe benefits of the security features, but it increases the potential \"attack\nsurface\" for an attacker to try and bypass them with a successful physical attack.\n\nIt is also possible to enable secure download mode at runtime by calling\nesp_efuse_enable_rom_secure_download_mode()\n\nNote: Secure Download mode is not available for ESP32.",
+                        "help": "If set, during startup the app will burn an eFuse bit to permanently switch the UART ROM\nDownload Mode into a separate Secure Download mode. This option can only work if\nDownload Mode is not already disabled by eFuse.\n\nSecure Download mode limits the use of Download Mode functions to update SPI config,\nchanging baud rate, basic flash write and a command to return a summary of currently\nenabled security features (`get_security_info`).\n\nSecure Download mode is not compatible with the esptool.py flasher stub feature,\nespefuse.py, read/writing memory or registers, encrypted download, or any other\nfeatures that interact with unsupported Download Mode commands.\n\nSecure Download mode should be enabled in any application where Flash Encryption\nand/or Secure Boot is enabled. Disabling this option does not immediately cancel\nthe benefits of the security features, but it increases the potential \"attack\nsurface\" for an attacker to try and bypass them with a successful physical attack.\n\nIt is also possible to enable secure download mode at runtime by calling\nesp_efuse_enable_rom_secure_download_mode()\n\nNote: Secure Download mode is not available for ESP32 (includes revisions till ECO3).",
                         "id": "SECURE_ENABLE_SECURE_ROM_DL_MODE",
                         "name": "SECURE_ENABLE_SECURE_ROM_DL_MODE",
                         "range": null,
@@ -6805,7 +6774,7 @@
                             {
                                 "children": [],
                                 "depends_on": null,
-                                "help": "All existing chips except esp32 and esp32s2 will reset on wake-up if a GPIO receives\na small electrostatic pulse during light sleep, with specific conditions.\n\n- GPIO needs to be configured as input-mode only\n- The pin receives a small electrostatic pulse, and reset occurs when the pulse\n  voltage is higher than 6 V\n\nFor GPIO set to input mode only, it is not a good practice to leave it open/floating,\nThe hardware design needs to controlled it with determined supply or ground voltage\nis necessary.\n\nThis option provides a software workaround for this issue. Configure to isolate all\nGPIO pins in sleep state.",
+                                "help": "esp32c2, esp32c3, esp32s3, esp32c5, esp32c6 and esp32h2 will reset at wake-up if GPIO is received\na small electrostatic pulse during light sleep, with specific condition\n\n- GPIO needs to be configured as input-mode only\n- The pin receives a small electrostatic pulse, and reset occurs when the pulse\n  voltage is higher than 6 V\n\nFor GPIO set to input mode only, it is not a good practice to leave it open/floating,\nThe hardware design needs to controlled it with determined supply or ground voltage\nis necessary.\n\nThis option provides a software workaround for this issue. Configure to isolate all\nGPIO pins in sleep state.",
                                 "id": "ESP_SLEEP_GPIO_RESET_WORKAROUND",
                                 "name": "ESP_SLEEP_GPIO_RESET_WORKAROUND",
                                 "range": null,
@@ -7369,16 +7338,6 @@
                     },
                     {
                         "children": [],
-                        "depends_on": "SOC_PMU_PVT_SUPPORTED",
-                        "help": "If enabled, hp & lp voltage can be auto adjust by PVT characteristic.\nOtherwise, internal voltage will be set to fix dbias.\nThis is a must for stable mass production. Disable for debugging only.",
-                        "id": "ESP_ENABLE_PVT",
-                        "name": "ESP_ENABLE_PVT",
-                        "range": null,
-                        "title": "Auto adjust hp & lp voltage using pvt function (MUST ENABLE FOR MP)",
-                        "type": "bool"
-                    },
-                    {
-                        "children": [],
                         "depends_on": null,
                         "help": null,
                         "id": "ESP_INTR_IN_IRAM",
@@ -7386,26 +7345,6 @@
                         "range": null,
                         "title": "Place esp_intr_alloc functions in IRAM",
                         "type": "bool"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": "IDF_TARGET_ESP32P4",
-                        "help": null,
-                        "id": "P4_REV3_MSPI_CRASH_AFTER_POWER_UP_WORKAROUND",
-                        "name": "P4_REV3_MSPI_CRASH_AFTER_POWER_UP_WORKAROUND",
-                        "range": null,
-                        "title": null,
-                        "type": "bool"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": "IDF_TARGET_ESP32P4",
-                        "help": null,
-                        "id": "P4_REV3_MSPI_WORKAROUND_SIZE",
-                        "name": "P4_REV3_MSPI_WORKAROUND_SIZE",
-                        "range": null,
-                        "title": null,
-                        "type": "hex"
                     }
                 ],
                 "depends_on": null,
@@ -7505,7 +7444,7 @@
                     {
                         "children": [],
                         "depends_on": "SOC_ECC_CONSTANT_TIME_POINT_MUL",
-                        "help": "If enabled, the app startup code will burn the ECC_FORCE_CONST_TIME efuse bit to force the\nECC peripheral to always perform constant time point multiplication operations,\nirrespective of the ECC_MULT_SECURITY_MODE status bit that is present in the ECC_MULT_CONF_REG\nregister. By default, ESP-IDF configures the ECC peripheral to perform constant time point\nmultiplication operations, so enabling this config would provide security enhancement only in\nthe cases when trusted boot is not enabled and the attacker tries carrying out non-constant\ntime point multiplication operations by changing the default ESP-IDF configurations.\nPerforming constant time operations protect the ECC multiplication operations from timing attacks.\n\nFor targets that support Secure Boot using ECDSA-P384, the write-protection bit of the efuse\nbit could be shared by multiple other efuse bits and can be programmed by the application when\nSecure Boot is enabled.\nThus, you could select CONFIG_SECURE_BOOT_SKIP_WRITE_PROTECTION_SCA, in case you would like\nto skip the write-protection of the efuse bit.",
+                        "help": "If enabled, the app startup code will burn the ECC_FORCE_CONST_TIME efuse bit to force the\nECC peripheral to always perform constant time point multiplication operations,\nirrespective of the ECC_MULT_SECURITY_MODE status bit that is present in the ECC_MULT_CONF_REG\nregister. By default, ESP-IDF configures the ECC peripheral to perform constant time point\nmultiplication operations, so enabling this config would provide security enhancement only in\nthe cases when trusted boot is not enabled and the attacker tries carrying out non-constant\ntime point multiplication operations by changing the default ESP-IDF configurations.\nPerforming constant time operations protect the ECC multiplication operations from timing attacks.",
                         "id": "ESP_CRYPTO_FORCE_ECC_CONSTANT_TIME_POINT_MUL",
                         "name": "ESP_CRYPTO_FORCE_ECC_CONSTANT_TIME_POINT_MUL",
                         "range": null,
@@ -7854,16 +7793,6 @@
                         "id": "component-config-esp-system-settings-trace-memory",
                         "title": "Trace memory",
                         "type": "menu"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": null,
-                        "help": "The following system functions will be placed in IRAM if this option is enabled:\n- system startup\n- system time\n- system error\n- system restart\n- system crosscore\n- system debug\n- system APB backup DMA lock\n- system application tick hook\n- Unified Behavior Sanitizer (UBSAN) hook\n- Interrupt watchdog handler\n- XTAL32K watchdog timer\n- USB CDC functions for the esp_rom_printf (if ESP_CONSOLE_USB_CDC_SUPPORT_ETS_PRINTF=y)\n- IPC and IPC ISR",
-                        "id": "ESP_SYSTEM_IN_IRAM",
-                        "name": "ESP_SYSTEM_IN_IRAM",
-                        "range": null,
-                        "title": "Place system functions in IRAM",
-                        "type": "bool"
                     },
                     {
                         "children": [
@@ -8651,16 +8580,6 @@
                 "children": [
                     {
                         "children": [],
-                        "depends_on": "!ESP_SYSTEM_SINGLE_CORE_MODE || APPTRACE_GCOV_ENABLE",
-                        "help": null,
-                        "id": "ESP_IPC_ENABLE",
-                        "name": "ESP_IPC_ENABLE",
-                        "range": null,
-                        "title": null,
-                        "type": "bool"
-                    },
-                    {
-                        "children": [],
                         "depends_on": null,
                         "help": "Configure the IPC tasks stack size. An IPC task runs on each core (in dual core mode), and allows for\ncross-core function calls. See IPC documentation for more details. The default IPC stack size should be\nenough for most common simple use cases. However, users can increase/decrease the stack size to their\nneeds.",
                         "id": "ESP_IPC_TASK_STACK_SIZE",
@@ -8674,7 +8593,7 @@
                     },
                     {
                         "children": [],
-                        "depends_on": "ESP_IPC_ENABLE",
+                        "depends_on": "!FREERTOS_UNICORE",
                         "help": "If this option is not enabled then the IPC task will keep behavior same as prior to that of ESP-IDF v4.0,\nhence IPC task will run at (configMAX_PRIORITIES - 1) priority.",
                         "id": "ESP_IPC_USES_CALLERS_PRIORITY",
                         "name": "ESP_IPC_USES_CALLERS_PRIORITY",
@@ -10597,16 +10516,6 @@
                             },
                             {
                                 "children": [],
-                                "depends_on": "SOC_SPI_MEM_SUPPORT_TSUS_TRES_SEPERATE_CTR && !ESP32P4_SELECTS_REV_LESS_V3 && !APP_BUILD_TYPE_PURE_RAM_APP",
-                                "help": "This config is used for setting Trs parameter. Trs means CS Latency Between Resume And Next Suspend.\nYou can refer to the chapter of AC CHARACTERISTICS of flash datasheet.\nFor high-performance scenarios, some flash chips allow this set value to be smaller than the\ngiven value in the datasheet without causing errors in the flash state machine.\nWhen you have any related needs, please contact espressif business team.",
-                                "id": "SPI_FLASH_SUSPEND_TRS_VAL_US",
-                                "name": "SPI_FLASH_SUSPEND_TRS_VAL_US",
-                                "range": null,
-                                "title": "SPI flash tRS value (refer to chapter AC CHARACTERISTICS)",
-                                "type": "int"
-                            },
-                            {
-                                "children": [],
                                 "depends_on": "!APP_BUILD_TYPE_PURE_RAM_APP",
                                 "help": "XMC-C series is regarded as not qualified for the Suspend feature, since its specification\nhas a tRS >= 1ms restriction. We strongly do not suggest using it for the Suspend feature.\nHowever, if your product in field has enabled this feature, you may still enable this\nconfig option to keep the legacy behavior.\n\nFor new users, DO NOT enable this config.",
                                 "id": "SPI_FLASH_FORCE_ENABLE_XMC_C_SUSPEND",
@@ -10880,8 +10789,8 @@
                                 "children": [],
                                 "depends_on": "!APP_BUILD_TYPE_PURE_RAM_APP",
                                 "help": null,
-                                "id": "SPI_FLASH_VENDOR_XMC_SUPPORT_ENABLED",
-                                "name": "SPI_FLASH_VENDOR_XMC_SUPPORT_ENABLED",
+                                "id": "SPI_FLASH_VENDOR_XMC_SUPPORTED",
+                                "name": "SPI_FLASH_VENDOR_XMC_SUPPORTED",
                                 "range": null,
                                 "title": null,
                                 "type": "bool"
@@ -10890,8 +10799,8 @@
                                 "children": [],
                                 "depends_on": "!APP_BUILD_TYPE_PURE_RAM_APP",
                                 "help": null,
-                                "id": "SPI_FLASH_VENDOR_GD_SUPPORT_ENABLED",
-                                "name": "SPI_FLASH_VENDOR_GD_SUPPORT_ENABLED",
+                                "id": "SPI_FLASH_VENDOR_GD_SUPPORTED",
+                                "name": "SPI_FLASH_VENDOR_GD_SUPPORTED",
                                 "range": null,
                                 "title": null,
                                 "type": "bool"
@@ -10900,8 +10809,8 @@
                                 "children": [],
                                 "depends_on": "!APP_BUILD_TYPE_PURE_RAM_APP",
                                 "help": null,
-                                "id": "SPI_FLASH_VENDOR_ISSI_SUPPORT_ENABLED",
-                                "name": "SPI_FLASH_VENDOR_ISSI_SUPPORT_ENABLED",
+                                "id": "SPI_FLASH_VENDOR_ISSI_SUPPORTED",
+                                "name": "SPI_FLASH_VENDOR_ISSI_SUPPORTED",
                                 "range": null,
                                 "title": null,
                                 "type": "bool"
@@ -10910,8 +10819,8 @@
                                 "children": [],
                                 "depends_on": "!APP_BUILD_TYPE_PURE_RAM_APP",
                                 "help": null,
-                                "id": "SPI_FLASH_VENDOR_MXIC_SUPPORT_ENABLED",
-                                "name": "SPI_FLASH_VENDOR_MXIC_SUPPORT_ENABLED",
+                                "id": "SPI_FLASH_VENDOR_MXIC_SUPPORTED",
+                                "name": "SPI_FLASH_VENDOR_MXIC_SUPPORTED",
                                 "range": null,
                                 "title": null,
                                 "type": "bool"
@@ -10920,8 +10829,8 @@
                                 "children": [],
                                 "depends_on": "!APP_BUILD_TYPE_PURE_RAM_APP",
                                 "help": null,
-                                "id": "SPI_FLASH_VENDOR_WINBOND_SUPPORT_ENABLED",
-                                "name": "SPI_FLASH_VENDOR_WINBOND_SUPPORT_ENABLED",
+                                "id": "SPI_FLASH_VENDOR_WINBOND_SUPPORTED",
+                                "name": "SPI_FLASH_VENDOR_WINBOND_SUPPORTED",
                                 "range": null,
                                 "title": null,
                                 "type": "bool"
@@ -10930,8 +10839,8 @@
                                 "children": [],
                                 "depends_on": "!APP_BUILD_TYPE_PURE_RAM_APP",
                                 "help": null,
-                                "id": "SPI_FLASH_VENDOR_BOYA_SUPPORT_ENABLED",
-                                "name": "SPI_FLASH_VENDOR_BOYA_SUPPORT_ENABLED",
+                                "id": "SPI_FLASH_VENDOR_BOYA_SUPPORTED",
+                                "name": "SPI_FLASH_VENDOR_BOYA_SUPPORTED",
                                 "range": null,
                                 "title": null,
                                 "type": "bool"
@@ -10940,8 +10849,8 @@
                                 "children": [],
                                 "depends_on": "!APP_BUILD_TYPE_PURE_RAM_APP",
                                 "help": null,
-                                "id": "SPI_FLASH_VENDOR_TH_SUPPORT_ENABLED",
-                                "name": "SPI_FLASH_VENDOR_TH_SUPPORT_ENABLED",
+                                "id": "SPI_FLASH_VENDOR_TH_SUPPORTED",
+                                "name": "SPI_FLASH_VENDOR_TH_SUPPORTED",
                                 "range": null,
                                 "title": null,
                                 "type": "bool"
@@ -11030,16 +10939,6 @@
                         "name": "SPI_FLASH_ENABLE_ENCRYPTED_READ_WRITE",
                         "range": null,
                         "title": "Enable encrypted partition read/write operations",
-                        "type": "bool"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": "!APP_BUILD_TYPE_PURE_RAM_APP",
-                        "help": "Enable frequency limit workaround for encrypted flash writes on ESP32-C5 at 240MHz default CPU frequency.\nThis is an internal configuration, automatically set based on target chip and CPU frequency.",
-                        "id": "SPI_FLASH_FREQ_LIMIT_C5_240MHZ",
-                        "name": "SPI_FLASH_FREQ_LIMIT_C5_240MHZ",
-                        "range": null,
-                        "title": null,
                         "type": "bool"
                     }
                 ],

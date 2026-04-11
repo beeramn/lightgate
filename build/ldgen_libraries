@@ -155,4 +155,7 @@
 /Users/brandon/Projects/lightgate/build/esp-idf/usb/libusb.a
 /Users/brandon/Projects/lightgate/build/esp-idf/wifi_provisioning/libwifi_provisioning.a
 /Users/brandon/Projects/lightgate/build/esp-idf/json/libjson.a
+/Users/brandon/Projects/lightgate/build/esp-idf/espressif__esp_lcd_ili9341/libespressif__esp_lcd_ili9341.a
+/Users/brandon/Projects/lightgate/build/esp-idf/esp_lcd/libesp_lcd.a
 /Users/brandon/Projects/lightgate/build/esp-idf/main/libmain.a
+/Users/brandon/Projects/lightgate/build/esp-idf/espressif__esp_lcd_ili9341/libespressif__esp_lcd_ili9341.a

@@ -13,6 +13,8 @@
 #if CONFIG_ROLE_TX  // Only compile this file's logic when Sender is selected
 
 #include "esp_log.h"
+#include "lcd.h"
+
 #include "esp_err.h"
 
 #include "freertos/FreeRTOS.h"
@@ -79,6 +81,12 @@ typedef struct __attribute__((packed)) {
 } low_msg_t;
 
 static uint32_t s_seq = 0;
+
+
+char lcd_msg[64];
+
+bool lcd_alert_active = false;
+int64_t lcd_alert_start_us = 0;
 
 static void espnow_send_cb(const wifi_tx_info_t *tx_info,
                            esp_now_send_status_t status)
@@ -187,7 +195,7 @@ void app_role_start(void)
     bool armed = true;
 
     while (1) {
-        // Timestamp start of window (used when first qualifies)
+        // Timestamp start of window
         int64_t window_start_us = esp_timer_get_time();
 
         sensor_window_t w = {0};
@@ -203,15 +211,15 @@ void app_role_start(void)
         float v_max = raw_to_volts(w.max_raw);
         float v_avg = raw_to_volts((uint32_t)w.avg_raw);
 
-        // Optional periodic status print (calm output)
+        // Optional periodic status print
         if (++print_div >= print_every_windows) {
             print_div = 0;
             ESP_LOGI(TAG,
-                     "window=%dms samples=%" PRIu32
-                     " V[min=%.3f max=%.3f avg=%.3f]",
-                     (int)SENSOR_WINDOW_MS,
-                     w.count,
-                     (double)v_min, (double)v_max, (double)v_avg);
+                    "window=%dms samples=%" PRIu32
+                    " V[min=%.3f max=%.3f avg=%.3f]",
+                    (int)SENSOR_WINDOW_MS,
+                    w.count,
+                    (double)v_min, (double)v_max, (double)v_avg);
         }
 
         // Beam broken detection uses MIN voltage in the window
@@ -221,7 +229,6 @@ void app_role_start(void)
             if (below) {
                 below_count++;
                 if (below_count == 1) {
-                    // record FIRST window start
                     first_below_window_start_us = window_start_us;
                 }
             } else {
@@ -231,11 +238,19 @@ void app_role_start(void)
 
             if (below_count >= TRIGGER_CONSECUTIVE_WINDOWS) {
                 int64_t t_event_us = (first_below_window_start_us >= 0)
-                                   ? first_below_window_start_us
-                                   : window_start_us;
+                                ? first_below_window_start_us
+                                : window_start_us;
 
                 ESP_LOGI(TAG, "BEAM BROKEN (v_min=%.3fV) t_event_us=%" PRIi64,
-                         (double)v_min, t_event_us);
+                        (double)v_min, t_event_us);
+
+                double t_event_s = t_event_us / 1000000.0;
+                snprintf(lcd_msg, sizeof(lcd_msg), "BROKEN %.2fs", t_event_s);
+                ESP_ERROR_CHECK(lcd_print_message(lcd_msg));
+
+                // Start 5-second LCD timeout
+                lcd_alert_active = true;
+                lcd_alert_start_us = esp_timer_get_time();
 
                 send_beam_broken(v_min, t_event_us);
 
@@ -251,6 +266,15 @@ void app_role_start(void)
                 below_count = 0;
                 first_below_window_start_us = -1;
                 ESP_LOGI(TAG, "Re-armed (v_min=%.3fV)", (double)v_min);
+            }
+        }
+
+        // Non-blocking LCD reset after 5 seconds
+        if (lcd_alert_active) {
+            int64_t now_us = esp_timer_get_time();
+            if ((now_us - lcd_alert_start_us) >= 5000000) {
+                ESP_ERROR_CHECK(lcd_print_message("READY"));
+                lcd_alert_active = false;
             }
         }
     }

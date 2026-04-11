@@ -1,0 +1,244 @@
+#include <stdint.h>
+#include <string.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "driver/spi_master.h"
+#include "driver/gpio.h"
+#include "esp_err.h"
+#include "esp_log.h"
+#include "esp_lcd_panel_io.h"
+#include "esp_lcd_panel_vendor.h"
+#include "esp_lcd_panel_ops.h"
+#include "esp_lcd_ili9341.h"
+
+#define LCD_HOST        SPI2_HOST
+
+// Match these to your wiring
+#define PIN_NUM_MOSI    35
+#define PIN_NUM_CLK     36
+#define PIN_NUM_CS      34
+#define PIN_NUM_DC      33
+#define PIN_NUM_RST     -1      // tie LCD RESET physically to 3.3V
+#define PIN_NUM_BCKL    -1      // tie LCD LED physically to 3.3V
+
+#define LCD_H_RES       320
+#define LCD_V_RES       240
+
+static const char *TAG = "LCD";
+
+static esp_lcd_panel_handle_t panel_handle = NULL;
+static esp_lcd_panel_io_handle_t io_handle = NULL;
+
+#define CHECK_RET(x, msg) do {                                      \
+    esp_err_t __err_rc = (x);                                       \
+    if (__err_rc != ESP_OK) {                                       \
+        ESP_LOGE(TAG, "%s failed: %s", msg, esp_err_to_name(__err_rc)); \
+        return __err_rc;                                            \
+    } else {                                                        \
+        ESP_LOGI(TAG, "%s OK", msg);                                \
+    }                                                               \
+} while (0)
+
+/* 5x7 ASCII font, chars 32..127 */
+static const uint8_t font5x7[][5] = {
+    {0x00,0x00,0x00,0x00,0x00}, {0x00,0x00,0x5F,0x00,0x00}, {0x00,0x07,0x00,0x07,0x00},
+    {0x14,0x7F,0x14,0x7F,0x14}, {0x24,0x2A,0x7F,0x2A,0x12}, {0x23,0x13,0x08,0x64,0x62},
+    {0x36,0x49,0x55,0x22,0x50}, {0x00,0x05,0x03,0x00,0x00}, {0x00,0x1C,0x22,0x41,0x00},
+    {0x00,0x41,0x22,0x1C,0x00}, {0x14,0x08,0x3E,0x08,0x14}, {0x08,0x08,0x3E,0x08,0x08},
+    {0x00,0x50,0x30,0x00,0x00}, {0x08,0x08,0x08,0x08,0x08}, {0x00,0x60,0x60,0x00,0x00},
+    {0x20,0x10,0x08,0x04,0x02}, {0x3E,0x51,0x49,0x45,0x3E}, {0x00,0x42,0x7F,0x40,0x00},
+    {0x42,0x61,0x51,0x49,0x46}, {0x21,0x41,0x45,0x4B,0x31}, {0x18,0x14,0x12,0x7F,0x10},
+    {0x27,0x45,0x45,0x45,0x39}, {0x3C,0x4A,0x49,0x49,0x30}, {0x01,0x71,0x09,0x05,0x03},
+    {0x36,0x49,0x49,0x49,0x36}, {0x06,0x49,0x49,0x29,0x1E}, {0x00,0x36,0x36,0x00,0x00},
+    {0x00,0x56,0x36,0x00,0x00}, {0x08,0x14,0x22,0x41,0x00}, {0x14,0x14,0x14,0x14,0x14},
+    {0x00,0x41,0x22,0x14,0x08}, {0x02,0x01,0x51,0x09,0x06}, {0x32,0x49,0x79,0x41,0x3E},
+    {0x7E,0x11,0x11,0x11,0x7E}, {0x7F,0x49,0x49,0x49,0x36}, {0x3E,0x41,0x41,0x41,0x22},
+    {0x7F,0x41,0x41,0x22,0x1C}, {0x7F,0x49,0x49,0x49,0x41}, {0x7F,0x09,0x09,0x09,0x01},
+    {0x3E,0x41,0x49,0x49,0x7A}, {0x7F,0x08,0x08,0x08,0x7F}, {0x00,0x41,0x7F,0x41,0x00},
+    {0x20,0x40,0x41,0x3F,0x01}, {0x7F,0x08,0x14,0x22,0x41}, {0x7F,0x40,0x40,0x40,0x40},
+    {0x7F,0x02,0x0C,0x02,0x7F}, {0x7F,0x04,0x08,0x10,0x7F}, {0x3E,0x41,0x41,0x41,0x3E},
+    {0x7F,0x09,0x09,0x09,0x06}, {0x3E,0x41,0x51,0x21,0x5E}, {0x7F,0x09,0x19,0x29,0x46},
+    {0x46,0x49,0x49,0x49,0x31}, {0x01,0x01,0x7F,0x01,0x01}, {0x3F,0x40,0x40,0x40,0x3F},
+    {0x1F,0x20,0x40,0x20,0x1F}, {0x3F,0x40,0x38,0x40,0x3F}, {0x63,0x14,0x08,0x14,0x63},
+    {0x07,0x08,0x70,0x08,0x07}, {0x61,0x51,0x49,0x45,0x43}, {0x00,0x7F,0x41,0x41,0x00},
+    {0x02,0x04,0x08,0x10,0x20}, {0x00,0x41,0x41,0x7F,0x00}, {0x04,0x02,0x01,0x02,0x04},
+    {0x40,0x40,0x40,0x40,0x40}, {0x00,0x01,0x02,0x04,0x00}, {0x20,0x54,0x54,0x54,0x78},
+    {0x7F,0x48,0x44,0x44,0x38}, {0x38,0x44,0x44,0x44,0x20}, {0x38,0x44,0x44,0x48,0x7F},
+    {0x38,0x54,0x54,0x54,0x18}, {0x08,0x7E,0x09,0x01,0x02}, {0x08,0x14,0x54,0x54,0x3C},
+    {0x7F,0x08,0x04,0x04,0x78}, {0x00,0x44,0x7D,0x40,0x00}, {0x20,0x40,0x44,0x3D,0x00},
+    {0x7F,0x10,0x28,0x44,0x00}, {0x00,0x41,0x7F,0x40,0x00}, {0x7C,0x04,0x18,0x04,0x78},
+    {0x7C,0x08,0x04,0x04,0x78}, {0x38,0x44,0x44,0x44,0x38}, {0x7C,0x14,0x14,0x14,0x08},
+    {0x08,0x14,0x14,0x18,0x7C}, {0x7C,0x08,0x04,0x04,0x08}, {0x48,0x54,0x54,0x54,0x20},
+    {0x04,0x3F,0x44,0x40,0x20}, {0x3C,0x40,0x40,0x20,0x7C}, {0x1C,0x20,0x40,0x20,0x1C},
+    {0x3C,0x40,0x30,0x40,0x3C}, {0x44,0x28,0x10,0x28,0x44}, {0x0C,0x50,0x50,0x50,0x3C},
+    {0x44,0x64,0x54,0x4C,0x44}, {0x00,0x08,0x36,0x41,0x00}, {0x00,0x00,0x7F,0x00,0x00},
+    {0x00,0x41,0x36,0x08,0x00}, {0x08,0x04,0x08,0x10,0x08}, {0x00,0x00,0x00,0x00,0x00}
+};
+
+static uint16_t rgb565(uint8_t r, uint8_t g, uint8_t b)
+{
+    return ((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3);
+}
+
+static esp_err_t lcd_fill_rect(int x, int y, int w, int h, uint16_t color)
+{
+    if (panel_handle == NULL) {
+        ESP_LOGE(TAG, "lcd_fill_rect called before panel init");
+        return ESP_ERR_INVALID_STATE;
+    }
+
+    if (x >= LCD_H_RES || y >= LCD_V_RES || w <= 0 || h <= 0) {
+        return ESP_OK;
+    }
+
+    if (x + w > LCD_H_RES) w = LCD_H_RES - x;
+    if (y + h > LCD_V_RES) h = LCD_V_RES - y;
+
+    static uint16_t line_buf[LCD_H_RES];
+    for (int i = 0; i < w; i++) {
+        line_buf[i] = color;
+    }
+
+    for (int row = 0; row < h; row++) {
+        esp_err_t ret = esp_lcd_panel_draw_bitmap(
+            panel_handle,
+            x, y + row,
+            x + w, y + row + 1,
+            line_buf
+        );
+        if (ret != ESP_OK) {
+            ESP_LOGE(TAG, "draw_bitmap failed on row %d: %s", row, esp_err_to_name(ret));
+            return ret;
+        }
+    }
+
+    return ESP_OK;
+}
+
+static esp_err_t lcd_draw_char(int x, int y, char c, uint16_t fg, uint16_t bg, int scale)
+{
+    if (c < 32 || c > 127) c = '?';
+    const uint8_t *glyph = font5x7[c - 32];
+
+    for (int col = 0; col < 5; col++) {
+        uint8_t bits = glyph[col];
+        for (int row = 0; row < 7; row++) {
+            uint16_t color = (bits & (1 << row)) ? fg : bg;
+            esp_err_t ret = lcd_fill_rect(
+                x + col * scale,
+                y + row * scale,
+                scale,
+                scale,
+                color
+            );
+            if (ret != ESP_OK) return ret;
+        }
+    }
+
+    return lcd_fill_rect(x + 5 * scale, y, scale, 7 * scale, bg);
+}
+
+static esp_err_t lcd_draw_string(int x, int y, const char *str, uint16_t fg, uint16_t bg, int scale)
+{
+    if (str == NULL) {
+        str = "";
+    }
+
+    while (*str) {
+        esp_err_t ret = lcd_draw_char(x, y, *str, fg, bg, scale);
+        if (ret != ESP_OK) return ret;
+        x += 6 * scale;
+        str++;
+    }
+
+    return ESP_OK;
+}
+
+esp_err_t lcd_print_message(const char *text)
+{
+    if (panel_handle == NULL) {
+        return ESP_ERR_INVALID_STATE;
+    }
+
+    CHECK_RET(lcd_fill_rect(0, 0, LCD_H_RES, LCD_V_RES, rgb565(0, 0, 0)), "fill BLACK");
+    CHECK_RET(
+        lcd_draw_string(20, 40, text ? text : "", rgb565(255, 255, 255), rgb565(0, 0, 0), 3),
+        "draw text"
+    );
+
+    return ESP_OK;
+}
+esp_err_t lcd_init_and_print(const char *text)
+{
+    ESP_LOGI(TAG, "================ LCD INIT START ================");
+    ESP_LOGI(TAG, "text = %s", text ? text : "(null)");
+    ESP_LOGI(TAG, "pins: MOSI=%d CLK=%d CS=%d DC=%d RST=%d BCKL=%d",
+             PIN_NUM_MOSI, PIN_NUM_CLK, PIN_NUM_CS, PIN_NUM_DC, PIN_NUM_RST, PIN_NUM_BCKL);
+
+    spi_bus_config_t buscfg = {
+        .sclk_io_num = PIN_NUM_CLK,
+        .mosi_io_num = PIN_NUM_MOSI,
+        .miso_io_num = -1,
+        .quadwp_io_num = -1,
+        .quadhd_io_num = -1,
+        .max_transfer_sz = LCD_H_RES * 40 * sizeof(uint16_t),
+    };
+
+    CHECK_RET(spi_bus_initialize(LCD_HOST, &buscfg, SPI_DMA_CH_AUTO), "spi_bus_initialize");
+
+    esp_lcd_panel_io_spi_config_t io_config = {
+        .dc_gpio_num = PIN_NUM_DC,
+        .cs_gpio_num = PIN_NUM_CS,
+        .pclk_hz = 10 * 1000 * 1000,
+        .lcd_cmd_bits = 8,
+        .lcd_param_bits = 8,
+        .spi_mode = 0,
+        .trans_queue_depth = 10,
+    };
+
+    CHECK_RET(
+        esp_lcd_new_panel_io_spi((esp_lcd_spi_bus_handle_t)LCD_HOST, &io_config, &io_handle),
+        "esp_lcd_new_panel_io_spi"
+    );
+
+    esp_lcd_panel_dev_config_t panel_config = {
+        .reset_gpio_num = PIN_NUM_RST,
+        .rgb_ele_order = LCD_RGB_ELEMENT_ORDER_RGB,
+        .bits_per_pixel = 16,
+    };
+
+    CHECK_RET(
+        esp_lcd_new_panel_ili9341(io_handle, &panel_config, &panel_handle),
+        "esp_lcd_new_panel_ili9341"
+    );
+
+    if (PIN_NUM_RST >= 0) {
+        CHECK_RET(esp_lcd_panel_reset(panel_handle), "esp_lcd_panel_reset");
+        vTaskDelay(pdMS_TO_TICKS(100));
+    } else {
+        ESP_LOGI(TAG, "LCD RESET should be tied externally to 3.3V");
+    }
+
+    CHECK_RET(esp_lcd_panel_init(panel_handle), "esp_lcd_panel_init");
+    CHECK_RET(esp_lcd_panel_invert_color(panel_handle, false), "esp_lcd_panel_invert_color");
+    CHECK_RET(esp_lcd_panel_swap_xy(panel_handle, true), "esp_lcd_panel_swap_xy");
+    CHECK_RET(esp_lcd_panel_mirror(panel_handle, true, true), "esp_lcd_panel_mirror");
+    CHECK_RET(esp_lcd_panel_disp_on_off(panel_handle, true), "esp_lcd_panel_disp_on_off");
+
+    if (PIN_NUM_BCKL >= 0) {
+        gpio_config_t bk_gpio_config = {0};
+        bk_gpio_config.mode = GPIO_MODE_OUTPUT;
+        bk_gpio_config.pin_bit_mask = 1ULL << PIN_NUM_BCKL;
+        CHECK_RET(gpio_config(&bk_gpio_config), "gpio_config(backlight)");
+        CHECK_RET(gpio_set_level(PIN_NUM_BCKL, 1), "gpio_set_level(backlight)");
+    } else {
+        ESP_LOGI(TAG, "LCD LED should be tied externally to 3.3V");
+    }
+
+    /* Clear screen and draw text */
+    CHECK_RET(lcd_fill_rect(0, 0, LCD_H_RES, LCD_V_RES, rgb565(0, 0, 0)), "fill BLACK");
+    CHECK_RET(lcd_draw_string(20, 40, text ? text : "Hello", rgb565(255, 255, 255), rgb565(0, 0, 0), 3), "draw text");
+
+    ESP_LOGI(TAG, "================ LCD INIT END ==================");
+    return ESP_OK;
+}

@@ -6,8 +6,8 @@ cmake_minimum_required(VERSION 3.5)
 # If CMAKE_DISABLE_SOURCE_CHANGES is set to true and the source directory is an
 # existing directory in our source tree, calling file(MAKE_DIRECTORY) on it
 # would cause a fatal error, even though it would be a no-op.
-if(NOT EXISTS "/Users/brandon/esp/v5.5.2/esp-idf/components/bootloader/subproject")
-  file(MAKE_DIRECTORY "/Users/brandon/esp/v5.5.2/esp-idf/components/bootloader/subproject")
+if(NOT EXISTS "/Users/brandon/esp/esp-idf/components/bootloader/subproject")
+  file(MAKE_DIRECTORY "/Users/brandon/esp/esp-idf/components/bootloader/subproject")
 endif()
 file(MAKE_DIRECTORY
   "/Users/brandon/Projects/lightgate/build/bootloader"

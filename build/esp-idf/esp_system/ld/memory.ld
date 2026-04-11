@@ -14,7 +14,7 @@
 */
 /*
  * Automatically generated file. DO NOT EDIT.
- * Espressif IoT Development Framework (ESP-IDF) 5.5.2 Configuration Header
+ * Espressif IoT Development Framework (ESP-IDF) 5.5.0 Configuration Header
  */
        
 /* List of deprecated options */
