@@ -1,6 +1,8 @@
 #include "sdkconfig.h"
 #include "lcd.h"
 #include "esp_log.h"
+
+// #include "get"
 #if !(CONFIG_ROLE_TX ^ CONFIG_ROLE_RX)
 #error "Select exactly one device role"
 #endif
@@ -8,7 +10,7 @@
 void app_role_start(void);
 
 void app_main(void) {
-    ESP_ERROR_CHECK(lcd_init_and_print("what up chat"));
+    // ESP_ERROR_CHECK(lcd_init_and_print("what up chat"));
     app_role_start();
 
     // ESP_ERROR_CHECK(lcd_init_and_print("Hello from ESP32-S2"));
@@ -20,6 +22,5 @@ void app_main(void) {
     //     ESP_LOGI("MAIN", "lcd_init_and_print succeeded");
     // }
     // ESP_ERROR_CHECK(lcd_init_and_print("Hello mfs"));
-
 
 }

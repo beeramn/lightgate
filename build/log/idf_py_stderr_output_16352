@@ -1,0 +1,8 @@
+Command: ninja flash
+CMake Error at run_serial_tool.cmake:67 (message):
+  
+  /Users/brandon/.espressif/python_env/idf5.5_py3.9_env/bin/python;;/Users/brandon/esp/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32s2
+  failed.
+
+
+

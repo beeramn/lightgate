@@ -1,0 +1,314 @@
+Command: /Users/brandon/.espressif/python_env/idf5.5_py3.9_env/bin/python /Users/brandon/esp/esp-idf/tools/idf_monitor.py -p /dev/cu.usbserial-110 -b 115200 --toolchain-prefix xtensa-esp32s2-elf- --target esp32s2 --revision 0 /Users/brandon/Projects/lightgate/build/lightgate.elf /Users/brandon/Projects/lightgate/build/bootloader/bootloader.elf -m '/Users/brandon/.espressif/python_env/idf5.5_py3.9_env/bin/python' '/Users/brandon/esp/esp-idf/tools/idf.py' '-p' '/dev/cu.usbserial-110'
+EBuild:Oct 25 2019
+rst:0x1 (POWERON),boot:0x8 (SPI_FAST_FLASH_v:1
+load:0x3ffe5110,len:0x16a4
+lo004a000,len:0xb18
+load:0x4004e000,len:0x33e4
+entry 0x4004a1c4
+[0;32mI (21) boot: ESP-IDF v5.5 2nd stage bootloader[0m
+[0;32mI (21) boot: compile time Apr 16 2026 18:54:04[0m
+[0;32mI (22) boot: chip revision: v1.0[0m
+[0;32mI (22) boot: efuse block revision: v0.2[0m
+[0;32mI (25) boot.esp32s2: SPI Speed      : 80MHz[0m
+[0;32mI (29) boot.esp32s2: SPI Mode       : DIO[0m
+[0;32mI (33) boot.esp32s2: SPI Flash Size : 2MB[0m
+[0;32mI (37) boot: Enabling RNG early entropy source...[0m
+[0;32mI (41) boot: Partition Table:[0m
+[0;32mI (44) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (50) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (57) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (63) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (70) boot: End of partition table[0m
+[0;32mI (73) esp_image: segment 0: paddr=00010020 vaddr=3f000020 size=1b960h (112992) map[0m
+[0;32mI (103) esp_image: segment 1: paddr=0002b988 vaddr=3ff9e000 size=00020h (    32) load[0m
+[0;32mI (104) esp_image: segment 2: paddr=0002b9b0 vaddr=3ffcd5f0 size=03a58h ( 14936) load[0m
+[0;32mI (111) esp_image: segment 3: paddr=0002f410 vaddr=40024000 size=00c08h (  3080) load[0m
+[0;32mI (116) esp_image: segment 4: paddr=00030020 vaddr=40080020 size=80d28h (527656) map[0m
+[0;32mI (229) esp_image: segment 5: paddr=000b0d50 vaddr=40024c08 size=189e4h (100836) load[0m
+[0;32mI (267) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (267) boot: Disabling RNG early entropy source...[0m
+[0;32mI (277) cache: Instruction cache 	: size 8KB, 4Ways, cache line size 32Byte[0m
+[0;32mI (277) cache: Data cache 		: size 8KB, 4Ways, cache line size 32Byte[0m
+[0;32mI (292) cpu_start: Unicore app[0m
+[0;32mI (299) cpu_start: Pro cpu start user code[0m
+[0;32mI (299) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (299) app_init: Application information:[0m
+[0;32mI (300) app_init: Project name:     lightgate[0m
+[0;32mI (304) app_init: App version:      38b1fc7-dirty[0m
+[0;32mI (308) app_init: Compile time:     Apr 16 2026 19:46:11[0m
+[0;32mI (313) app_init: ELF file SHA256:  aa59e7df5...[0m
+[0;32mI (317) app_init: ESP-IDF:          v5.5[0m
+[0;32mI (321) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (325) efuse_init: Max chip rev:     v1.99 [0m
+[0;32mI (329) efuse_init: Chip rev:         v1.0[0m
+[0;32mI (333) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (339) heap_init: At 3FFD5418 len 00026BE8 (154 KiB): RAM[0m
+[0;32mI (344) heap_init: At 3FFFC000 len 00003A10 (14 KiB): RAM[0m
+[0;32mI (349) heap_init: At 3FF9E020 len 00001FC8 (7 KiB): RTCRAM[0m
+[0;32mI (356) spi_flash: detected chip: generic[0m
+[0;32mI (358) spi_flash: flash io: dio[0m
+[0;33mW (361) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (374) main_task: Started on CPU0[0m
+[0;32mI (374) main_task: Calling app_main()[0m
+[0;32mI (374) LCD: ================ LCD INIT START ================[0m
+[0;32mI (384) LCD: text = Receiver Boot[0m
+[0;32mI (384) LCD: pins: MOSI=35 CLK=36 CS=34 DC=33 RST=-1 BCKL=-1[0m
+[0;32mI (384) LCD: spi_bus_initialize OK[0m
+[0;32mI (394) LCD: esp_lcd_new_panel_io_spi OK[0m
+[0;32mI (394) ili9341: LCD panel create success, version: 2.0.2[0m
+[0;32mI (404) LCD: esp_lcd_new_panel_ili9341 OK[0m
+[0;32mI (404) LCD: LCD RESET should be tied externally to 3.3V[0m
+[0;32mI (514) LCD: esp_lcd_panel_init OK[0m
+[0;32mI (514) LCD: esp_lcd_panel_invert_color OK[0m
+[0;32mI (514) LCD: esp_lcd_panel_swap_xy OK[0m
+[0;32mI (514) LCD: esp_lcd_panel_mirror OK[0m
+[0;32mI (514) LCD: esp_lcd_panel_disp_on_off OK[0m
+[0;32mI (514) LCD: LCD LED should be tied externally to 3.3V[0m
+[0;32mI (674) LCD: fill BLACK OK[0m
+[0;32mI (924) LCD: draw text OK[0m
+[0;32mI (924) LCD: ================ LCD INIT END ==================[0m
+CSV_HEADER,event,session_id,seq,rx_time_us,trigger_time_us,dt_us,speed_mps,speed_kmh
+[0;32mI (934) RX: Buttons ready: START=4 STOP=5 CLEAR=6 (active-low)[0m
+[0;32mI (964) wifi:wifi driver task: 3ffff6b0, prio:23, stack:6656, core=0[0m
+[0;32mI (964) wifi:wifi firmware version: f3dbad7[0m
+[0;32mI (974) wifi:wifi certification version: v7.0[0m
+[0;32mI (974) wifi:config NVS flash: enabled[0m
+[0;32mI (974) wifi:config nano formatting: disabled[0m
+[0;32mI (974) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (974) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (984) wifi:Init management short buffer num: 32[0m
+[0;32mI (984) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (994) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (994) wifi:Init static rx buffer num: 10[0m
+[0;32mI (994) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1004) wifi_init: rx ba win: 6[0m
+[0;32mI (1004) wifi_init: accept mbox: 6[0m
+[0;32mI (1004) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1014) wifi_init: udp mbox: 6[0m
+[0;32mI (1014) wifi_init: tcp mbox: 6[0m
+[0;32mI (1014) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1024) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1024) wifi_init: tcp mss: 1440[0m
+[0;32mI (1024) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1034) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1034) phy_init: phy_version 2620,f8f9319,Feb  6 2025,14:35:09[0m
+[0;32mI (1084) wifi:mode : sta (80:65:99:5e:28:18)[0m
+[0;32mI (1084) wifi:enable tsf[0m
+[0;32mI (1084) ESPNOW: espnow [version: 2.0] init[0m
+[0;32mI (1084) RX: Receiver ready on channel 1[0m
+[0;32mI (1084) RX: STATE: CLEAR -> CLEAR[0m
+[0;32mI (1244) LCD: fill BLACK OK[0m
+[0;32mI (1344) LCD: draw text OK[0m
+CSV,CLEAR,0,0,-1,-1,-1,0.000,0.000
+[0;32mI (1344) SENSOR: pattern[0]: unit=0 ch=2 atten=0 bw=12[0m
+[0;32mI (1344) RX: Sensor started: ch=2 thresh=1.500V hyst=0.100V window=5ms consec=2[0m
+ beam clear to arm
+I (780m clear, v_min=3.300V)
+[0;32mI (78224) LCD: fill BLACK OK[0m
+[0;32mI (78364) LCD: draw text OK[0m
+CSV,START,1,0,-1,-1,-1,0.000,0.000
+[0;32mI (78584) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (78964) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (79354) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (79734) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (80114) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (80504) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (80884) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (81274) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (81654) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (82034) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (82424) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (82804) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (83194) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (83574) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (83954) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (84094) RX: STATE: RUNNING -> STOPPED[0m
+[0;32mI (84244) LCD: fill BLACK OK[0m
+[0;32mI (84384) LCD: draw text OK[0m
+CSV,STOP,1,0,-1,-1,-1,0.000,0.000
+[0;32mI (85854) RX: STATE: STOPPED -> CLEAR[0m
+[0;32mI (86004) LCD: fill BLACK OK[0m
+[0;32mI (86104) LCD: draw text OK[0m
+CSV,CLEAR,1,0,-1,-1,-1,0.000,0.000
+[0;32mI (95104) RX: STATE: CLEAR -> RUNNING[0m
+[0;32mI (95104) RX: Entered RUNNING; waiting for beam clear to arm[0m
+[0;32mI (95104) RX: Armed (beam clear, v_min=3.300V)[0m
+[0;32mI (95254) LCD: fill BLACK OK[0m
+[0;32mI (95394) LCD: draw text OK[0m
+CSV,START,2,0,-1,-1,-1,0.000,0.000
+[0;32mI (95604) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (95994) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (96374) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (96754) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (97144) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (97524) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (97914) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (98294) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (98674) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (99064) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (99444) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (99834) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (99904) RX: RX msg_type=1 seq=8 min_v=1.113 tx_ts=786393332 rx_time=99553357[0m
+[0;32mI (100214) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (100594) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (100984) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (101364) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (101754) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (102134) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (102364) RX: RX msg_type=1 seq=9 min_v=0.754 tx_ts=788850931 rx_time=102010906[0m
+[0;32mI (102514) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (102904) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (103284) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (103674) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (104054) RX: window=5ms samples=128 V[min=2.804 max=2.875 avg=2.850] armed=1[0m
+[0;32mI (104434) RX: window=5ms samples=128 V[min=1.750 max=1.795 avg=1.779] armed=1[0m
+[0;32mI (104594) RX: GATE TRIGGERED (V[min=1.483 max=1.529 avg=1.504]) t_trigger_us=104229046 rx_seq=9[0m
+[0;32mI (104594) RX: SPEED: dt=2.218140s => 1.352 m/s (4.87 km/h), rx_min_v=0.754[0m
+[0;32mI (104754) LCD: fill BLACK OK[0m
+[0;32mI (105074) LCD: draw text OK[0m
+CSV,SPEED,2,9,102010906,104229046,2218140,1.352,4.869
+[0;32mI (105094) RX: Armed (beam clear, v_min=2.097V)[0m
+[0;32mI (105294) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (105684) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (106064) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (106444) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (106834) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (107214) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (107604) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (107984) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (108364) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (108754) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (109134) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (109524) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (109904) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (110284) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (110674) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (111054) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (111444) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (111824) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (112204) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (112594) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (112974) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (113364) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (113744) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+In=3.300 max=3.300 avg=.300] armed=1
+ (114514) RX: window=5ms[min=3.300 max=3.300 avg=3.300] I (11mples=128 V[min=3.300 max=3.300 avg=3.300] armed=1
+[0;32mI (115284) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (115664) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (116044) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (116434) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (116814) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (117204) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (117584) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (117964) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (118354) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (118734) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (119124) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (119504) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (119884) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (120274) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (120654) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (121044) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+I V[min=3.300 max=3.300 avg=.300] armed=1
+ (121804) RX: windowin=3.300 max=3.300 avg=3.300] aI .300] armed=1
+[0;32mI (122574) RX: window=5ms samples=128 V[min=3.300] armed=1[0mI2964) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=.300 (12334=5ms samples=128 V[min=3.300 max=3.300 avg=.300] armed= V[min=3.300 max=3.300 avg=3.300] armed=1
+[0;32mI (124114) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (124494) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (124884) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (125264) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (125644) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (126034) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (126414) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (126804) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (127184) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (127564) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (127954) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (128334) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (128724) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (129104) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (129484) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (129874) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (130254) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (130644) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (131024) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (131404) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (131794) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (132174) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (132564) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (132944) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (133324) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (133714) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (134094) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (134484) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (134864) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (135244) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (135634) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (136014) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (136404) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (136784) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (137164) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (137554) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (137934) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (138324) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (138704) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (139084) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (139474) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (139854) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (140244) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (140624) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (141004) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (141394) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (141774) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (142164) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (142544) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (142924) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (143314) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (143694) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (144084) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (144464) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (144844) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (145234) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (145614) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (146004) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (146064) RX: STATE: RUNNING -> STOPPED[0m
+[0;32mI (146214) LCD: fill BLACK OK[0m
+[0;32mI (146354) LCD: draw text OK[0m
+CSV,STOP,2,0,-1,-1,-1,0.000,0.000
+[0;32mI (147624) RX: STATE: STOPPED -> RUNNING[0m
+[0;32mI (147634) RX: Entered RUNNING; waiting for beam clear to arm[0m
+[0;32mI (147634) RX: Armed (beam clear, v_min=3.300V)[0m
+[0;32mI (147774) LCD: fill BLACK OK[0m
+[0;32mI (147914) LCD: draw text OK[0m
+CSV,START,3,0,-1,-1,-1,0.000,0.000
+[0;32mI (148134) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (148514) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (148894) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (149104) RX: STATE: RUNNING -> CLEAR[0m
+[0;32mI (149254) LCD: fill BLACK OK[0m
+[0;32mI (149354) LCD: draw text OK[0m
+CSV,CLEAR,3,0,-1,-1,-1,0.000,0.000
+[0;32mI (150764) RX: STATE: CLEAR -> CLEAR[0m
+[0;32mI (150914) LCD: fill BLACK OK[0m
+[0;32mI (151014) LCD: draw text OK[0m
+CSV,CLEAR,3,0,-1,-1,-1,0.000,0.000
+[0;32mI (151404) RX: STATE: CLEAR -> CLEAR[0m
+[0;32mI (151554) LCD: fill BLACK OK[0m
+[0;32mI (151654) LCD: draw text OK[0m
+CSV,CLEAR,3,0,-1,-1,-1,0.000,0.000
+[0;32mI (151824) RX: STATE: CLEAR -> CLEAR[0m
+[0;32mI (151974) LCD: fill BLACK OK[0m
+[0;32mI (152074) LCD: draw text OK[0m
+CSV,CLEAR,3,0,-1,-1,-1,0.000,0.000
+[0;32mI (155044) RX: STATE: CLEAR -> RUNNING[0m
+[0;32mI (155054) RX: Entered RUNNING; waiting for beam clear to arm[0m
+[0;32mI (155054) RX: Armed (beam clear, v_min=3.300V)[0m
+[0;32mI (155194) LCD: fill BLACK OK[0m
+[0;32mI (155334) LCD: draw text OK[0m
+CSV,START,4,0,-1,-1,-1,0.000,0.000
+[0;32mI (155564) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (155944) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (156324) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (156464) RX: STATE: RUNNING -> CLEAR[0m
+[0;32mI (156614) LCD: fill BLACK OK[0m
+[0;32mI (156714) LCD: draw text OK[0m
+CSV,CLEAR,4,0,-1,-1,-1,0.000,0.000

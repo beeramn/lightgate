@@ -13,8 +13,6 @@
 #if CONFIG_ROLE_TX  // Only compile this file's logic when Sender is selected
 
 #include "esp_log.h"
-#include "lcd.h"
-
 #include "esp_err.h"
 
 #include "freertos/FreeRTOS.h"
@@ -37,28 +35,22 @@ static const char *TAG = "SENDER";
 
 // ---------------- User knobs ----------------
 
-// Match receiver timing approach
 #ifndef SENSOR_WINDOW_MS
 #define SENSOR_WINDOW_MS 5
 #endif
 
-// Require N consecutive windows below threshold before triggering (noise filter)
 #ifndef TRIGGER_CONSECUTIVE_WINDOWS
 #define TRIGGER_CONSECUTIVE_WINDOWS 2
 #endif
 
-// Throttle status printing so 5ms windows don't spam logs
 #ifndef PRINT_EVERY_MS
 #define PRINT_EVERY_MS 200
 #endif
 
-// Voltage threshold (beam broken if voltage goes BELOW this)
-// Adjust this based on your actual sensor output.
 #ifndef LOW_THRESH_V
 #define LOW_THRESH_V 1.20f
 #endif
 
-// Re-arm only after voltage rises ABOVE (LOW_THRESH_V + HYST_V)
 #ifndef HYST_V
 #define HYST_V 0.10f
 #endif
@@ -68,9 +60,9 @@ static adc_channel_t channel[1] = { ADC_CHANNEL_2 };
 
 // ------------------------------------------------
 
-// Receiver STA MAC (the other ESP32-S2)
+// Receiver STA MAC
 static uint8_t s_peer_mac[ESP_NOW_ETH_ALEN] = {
-    0x80, 0x65, 0x99, 0x5E, 0x28, 0xD4
+    0x80, 0x65, 0x99, 0x5E, 0x28, 0x18
 };
 
 typedef struct __attribute__((packed)) {
@@ -81,12 +73,6 @@ typedef struct __attribute__((packed)) {
 } low_msg_t;
 
 static uint32_t s_seq = 0;
-
-
-char lcd_msg[64];
-
-bool lcd_alert_active = false;
-int64_t lcd_alert_start_us = 0;
 
 static void espnow_send_cb(const wifi_tx_info_t *tx_info,
                            esp_now_send_status_t status)
@@ -144,9 +130,6 @@ static void espnow_init_and_add_peer(const uint8_t peer_mac[ESP_NOW_ETH_ALEN], u
 
 static inline float raw_to_volts(uint32_t raw)
 {
-    // NOTE: This assumes 0..(2^bitwidth-1) maps to 0..3.3V.
-    // That’s a reasonable first approximation, but absolute accuracy depends on
-    // ADC calibration/attenuation. For thresholding it’s usually fine.
     const float vref = 3.3f;
     const float fullscale = (float)((1U << SOC_ADC_DIGI_MAX_BITWIDTH) - 1U);
     return (raw * vref) / fullscale;
@@ -184,18 +167,15 @@ void app_role_start(void)
 
     const TickType_t window_ticks = pdMS_TO_TICKS(SENSOR_WINDOW_MS);
 
-    // Print throttling
     const uint32_t print_every_windows =
         (PRINT_EVERY_MS <= SENSOR_WINDOW_MS) ? 1u : (uint32_t)(PRINT_EVERY_MS / SENSOR_WINDOW_MS);
     uint32_t print_div = 0;
 
-    // Debounce + timestamping like RX
     int below_count = 0;
     int64_t first_below_window_start_us = -1;
     bool armed = true;
 
     while (1) {
-        // Timestamp start of window
         int64_t window_start_us = esp_timer_get_time();
 
         sensor_window_t w = {0};
@@ -206,12 +186,10 @@ void app_role_start(void)
             continue;
         }
 
-        // Convert window metrics to volts
         float v_min = raw_to_volts(w.min_raw);
         float v_max = raw_to_volts(w.max_raw);
         float v_avg = raw_to_volts((uint32_t)w.avg_raw);
 
-        // Optional periodic status print
         if (++print_div >= print_every_windows) {
             print_div = 0;
             ESP_LOGI(TAG,
@@ -222,7 +200,6 @@ void app_role_start(void)
                     (double)v_min, (double)v_max, (double)v_avg);
         }
 
-        // Beam broken detection uses MIN voltage in the window
         bool below = (v_min < LOW_THRESH_V);
 
         if (armed) {
@@ -238,43 +215,24 @@ void app_role_start(void)
 
             if (below_count >= TRIGGER_CONSECUTIVE_WINDOWS) {
                 int64_t t_event_us = (first_below_window_start_us >= 0)
-                                ? first_below_window_start_us
-                                : window_start_us;
+                                   ? first_below_window_start_us
+                                   : window_start_us;
 
                 ESP_LOGI(TAG, "BEAM BROKEN (v_min=%.3fV) t_event_us=%" PRIi64,
-                        (double)v_min, t_event_us);
-
-                double t_event_s = t_event_us / 1000000.0;
-                snprintf(lcd_msg, sizeof(lcd_msg), "BROKEN %.2fs", t_event_s);
-                ESP_ERROR_CHECK(lcd_print_message(lcd_msg));
-
-                // Start 5-second LCD timeout
-                lcd_alert_active = true;
-                lcd_alert_start_us = esp_timer_get_time();
+                         (double)v_min, t_event_us);
 
                 send_beam_broken(v_min, t_event_us);
 
-                // disarm until signal returns above threshold + hysteresis
                 armed = false;
                 below_count = 0;
                 first_below_window_start_us = -1;
             }
         } else {
-            // re-arm when voltage rises back above threshold + hysteresis
             if (v_min > (LOW_THRESH_V + HYST_V)) {
                 armed = true;
                 below_count = 0;
                 first_below_window_start_us = -1;
                 ESP_LOGI(TAG, "Re-armed (v_min=%.3fV)", (double)v_min);
-            }
-        }
-
-        // Non-blocking LCD reset after 5 seconds
-        if (lcd_alert_active) {
-            int64_t now_us = esp_timer_get_time();
-            if ((now_us - lcd_alert_start_us) >= 5000000) {
-                ESP_ERROR_CHECK(lcd_print_message("READY"));
-                lcd_alert_active = false;
             }
         }
     }

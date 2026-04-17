@@ -1,20 +1,20 @@
 Command: ninja flash
 [1/5] cd /Users/brandon/Projects/lightgate/build/esp-idf/esptool_py && /Users/brandon/.espressif/python_env/idf5.5_py3.9_env/bin/python /Users/brandon/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /Users/brandon/Projects/lightgate/build/partition_table/partition-table.bin /Users/brandon/Projects/lightgate/build/lightgate.bin
-lightgate.bin binary size 0xb9ef0 bytes. Smallest app partition is 0x100000 bytes. 0x46110 bytes (27%) free.
+lightgate.bin binary size 0xb90d0 bytes. Smallest app partition is 0x100000 bytes. 0x46f30 bytes (28%) free.
 [2/5] Performing build step for 'bootloader'
 [1/1] cd /Users/brandon/Projects/lightgate/build/bootloader/esp-idf/esptool_py && /Users/brandon/.espressif/python_env/idf5.5_py3.9_env/bin/python /Users/brandon/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /Users/brandon/Projects/lightgate/build/bootloader/bootloader.bin
 Bootloader binary size 0x5600 bytes. 0x1a00 bytes (23%) free.
 [3/5] No install step for 'bootloader'
 [4/5] Completed 'bootloader'
 [4/5] cd /Users/brandon/esp/esp-idf/components/esptool_py && /Users/brandon/.espressif/tools/cmake/3.30.2/CMake.app/Contents/bin/cmake -D IDF_PATH=/Users/brandon/esp/esp-idf -D "SERIAL_TOOL=/Users/brandon/.espressif/python_env/idf5.5_py3.9_env/bin/python;;/Users/brandon/esp/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32s2" -D "SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args" -D WORKING_DIRECTORY=/Users/brandon/Projects/lightgate/build -P /Users/brandon/esp/esp-idf/components/esptool_py/run_serial_tool.cmake
-esptool.py --chip esp32s2 -p /dev/cu.usbserial-1110 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 80m --flash_size 2MB 0x1000 bootloader/bootloader.bin 0x10000 lightgate.bin 0x8000 partition_table/partition-table.bin
+esptool.py --chip esp32s2 -p /dev/cu.usbserial-110 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 80m --flash_size 2MB 0x1000 bootloader/bootloader.bin 0x10000 lightgate.bin 0x8000 partition_table/partition-table.bin
 esptool.py v4.12.dev1
-Serial port /dev/cu.usbserial-1110
+Serial port /dev/cu.usbserial-110
 Connecting....
 Chip is ESP32-S2FNR2 (revision v1.0)
 Features: WiFi, Embedded Flash 4MB, Embedded PSRAM 2MB, ADC and temperature sensor calibration in BLK2 of efuse V2
 Crystal is 40MHz
-MAC: 80:65:99:5e:28:d4
+MAC: 80:65:99:5e:28:18
 Uploading stub...
 Running stub...
 Stub running...
@@ -25,45 +25,45 @@ Flash will be erased from 0x00001000 to 0x00006fff...
 Flash will be erased from 0x00010000 to 0x000c9fff...
 Flash will be erased from 0x00008000 to 0x00008fff...
 SHA digest in image updated
-Compressed 22016 bytes to 13910...
+Compressed 22016 bytes to 13909...
 Writing at 0x00001000... (100 %)
-Wrote 22016 bytes (13910 compressed) at 0x00001000 in 0.6 seconds (effective 290.9 kbit/s)...
+Wrote 22016 bytes (13909 compressed) at 0x00001000 in 0.7 seconds (effective 269.8 kbit/s)...
 Hash of data verified.
-Compressed 761584 bytes to 474972...
+Compressed 757968 bytes to 472540...
 Writing at 0x00010000... (3 %)
-Writing at 0x0001c661... (6 %)
-Writing at 0x00025a48... (10 %)
-Writing at 0x000306d7... (13 %)
-Writing at 0x000361d4... (17 %)
-Writing at 0x0003c350... (20 %)
-Writing at 0x0004225a... (24 %)
-Writing at 0x000480d5... (27 %)
-Writing at 0x0004dcb1... (31 %)
-Writing at 0x0005383c... (34 %)
-Writing at 0x00058b2b... (37 %)
-Writing at 0x0005dc8f... (41 %)
-Writing at 0x00063480... (44 %)
-Writing at 0x00068c81... (48 %)
-Writing at 0x0006e13c... (51 %)
-Writing at 0x00073c09... (55 %)
-Writing at 0x00079f78... (58 %)
-Writing at 0x0007f8c1... (62 %)
-Writing at 0x0008544b... (65 %)
-Writing at 0x0008b144... (68 %)
-Writing at 0x00090b9a... (72 %)
-Writing at 0x000968e7... (75 %)
-Writing at 0x0009bead... (79 %)
-Writing at 0x000a4f03... (82 %)
-Writing at 0x000acb8e... (86 %)
-Writing at 0x000b26e7... (89 %)
-Writing at 0x000b855e... (93 %)
-Writing at 0x000be8ce... (96 %)
-Writing at 0x000c462d... (100 %)
-Wrote 761584 bytes (474972 compressed) at 0x00010000 in 11.5 seconds (effective 527.5 kbit/s)...
+Writing at 0x0001c659... (6 %)
+Writing at 0x0002599e... (10 %)
+Writing at 0x000305e1... (13 %)
+Writing at 0x00036130... (17 %)
+Writing at 0x0003c32a... (20 %)
+Writing at 0x000421ea... (24 %)
+Writing at 0x0004804f... (27 %)
+Writing at 0x0004dc14... (31 %)
+Writing at 0x00053627... (34 %)
+Writing at 0x00058967... (37 %)
+Writing at 0x0005da85... (41 %)
+Writing at 0x000632a1... (44 %)
+Writing at 0x00068a67... (48 %)
+Writing at 0x0006e1a8... (51 %)
+Writing at 0x00073d44... (55 %)
+Writing at 0x00079e6d... (58 %)
+Writing at 0x0007f7dc... (62 %)
+Writing at 0x00085444... (65 %)
+Writing at 0x0008afdf... (68 %)
+Writing at 0x00090b69... (72 %)
+Writing at 0x000968ae... (75 %)
+Writing at 0x0009bc94... (79 %)
+Writing at 0x000a5a5e... (82 %)
+Writing at 0x000acb63... (86 %)
+Writing at 0x000b2714... (89 %)
+Writing at 0x000b87ac... (93 %)
+Writing at 0x000bee0f... (96 %)
+Writing at 0x000c4470... (100 %)
+Wrote 757968 bytes (472540 compressed) at 0x00010000 in 11.5 seconds (effective 528.7 kbit/s)...
 Hash of data verified.
 Compressed 3072 bytes to 103...
 Writing at 0x00008000... (100 %)
-Wrote 3072 bytes (103 compressed) at 0x00008000 in 0.1 seconds (effective 455.3 kbit/s)...
+Wrote 3072 bytes (103 compressed) at 0x00008000 in 0.1 seconds (effective 417.3 kbit/s)...
 Hash of data verified.
 
 Leaving...

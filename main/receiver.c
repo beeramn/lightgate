@@ -8,18 +8,24 @@
 #include "esp_wifi.h"
 #include "esp_now.h"
 #include "esp_log.h"
-#include "driver/gpio.h"
+#include "esp_err.h"
+#include "esp_timer.h"
+
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "esp_timer.h"
-#include <inttypes.h>
 
-#include "sensor.h"   // uses sensor.c
-#include "soc/soc_caps.h"     // for SOC_ADC_DIGI_MAX_BITWIDTH
+#include "driver/gpio.h"
+
+#include "sensor.h"
+#include "lcd.h"
+#include "soc/soc_caps.h"
+
+#include <inttypes.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <string.h>
 
 static const char *TAG = "RX";
-
-#define LED_PIN GPIO_NUM_4
 
 // ---------------------------
 // USER TUNABLES
@@ -29,12 +35,10 @@ static const char *TAG = "RX";
 #define SENSOR_ADC_CHANNEL ADC_CHANNEL_2
 #endif
 
-// Trigger when beam broken -> voltage goes BELOW this
 #ifndef LOW_THRESH_V
 #define LOW_THRESH_V 1.50f
 #endif
 
-// Re-arm only after voltage rises ABOVE (LOW_THRESH_V + HYST_V)
 #ifndef HYST_V
 #define HYST_V 0.10f
 #endif
@@ -43,80 +47,197 @@ static const char *TAG = "RX";
 #define DISTANCE_METERS 3.000f
 #endif
 
-// Use small window for timing accuracy (e.g., 5ms)
 #ifndef SENSOR_WINDOW_MS
 #define SENSOR_WINDOW_MS 5
 #endif
 
-// Require N consecutive windows below threshold before triggering.
-// With 5ms window, N=2 => ~10ms required.
 #ifndef TRIGGER_CONSECUTIVE_WINDOWS
 #define TRIGGER_CONSECUTIVE_WINDOWS 2
 #endif
 
-// ignore triggers if they happen too quickly after message receive (sanity)
 #ifndef MIN_DT_US
 #define MIN_DT_US 1000   // 1 ms
 #endif
 
-// Optional: throttle printing (prints once every PRINT_EVERY_MS)
 #ifndef PRINT_EVERY_MS
 #define PRINT_EVERY_MS 300
 #endif
 
+// Button pins. Change these to match your hardware.
+#ifndef START_BTN_GPIO
+#define START_BTN_GPIO GPIO_NUM_4
+#endif
+
+#ifndef STOP_BTN_GPIO
+#define STOP_BTN_GPIO GPIO_NUM_5
+#endif
+
+#ifndef CLEAR_BTN_GPIO
+#define CLEAR_BTN_GPIO GPIO_NUM_6
+#endif
+
+#ifndef BUTTON_POLL_MS
+#define BUTTON_POLL_MS 20
+#endif
+
+#ifndef BUTTON_DEBOUNCE_MS
+#define BUTTON_DEBOUNCE_MS 30
+#endif
+
 // ---------------------------
 
-static TaskHandle_t led_task_handle = NULL;
-static TaskHandle_t sensor_task_handle = NULL;
+typedef enum {
+    APP_STATE_CLEAR = 0,
+    APP_STATE_RUNNING,
+    APP_STATE_STOPPED
+} app_state_t;
 
+static portMUX_TYPE s_lock = portMUX_INITIALIZER_UNLOCKED;
+
+// Match sender.c exactly
 typedef struct __attribute__((packed)) {
-    uint8_t  msg_type;
+    uint8_t  msg_type;     // 1 = BEAM_BROKEN
     uint32_t seq;
-    uint32_t max_raw;
-    int64_t  ts_us;
-} high_msg_t;
+    float    min_v;
+    int64_t  ts_us;        // sender-side trigger timestamp
+} low_msg_t;
 
-// Receiver-side timestamp of last ESPNOW message receive.
+// App state
+static volatile app_state_t s_app_state = APP_STATE_CLEAR;
+static volatile uint32_t s_session_id = 0;
+
+// Receiver-side timestamp of last ESPNOW message receive
 static volatile int64_t s_last_rx_time_us = -1;
 static volatile uint32_t s_last_rx_seq = 0;
+static volatile float s_last_rx_min_v = 0.0f;
+static volatile int64_t s_last_tx_trigger_us = -1;
 
-// Receiver-side timestamp of last sensor trigger.
+// Receiver-side timestamp of last sensor trigger
 static volatile int64_t s_last_trigger_time_us = -1;
 
 static inline float raw_to_volts(uint32_t raw)
 {
-    // Simple mapping: 0..(2^bitwidth-1) -> 0..3.3V
-    // Absolute accuracy depends on ADC calibration/attenuation, but this is fine
-    // for thresholding and consistent behavior between TX/RX.
     const float vref = 3.3f;
     const float fullscale = (float)((1U << SOC_ADC_DIGI_MAX_BITWIDTH) - 1U);
     return (raw * vref) / fullscale;
 }
 
-static void gpio_init_led(void)
+static const char *state_to_str(app_state_t st)
 {
-    gpio_config_t cfg = {
-        .pin_bit_mask = 1ULL << LED_PIN,
-        .mode = GPIO_MODE_OUTPUT,
-        .pull_up_en = GPIO_PULLUP_DISABLE,
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type = GPIO_INTR_DISABLE,
-    };
-    ESP_ERROR_CHECK(gpio_config(&cfg));
-    gpio_set_level(LED_PIN, 0);
+    switch (st) {
+        case APP_STATE_CLEAR:   return "CLEAR";
+        case APP_STATE_RUNNING: return "RUNNING";
+        case APP_STATE_STOPPED: return "STOPPED";
+        default:                return "UNKNOWN";
+    }
 }
 
-static void led_task(void *arg)
+static void reset_runtime_data_locked(void)
 {
-    (void)arg;
-    while (1) {
-        ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+    s_last_rx_time_us = -1;
+    s_last_rx_seq = 0;
+    s_last_rx_min_v = 0.0f;
+    s_last_tx_trigger_us = -1;
+    s_last_trigger_time_us = -1;
+}
 
-        ESP_LOGI(TAG, "LED ON");
-        gpio_set_level(LED_PIN, 1);
-        vTaskDelay(pdMS_TO_TICKS(500));
-        gpio_set_level(LED_PIN, 0);
-        ESP_LOGI(TAG, "LED OFF");
+static app_state_t app_get_state(void)
+{
+    app_state_t st;
+    portENTER_CRITICAL(&s_lock);
+    st = s_app_state;
+    portEXIT_CRITICAL(&s_lock);
+    return st;
+}
+
+static void get_last_rx_snapshot(int64_t *rx_time_us,
+                                 uint32_t *seq,
+                                 float *min_v,
+                                 int64_t *tx_trigger_us)
+{
+    portENTER_CRITICAL(&s_lock);
+    *rx_time_us = s_last_rx_time_us;
+    *seq = s_last_rx_seq;
+    *min_v = s_last_rx_min_v;
+    *tx_trigger_us = s_last_tx_trigger_us;
+    portEXIT_CRITICAL(&s_lock);
+}
+
+static uint32_t get_session_id(void)
+{
+    uint32_t session;
+    portENTER_CRITICAL(&s_lock);
+    session = s_session_id;
+    portEXIT_CRITICAL(&s_lock);
+    return session;
+}
+
+static void log_csv_header_once(void)
+{
+    printf("CSV_HEADER,event,session_id,seq,rx_time_us,trigger_time_us,dt_us,speed_mps,speed_kmh\n");
+    fflush(stdout);
+}
+
+static void log_csv_row(const char *event,
+                        uint32_t session_id,
+                        uint32_t seq,
+                        int64_t rx_time_us,
+                        int64_t trigger_time_us,
+                        int64_t dt_us,
+                        float speed_mps)
+{
+    float speed_kmh = speed_mps * 3.6f;
+
+    printf("CSV,%s,%" PRIu32 ",%" PRIu32 ",%" PRIi64 ",%" PRIi64 ",%" PRIi64 ",%.3f,%.3f\n",
+           event,
+           session_id,
+           seq,
+           rx_time_us,
+           trigger_time_us,
+           dt_us,
+           (double)speed_mps,
+           (double)speed_kmh);
+    fflush(stdout);
+}
+
+static void app_set_state(app_state_t new_state)
+{
+    app_state_t old_state;
+    uint32_t session;
+
+    portENTER_CRITICAL(&s_lock);
+    old_state = s_app_state;
+
+    if (new_state == APP_STATE_CLEAR) {
+        reset_runtime_data_locked();
+    }
+
+    if (new_state == APP_STATE_RUNNING && old_state != APP_STATE_RUNNING) {
+        reset_runtime_data_locked();
+        s_session_id++;
+    }
+
+    s_app_state = new_state;
+    session = s_session_id;
+    portEXIT_CRITICAL(&s_lock);
+
+    ESP_LOGI(TAG, "STATE: %s -> %s", state_to_str(old_state), state_to_str(new_state));
+
+    switch (new_state) {
+        case APP_STATE_CLEAR:
+            ESP_ERROR_CHECK(lcd_print_message("CLEAR"));
+            log_csv_row("CLEAR", session, 0, -1, -1, -1, 0.0f);
+            break;
+
+        case APP_STATE_RUNNING:
+            ESP_ERROR_CHECK(lcd_print_message("RUNNING"));
+            log_csv_row("START", session, 0, -1, -1, -1, 0.0f);
+            break;
+
+        case APP_STATE_STOPPED:
+            ESP_ERROR_CHECK(lcd_print_message("STOPPED"));
+            log_csv_row("STOP", session, 0, -1, -1, -1, 0.0f);
+            break;
     }
 }
 
@@ -125,20 +246,25 @@ static void espnow_recv_cb(const esp_now_recv_info_t *info,
 {
     (void)info;
 
+    if (app_get_state() != APP_STATE_RUNNING) {
+        return;
+    }
+
     int64_t now_us = esp_timer_get_time();
 
-    if (len == (int)sizeof(high_msg_t)) {
-        const high_msg_t *m = (const high_msg_t *)data;
+    if (len == (int)sizeof(low_msg_t)) {
+        const low_msg_t *m = (const low_msg_t *)data;
 
+        portENTER_CRITICAL_ISR(&s_lock);
         s_last_rx_time_us = now_us;
         s_last_rx_seq = m->seq;
+        s_last_rx_min_v = m->min_v;
+        s_last_tx_trigger_us = m->ts_us;
+        portEXIT_CRITICAL_ISR(&s_lock);
 
-        ESP_LOGI(TAG, "RX msg_type=%u seq=%" PRIu32 " (rx_time_us=%" PRIi64 ")",
-                 m->msg_type, m->seq, now_us);
-
-        if (m->msg_type == 1 && led_task_handle) {
-            xTaskNotifyGive(led_task_handle);
-        }
+        ESP_LOGI(TAG,
+                 "RX msg_type=%u seq=%" PRIu32 " min_v=%.3f tx_ts=%" PRIi64 " rx_time=%" PRIi64,
+                 m->msg_type, m->seq, (double)m->min_v, m->ts_us, now_us);
     } else {
         ESP_LOGW(TAG, "Unexpected len=%d (rx_time_us=%" PRIi64 ")", len, now_us);
     }
@@ -169,6 +295,72 @@ static void rx_init(uint8_t channel)
     ESP_LOGI(TAG, "Receiver ready on channel %u", channel);
 }
 
+static void buttons_init(void)
+{
+    gpio_config_t io = {
+        .pin_bit_mask = (1ULL << START_BTN_GPIO) |
+                        (1ULL << STOP_BTN_GPIO)  |
+                        (1ULL << CLEAR_BTN_GPIO),
+        .mode = GPIO_MODE_INPUT,
+        .pull_up_en = GPIO_PULLUP_ENABLE,   // assumes active-low buttons to GND
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_DISABLE
+    };
+
+    ESP_ERROR_CHECK(gpio_config(&io));
+
+    ESP_LOGI(TAG,
+             "Buttons ready: START=%d STOP=%d CLEAR=%d (active-low)",
+             (int)START_BTN_GPIO, (int)STOP_BTN_GPIO, (int)CLEAR_BTN_GPIO);
+}
+
+static bool button_pressed_debounced(gpio_num_t pin, int *prev_level)
+{
+    int curr = gpio_get_level(pin);
+
+    if (curr == 0 && *prev_level == 1) {
+        vTaskDelay(pdMS_TO_TICKS(BUTTON_DEBOUNCE_MS));
+        curr = gpio_get_level(pin);
+        if (curr == 0) {
+            *prev_level = 0;
+            return true;
+        }
+    }
+
+    *prev_level = curr;
+    return false;
+}
+
+static void button_task(void *arg)
+{
+    (void)arg;
+
+    int prev_start = 1;
+    int prev_stop = 1;
+    int prev_clear = 1;
+
+    while (1) {
+        if (button_pressed_debounced(START_BTN_GPIO, &prev_start)) {
+            app_state_t st = app_get_state();
+            if (st == APP_STATE_CLEAR || st == APP_STATE_STOPPED) {
+                app_set_state(APP_STATE_RUNNING);
+            }
+        }
+
+        if (button_pressed_debounced(STOP_BTN_GPIO, &prev_stop)) {
+            if (app_get_state() == APP_STATE_RUNNING) {
+                app_set_state(APP_STATE_STOPPED);
+            }
+        }
+
+        if (button_pressed_debounced(CLEAR_BTN_GPIO, &prev_clear)) {
+            app_set_state(APP_STATE_CLEAR);
+        }
+
+        vTaskDelay(pdMS_TO_TICKS(BUTTON_POLL_MS));
+    }
+}
+
 static void sensor_task(void *arg)
 {
     (void)arg;
@@ -188,18 +380,35 @@ static void sensor_task(void *arg)
     const TickType_t window_ticks = pdMS_TO_TICKS(SENSOR_WINDOW_MS);
 
     int below_count = 0;
-    bool armed = true;
-
-    // Timestamp of the FIRST window that went below threshold
+    bool armed = false;
     int64_t first_below_window_start_us = -1;
+    app_state_t prev_state = APP_STATE_CLEAR;
 
-    // Print throttling
     const uint32_t print_every_windows =
         (PRINT_EVERY_MS <= SENSOR_WINDOW_MS) ? 1u : (uint32_t)(PRINT_EVERY_MS / SENSOR_WINDOW_MS);
     uint32_t print_div = 0;
 
     while (1) {
-        // Timestamp the START of the window
+        app_state_t st = app_get_state();
+
+        if (st != APP_STATE_RUNNING) {
+            below_count = 0;
+            armed = false;
+            first_below_window_start_us = -1;
+            prev_state = st;
+            vTaskDelay(pdMS_TO_TICKS(20));
+            continue;
+        }
+
+        if (prev_state != APP_STATE_RUNNING) {
+            below_count = 0;
+            armed = false;   // require beam to be clear before arming after Start
+            first_below_window_start_us = -1;
+            print_div = 0;
+            ESP_LOGI(TAG, "Entered RUNNING; waiting for beam clear to arm");
+            prev_state = APP_STATE_RUNNING;
+        }
+
         int64_t window_start_us = esp_timer_get_time();
 
         sensor_window_t w = {0};
@@ -215,91 +424,110 @@ static void sensor_task(void *arg)
             continue;
         }
 
-        // Convert window raw metrics to volts
         float v_min = raw_to_volts(w.min_raw);
         float v_max = raw_to_volts(w.max_raw);
         float v_avg = raw_to_volts((uint32_t)w.avg_raw);
 
-        // Slow periodic status line
         if (++print_div >= print_every_windows) {
             print_div = 0;
             ESP_LOGI(TAG,
-                     "window=%dms samples=%" PRIu32 " V[min=%.3f max=%.3f avg=%.3f]",
+                     "window=%dms samples=%" PRIu32 " V[min=%.3f max=%.3f avg=%.3f] armed=%d",
                      (int)SENSOR_WINDOW_MS, w.count,
-                     (double)v_min, (double)v_max, (double)v_avg);
+                     (double)v_min, (double)v_max, (double)v_avg, armed ? 1 : 0);
         }
 
-        // "dark" => low voltage in this logic
-        bool below = (v_min < LOW_THRESH_V);
-
-        if (armed) {
-            if (below) {
-                below_count++;
-                if (below_count == 1) {
-                    first_below_window_start_us = window_start_us;
-                }
-            } else {
-                below_count = 0;
-                first_below_window_start_us = -1;
-            }
-
-            if (below_count >= TRIGGER_CONSECUTIVE_WINDOWS) {
-                int64_t t_trigger_us = first_below_window_start_us;
-                if (t_trigger_us < 0) {
-                    t_trigger_us = window_start_us; // fallback
-                }
-
-                s_last_trigger_time_us = t_trigger_us;
-
-                int64_t t_receive_us = s_last_rx_time_us;
-
-                ESP_LOGI(TAG,
-                         "GATE TRIGGERED (V[min=%.3f max=%.3f avg=%.3f]) t_trigger_us=%" PRIi64 " rx_seq=%" PRIu32,
-                         (double)v_min, (double)v_max, (double)v_avg,
-                         t_trigger_us, s_last_rx_seq);
-
-                if (t_receive_us > 0) {
-                    int64_t dt_us = t_trigger_us - t_receive_us;
-
-                    if (dt_us >= MIN_DT_US) {
-                        float dt_s = (float)dt_us / 1e6f;
-                        float v_mps = DISTANCE_METERS / dt_s;
-
-                        ESP_LOGI(TAG,
-                                 "SPEED: dt=%.6fs => %.3f m/s (%.2f km/h)",
-                                 (double)dt_s,
-                                 (double)v_mps,
-                                 (double)(v_mps * 3.6f));
-                    } else {
-                        ESP_LOGW(TAG, "dt_us=%" PRIi64 " < MIN_DT_US, ignoring", dt_us);
-                    }
-                }
-
-                armed = false;
-                below_count = 0;
-                first_below_window_start_us = -1;
-            }
-        } else {
-            // Re-arm when voltage rises above threshold + hysteresis
+        if (!armed) {
             if (v_min > (LOW_THRESH_V + HYST_V)) {
                 armed = true;
                 below_count = 0;
                 first_below_window_start_us = -1;
-                ESP_LOGI(TAG, "Re-armed (v_min=%.3fV)", (double)v_min);
+                ESP_LOGI(TAG, "Armed (beam clear, v_min=%.3fV)", (double)v_min);
             }
+            continue;
+        }
+
+        bool below = (v_min < LOW_THRESH_V);
+
+        if (below) {
+            below_count++;
+            if (below_count == 1) {
+                first_below_window_start_us = window_start_us;
+            }
+        } else {
+            below_count = 0;
+            first_below_window_start_us = -1;
+        }
+
+        if (below_count >= TRIGGER_CONSECUTIVE_WINDOWS) {
+            int64_t t_trigger_us = first_below_window_start_us;
+            if (t_trigger_us < 0) {
+                t_trigger_us = window_start_us;
+            }
+
+            portENTER_CRITICAL(&s_lock);
+            s_last_trigger_time_us = t_trigger_us;
+            portEXIT_CRITICAL(&s_lock);
+
+            int64_t t_receive_us;
+            uint32_t rx_seq;
+            float rx_min_v;
+            int64_t tx_trigger_us_unused;
+            get_last_rx_snapshot(&t_receive_us, &rx_seq, &rx_min_v, &tx_trigger_us_unused);
+
+            ESP_LOGI(TAG,
+                     "GATE TRIGGERED (V[min=%.3f max=%.3f avg=%.3f]) t_trigger_us=%" PRIi64 " rx_seq=%" PRIu32,
+                     (double)v_min, (double)v_max, (double)v_avg,
+                     t_trigger_us, rx_seq);
+
+            if (t_receive_us > 0) {
+                int64_t dt_us = t_trigger_us - t_receive_us;
+
+                if (dt_us >= MIN_DT_US) {
+                    float dt_s = (float)dt_us / 1e6f;
+                    float v_mps = DISTANCE_METERS / dt_s;
+                    float v_kmh = v_mps * 3.6f;
+                    uint32_t session = get_session_id();
+
+                    ESP_LOGI(TAG,
+                             "SPEED: dt=%.6fs => %.3f m/s (%.2f km/h), rx_min_v=%.3f",
+                             (double)dt_s,
+                             (double)v_mps,
+                             (double)v_kmh,
+                             (double)rx_min_v);
+
+                    char lcd_msg[64];
+                    snprintf(lcd_msg, sizeof(lcd_msg), "%.2f m/s\n%.2f km/h", v_mps, v_kmh);
+                    ESP_ERROR_CHECK(lcd_print_message(lcd_msg));
+
+                    log_csv_row("SPEED", session, rx_seq, t_receive_us, t_trigger_us, dt_us, v_mps);
+                } else {
+                    ESP_LOGW(TAG, "dt_us=%" PRIi64 " < MIN_DT_US, ignoring", dt_us);
+                    ESP_ERROR_CHECK(lcd_print_message("dt too small"));
+                }
+            } else {
+                ESP_LOGW(TAG, "No ESPNOW message received yet; cannot compute speed");
+                ESP_ERROR_CHECK(lcd_print_message("No RX msg yet"));
+            }
+
+            armed = false;
+            below_count = 0;
+            first_below_window_start_us = -1;
         }
     }
 }
 
 void app_role_start(void)
 {
-    gpio_init_led();
+    ESP_ERROR_CHECK(lcd_init_and_print("Receiver Boot"));
+    log_csv_header_once();
 
-    xTaskCreate(led_task, "led_task", 2048, NULL, 5, &led_task_handle);
-
+    buttons_init();
     rx_init(1);
 
-    xTaskCreate(sensor_task, "sensor_task", 4096, NULL, 6, &sensor_task_handle);
+    app_set_state(APP_STATE_CLEAR);
+
+    xTaskCreate(button_task, "button_task", 3072, NULL, 7, NULL);
+    xTaskCreate(sensor_task, "sensor_task", 4096, NULL, 6, NULL);
 
     while (1) {
         vTaskDelay(pdMS_TO_TICKS(1000));
