@@ -482,25 +482,23 @@ static void sensor_task(void *arg)
             if (t_receive_us > 0) {
                 int64_t dt_us = t_trigger_us - t_receive_us;
 
-                if (dt_us >= MIN_DT_US) {
-                    float dt_s = (float)dt_us / 1e6f;
-                    float v_mps = DISTANCE_METERS / dt_s;
-                    float v_kmh = v_mps * 3.6f;
-                    uint32_t session = get_session_id();
+            if (dt_us >= MIN_DT_US) {
+                float dt_s = (float)dt_us / 1e6f;
+                uint32_t session = get_session_id();
 
-                    ESP_LOGI(TAG,
-                             "SPEED: dt=%.6fs => %.3f m/s (%.2f km/h), rx_min_v=%.3f",
-                             (double)dt_s,
-                             (double)v_mps,
-                             (double)v_kmh,
-                             (double)rx_min_v);
+                ESP_LOGI(TAG,
+                        "TIME DIFF: first_gate_rx=%.6fs receiver_gate=%.6fs dt=%.6fs, rx_min_v=%.3f",
+                        (double)t_receive_us / 1e6,
+                        (double)t_trigger_us / 1e6,
+                        (double)dt_s,
+                        (double)rx_min_v);
 
-                    char lcd_msg[64];
-                    snprintf(lcd_msg, sizeof(lcd_msg), "%.2f m/s\n%.2f km/h", v_mps, v_kmh);
-                    ESP_ERROR_CHECK(lcd_print_message(lcd_msg));
+                char lcd_msg[64];
+                snprintf(lcd_msg, sizeof(lcd_msg), "%.3f s", dt_s);
+                ESP_ERROR_CHECK(lcd_print_message(lcd_msg));
 
-                    log_csv_row("SPEED", session, rx_seq, t_receive_us, t_trigger_us, dt_us, v_mps);
-                } else {
+                log_csv_row("TIME_DIFF", session, rx_seq, t_receive_us, t_trigger_us, dt_us, dt_s);
+            } else {
                     ESP_LOGW(TAG, "dt_us=%" PRIi64 " < MIN_DT_US, ignoring", dt_us);
                     ESP_ERROR_CHECK(lcd_print_message("dt too small"));
                 }
