@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "lightgate",
-    "project_version":    "38b1fc7-dirty",
+    "project_version":    "8da88e0-dirty",
     "project_path":       "/Users/brandon/Projects/lightgate",
     "idf_path":           "/Users/brandon/esp/esp-idf",
     "build_dir":          "/Users/brandon/Projects/lightgate/build",
