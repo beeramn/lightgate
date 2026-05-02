@@ -222,7 +222,7 @@ esp_err_t lcd_init_and_print(const char *text)
     CHECK_RET(esp_lcd_panel_init(panel_handle), "esp_lcd_panel_init");
     CHECK_RET(esp_lcd_panel_invert_color(panel_handle, false), "esp_lcd_panel_invert_color");
     CHECK_RET(esp_lcd_panel_swap_xy(panel_handle, true), "esp_lcd_panel_swap_xy");
-    CHECK_RET(esp_lcd_panel_mirror(panel_handle, true, true), "esp_lcd_panel_mirror");
+    CHECK_RET(esp_lcd_panel_mirror(panel_handle, false, false), "esp_lcd_panel_mirror");
     CHECK_RET(esp_lcd_panel_disp_on_off(panel_handle, true), "esp_lcd_panel_disp_on_off");
 
     if (PIN_NUM_BCKL >= 0) {

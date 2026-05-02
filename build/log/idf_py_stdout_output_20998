@@ -1,0 +1,314 @@
+Command: /Users/brandon/.espressif/python_env/idf5.5_py3.9_env/bin/python /Users/brandon/esp/esp-idf/tools/idf_monitor.py -p /dev/cu.usbserial-110 -b 115200 --toolchain-prefix xtensa-esp32s2-elf- --target esp32s2 --revision 0 /Users/brandon/Projects/lightgate/build/lightgate.elf /Users/brandon/Projects/lightgate/build/bootloader/bootloader.elf -m '/Users/brandon/.espressif/python_env/idf5.5_py3.9_env/bin/python' '/Users/brandon/esp/esp-idf/tools/idf.py' '-p' '/dev/cu.usbserial-110'
+ESP-ROM:esp32s2-rc4-20191025
+Build:Oct 25 2019
+rst:0x1 (POWERON),boot:0x8 (SPI_FAST_FLASH_BOOT)
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3ffe5110,len:0x16a4
+load:0x4004a000,len:0xb18
+load:0x4004e000,len:0x33e4
+entry 0x4004a1c4
+[0;32mI (21) boot: ESP-IDF v5.5 2nd stage bootloader[0m
+[0;32mI (21) boot: compile time Apr 16 2026 18:54:04[0m
+[0;32mI (22) boot: chip revision: v1.0[0m
+[0;32mI (22) boot: efuse block revision: v0.2[0m
+[0;32mI (25) boot.esp32s2: SPI Speed      : 80MHz[0m
+[0;32mI (29) boot.esp32s2: SPI Mode       : DIO[0m
+[0;32mI (33) boot.esp32s2: SPI Flash Size : 2MB[0m
+[0;32mI (37) boot: Enabling RNG early entropy source...[0m
+[0;32mI (41) boot: Partition Table:[0m
+[0;32mI (44) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (50) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (57) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (63) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (70) boot: End of partition table[0m
+[0;32mI (73) esp_image: segment 0: paddr=00010020 vaddr=3f000020 size=1b910h (112912) map[0m
+[0;32mI (103) esp_image: segment 1: paddr=0002b938 vaddr=3ff9e000 size=00020h (    32) load[0m
+[0;32mI (104) esp_image: segment 2: paddr=0002b960 vaddr=3ffcd7e0 size=03a58h ( 14936) load[0m
+[0;32mI (111) esp_image: segment 3: paddr=0002f3c0 vaddr=40024000 size=00c58h (  3160) load[0m
+[0;32mI (116) esp_image: segment 4: paddr=00030020 vaddr=40080020 size=80d5ch (527708) map[0m
+[0;32mI (229) esp_image: segment 5: paddr=000b0d84 vaddr=40024c58 size=18b84h (101252) load[0m
+[0;32mI (267) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (267) boot: Disabling RNG early entropy source...[0m
+[0;32mI (277) cache: Instruction cache 	: size 8KB, 4Ways, cache line size 32Byte[0m
+[0;32mI (277) cache: Data cache 		: size 8KB, 4Ways, cache line size 32Byte[0m
+[0;32mI (292) cpu_start: Unicore app[0m
+[0;32mI (299) cpu_start: Pro cpu start user code[0m
+[0;32mI (300) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (300) app_init: Application information:[0m
+[0;32mI (300) app_init: Project name:     lightgate[0m
+[0;32mI (304) app_init: App version:      aec7687-dirty[0m
+[0;32mI (308) app_init: Compile time:     Apr 24 2026 23:21:55[0m
+[0;32mI (313) app_init: ELF file SHA256:  067dc098b...[0m
+[0;32mI (318) app_init: ESP-IDF:          v5.5[0m
+[0;32mI (321) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (325) efuse_init: Max chip rev:     v1.99 [0m
+[0;32mI (329) efuse_init: Chip rev:         v1.0[0m
+[0;32mI (333) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (339) heap_init: At 3FFD5658 len 000269A8 (154 KiB): RAM[0m
+[0;32mI (344) heap_init: At 3FFFC000 len 00003A10 (14 KiB): RAM[0m
+[0;32mI (349) heap_init: At 3FF9E020 len 00001FC8 (7 KiB): RTCRAM[0m
+[0;32mI (356) spi_flash: detected chip: generic[0m
+[0;32mI (358) spi_flash: flash io: dio[0m
+[0;33mW (361) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (374) main_task: Started on CPU0[0m
+[0;32mI (374) main_task: Calling app_main()[0m
+[0;32mI (374) LCD: ================ LCD INIT START ================[0m
+[0;32mI (384) LCD: text = Receiver Boot[0m
+[0;32mI (384) LCD: pins: MOSI=35 CLK=36 CS=34 DC=33 RST=-1 BCKL=-1[0m
+[0;32mI (384) LCD: spi_bus_initialize OK[0m
+[0;32mI (394) LCD: esp_lcd_new_panel_io_spi OK[0m
+[0;32mI (394) ili9341: LCD panel create success, version: 2.0.2[0m
+[0;32mI (404) LCD: esp_lcd_new_panel_ili9341 OK[0m
+[0;32mI (404) LCD: LCD RESET should be tied externally to 3.3V[0m
+[0;32mI (514) LCD: esp_lcd_panel_init OK[0m
+[0;32mI (514) LCD: esp_lcd_panel_invert_color OK[0m
+[0;32mI (514) LCD: esp_lcd_panel_swap_xy OK[0m
+[0;32mI (514) LCD: esp_lcd_panel_mirror OK[0m
+[0;32mI (514) LCD: esp_lcd_panel_disp_on_off OK[0m
+[0;32mI (514) LCD: LCD LED should be tied externally to 3.3V[0m
+[0;32mI (674) LCD: fill BLACK OK[0m
+[0;32mI (924) LCD: draw text OK[0m
+[0;32mI (924) LCD: ================ LCD INIT END ==================[0m
+CSV_HEADER,event,session_id,seq,rx_time_us,trigger_time_us,dt_us,speed_mps,speed_kmh
+[0;32mI (934) RX: Buttons ready: START=4 STOP=5 CLEAR=6 (active-low)[0m
+[0;32mI (964) wifi:wifi driver task: 3ffff6b0, prio:23, stack:6656, core=0[0m
+[0;32mI (964) wifi:wifi firmware version: f3dbad7[0m
+[0;32mI (974) wifi:wifi certification version: v7.0[0m
+[0;32mI (974) wifi:config NVS flash: enabled[0m
+[0;32mI (974) wifi:config nano formatting: disabled[0m
+[0;32mI (974) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (974) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (984) wifi:Init management short buffer num: 32[0m
+[0;32mI (984) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (994) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (994) wifi:Init static rx buffer num: 10[0m
+[0;32mI (994) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1004) wifi_init: rx ba win: 6[0m
+[0;32mI (1004) wifi_init: accept mbox: 6[0m
+[0;32mI (1004) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1014) wifi_init: udp mbox: 6[0m
+[0;32mI (1014) wifi_init: tcp mbox: 6[0m
+[0;32mI (1014) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1024) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1024) wifi_init: tcp mss: 1440[0m
+[0;32mI (1024) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1034) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1034) phy_init: phy_version 2620,f8f9319,Feb  6 2025,14:35:09[0m
+[0;32mI (1084) wifi:mode : sta (80:65:99:5e:28:18)[0m
+[0;32mI (1084) wifi:enable tsf[0m
+[0;32mI (1084) ESPNOW: espnow [version: 2.0] init[0m
+[0;32mI (1094) RX: Receiver ready on channel 1[0m
+[0;32mI (1094) RX: STATE: CLEAR -> CLEAR[0m
+CSV,CLEAR,0,0,-1,-1,-1,0.000,0.000
+[0;32mI (1094) SENSOR: pattern[0]: unit=0 ch=2 atten=0 bw=12[0m
+[0;32mI (1104) RX: Sensor started: ch=2 thresh=1.500V hyst=0.100V window=5ms consec=2[0m
+[0;32mI (1264) LCD: fill BLACK OK[0m
+[0;32mI (1354) LCD: draw text OK[0m
+[0;32mI (17974) RX: STATE: CLEAR -> RUNNING[0m
+CSV,START,1,0,-1,-1,-1,0.000,0.000
+[0;32mI (17984) RX: Entered RUNNING; waiting for beam clear to arm[0m
+[0;32mI (18124) LCD: fill BLACK OK[0m
+[0;32mI (18264) LCD: draw text OK[0m
+[0;32mI (18364) RX: window=5ms samples=128 V[min=0.000 max=0.026 avg=0.010] armed=0[0m
+[0;32mI (18744) RX: window=5ms samples=128 V[min=0.005 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (19134) RX: window=5ms samples=128 V[min=0.001 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (19514) RX: window=5ms samples=128 V[min=0.000 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (19894) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (20284) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (20664) RX: window=5ms samples=128 V[min=0.008 max=0.021 avg=0.010] armed=0[0m
+[0;32mI (21054) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (21434) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (21814) RX: window=5ms samples=128 V[min=0.003 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (22204) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (22584) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (22974) RX: window=5ms samples=128 V[min=0.002 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (23354) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (23734) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (24124) RX: window=5ms samples=128 V[min=0.005 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (24504) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (24894) RX: window=5ms samples=128 V[min=0.007 max=0.018 avg=0.010] armed=0[0m
+[0;32mI (25274) RX: window=5ms samples=128 V[min=0.008 max=0.013 avg=0.011] armed=0[0m
+[0;32mI (25654) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (26044) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (26424) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (26814) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (27194) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (27574) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (27964) RX: window=5ms samples=128 V[min=0.003 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (28344) RX: window=5ms samples=128 V[min=0.007 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (28734) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (29114) RX: window=5ms samples=128 V[min=0.000 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (29494) RX: window=5ms samples=128 V[min=0.003 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (29884) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (30264) RX: window=5ms samples=128 V[min=0.002 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (30654) RX: window=5ms samples=128 V[min=0.001 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (31034) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (31264) RX: Armed (beam clear, v_min=3.300V)[0m
+[0;32mI (31414) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (31434) RX: GATE TRIGGERED (V[min=0.006 max=0.017 avg=0.010]) t_trigger_us=31068941 rx_seq=3[0m
+[0;32mI (31434) RX: TIME DIFF: first_gate_rx=24.639599s receiver_gate=31.068941s dt=6.429342s, rx_min_v=0.011 receiver_avg_v=0.010[0m
+CSV,TIME_DIFF,1,3,24639599,31068941,6429342,6.429,23.146
+[0;32mI (31604) LCD: fill BLACK OK[0m
+[0;32mI (31804) RX: window=5ms samples=128 V[min=0.000 max=0.052 avg=0.010] armed=0[0m
+[0;32mI (31924) LCD: draw text OK[0m
+[0;32mI (32194) RX: window=5ms samples=128 V[min=0.000 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (32574) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (32964) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (33344) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (33724) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (34114) RX: window=5ms samples=128 V[min=0.004 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (34494) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (34884) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (35264) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (35644) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (36034) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (36414) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (36804) RX: window=5ms samples=128 V[min=0.008 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (37184) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (37564) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (37954) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (38334) RX: window=5ms samples=128 V[min=0.005 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (38724) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (39104) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (39484) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (39874) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (40254) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (40644) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (41024) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (41404) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (41794) RX: window=5ms samples=128 V[min=0.005 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (42174) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (42564) RX: window=5ms samples=128 V[min=0.005 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (42944) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (43324) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (43714) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (44094) RX: window=5ms samples=128 V[min=0.007 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (44484) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (44864) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (45244) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (45634) RX: window=5ms samples=128 V[min=0.005 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (46014) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (46404) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (46784) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (47164) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (47554) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (47934) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (48324) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (48704) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (49084) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (49474) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (49854) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (50244) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (50624) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (51004) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (51394) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (51774) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (52164) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (52544) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (52924) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (53314) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (53694) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (54084) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (54464) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (54844) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (55234) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (55614) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (56004) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (56384) RX: window=5ms samples=128 V[min=0.005 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (56764) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (57154) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (57534) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (57924) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (58304) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (58684) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (59074) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (59454) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (59844) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (60224) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (60604) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (60994) RX: window=5ms samples=128 V[min=0.008 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (61374) RX: window=5ms samples=128 V[min=0.004 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (61764) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (62144) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (62524) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (62914) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (63294) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (63684) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (64064) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (64444) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (64834) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (65214) RX: window=5ms samples=128 V[min=0.004 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (65604) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (65984) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (66364) RX: window=5ms samples=128 V[min=0.007 max=0.018 avg=0.010] armed=0[0m
+[0;32mI (66754) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (67134) RX: window=5ms samples=128 V[min=0.003 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (67524) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (67904) RX: window=5ms samples=128 V[min=0.008 max=0.017 avg=0.011] armed=0[0m
+[0;32mI (68284) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (68674) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (69054) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (69444) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (69824) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (70204) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (70594) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (70974) RX: window=5ms samples=128 V[min=0.005 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (71364) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (71744) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (72124) RX: window=5ms samples=128 V[min=0.004 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (72514) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (72894) RX: window=5ms samples=128 V[min=0.003 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (73284) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (73664) RX: window=5ms samples=128 V[min=0.003 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (74044) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (74434) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (74814) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (75204) RX: window=5ms samples=128 V[min=0.002 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (75584) RX: window=5ms samples=128 V[min=0.005 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (75964) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (76354) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (76734) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (77124) RX: window=5ms samples=128 V[min=0.003 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (77504) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (77884) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (78274) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (78654) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (79044) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (79424) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (79804) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (80194) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (80574) RX: window=5ms samples=128 V[min=0.004 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (80964) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (81344) RX: window=5ms samples=128 V[min=0.008 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (81724) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (82114) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (82494) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (82884) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (83264) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (83644) RX: window=5ms samples=128 V[min=0.006 max=0.027 avg=0.010] armed=0[0m
+[0;32mI (84034) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (84414) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (84804) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (85184) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (85564) RX: window=5ms samples=128 V[min=0.005 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (85954) RX: window=5ms samples=128 V[min=0.008 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (86334) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (86724) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (87104) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (87484) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (87874) RX: window=5ms samples=128 V[min=0.006 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (88254) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (88644) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (89024) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (89404) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (89794) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (90174) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (90564) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (90944) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (91324) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (91714) RX: window=5ms samples=128 V[min=0.004 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (92094) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (92484) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (92864) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (93244) RX: window=5ms samples=128 V[min=0.002 max=0.014 avg=0.010] armed=0[0m

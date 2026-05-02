@@ -7,6 +7,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <inttypes.h>
+#include "driver/gpio.h"
 
 #include "sdkconfig.h"
 
@@ -48,7 +49,7 @@ static const char *TAG = "SENDER";
 #endif
 
 #ifndef LOW_THRESH_V
-#define LOW_THRESH_V 1.20f
+#define LOW_THRESH_V 3.09f
 #endif
 
 #ifndef HYST_V
@@ -73,6 +74,16 @@ typedef struct __attribute__((packed)) {
 } low_msg_t;
 
 static uint32_t s_seq = 0;
+
+// ------ LED -----
+#ifndef REARM_LED_GPIO
+#define REARM_LED_GPIO GPIO_NUM_33
+#endif
+
+static inline void rearm_led_set(bool on)
+{
+    gpio_set_level(REARM_LED_GPIO, on ? 1 : 0);
+}
 
 static void espnow_send_cb(const wifi_tx_info_t *tx_info,
                            esp_now_send_status_t status)
@@ -175,6 +186,18 @@ void app_role_start(void)
     int64_t first_below_window_start_us = -1;
     bool armed = true;
 
+    gpio_config_t led_cfg = {
+        .pin_bit_mask = (1ULL << REARM_LED_GPIO),
+        .mode = GPIO_MODE_OUTPUT,
+        .pull_up_en = GPIO_PULLUP_DISABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_DISABLE,
+    };
+    ESP_ERROR_CHECK(gpio_config(&led_cfg));
+
+    // Starts armed, so LED starts ON
+    rearm_led_set(true);
+
     while (1) {
         int64_t window_start_us = esp_timer_get_time();
 
@@ -223,6 +246,9 @@ void app_role_start(void)
 
                 send_beam_broken(v_min, t_event_us);
 
+                // Turn LED off only after sending, so it does not delay the message
+                rearm_led_set(false);
+
                 armed = false;
                 below_count = 0;
                 first_below_window_start_us = -1;
@@ -232,6 +258,9 @@ void app_role_start(void)
                 armed = true;
                 below_count = 0;
                 first_below_window_start_us = -1;
+
+                rearm_led_set(true);
+
                 ESP_LOGI(TAG, "Re-armed (v_min=%.3fV)", (double)v_min);
             }
         }

@@ -1,0 +1,70 @@
+Command: ninja flash
+[1/5] cd /Users/brandon/Projects/lightgate/build/esp-idf/esptool_py && /Users/brandon/.espressif/python_env/idf5.5_py3.9_env/bin/python /Users/brandon/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /Users/brandon/Projects/lightgate/build/partition_table/partition-table.bin /Users/brandon/Projects/lightgate/build/lightgate.bin
+lightgate.bin binary size 0xb99e0 bytes. Smallest app partition is 0x100000 bytes. 0x46620 bytes (27%) free.
+[2/5] Performing build step for 'bootloader'
+[1/1] cd /Users/brandon/Projects/lightgate/build/bootloader/esp-idf/esptool_py && /Users/brandon/.espressif/python_env/idf5.5_py3.9_env/bin/python /Users/brandon/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /Users/brandon/Projects/lightgate/build/bootloader/bootloader.bin
+Bootloader binary size 0x5600 bytes. 0x1a00 bytes (23%) free.
+[3/5] No install step for 'bootloader'
+[4/5] Completed 'bootloader'
+[4/5] cd /Users/brandon/esp/esp-idf/components/esptool_py && /Users/brandon/.espressif/tools/cmake/3.30.2/CMake.app/Contents/bin/cmake -D IDF_PATH=/Users/brandon/esp/esp-idf -D "SERIAL_TOOL=/Users/brandon/.espressif/python_env/idf5.5_py3.9_env/bin/python;;/Users/brandon/esp/esp-idf/components/esptool_py/esptool/esptool.py;--chip;esp32s2" -D "SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args" -D WORKING_DIRECTORY=/Users/brandon/Projects/lightgate/build -P /Users/brandon/esp/esp-idf/components/esptool_py/run_serial_tool.cmake
+esptool.py --chip esp32s2 -p /dev/cu.usbserial-10 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 80m --flash_size 2MB 0x1000 bootloader/bootloader.bin 0x10000 lightgate.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.12.dev1
+Serial port /dev/cu.usbserial-10
+Connecting....
+Chip is ESP32-S2FNR2 (revision v1.0)
+Features: WiFi, Embedded Flash 4MB, Embedded PSRAM 2MB, ADC and temperature sensor calibration in BLK2 of efuse V2
+Crystal is 40MHz
+MAC: 80:65:99:5e:28:18
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00001000 to 0x00006fff...
+Flash will be erased from 0x00010000 to 0x000c9fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+SHA digest in image updated
+Compressed 22016 bytes to 13909...
+Writing at 0x00001000... (100 %)
+Wrote 22016 bytes (13909 compressed) at 0x00001000 in 0.7 seconds (effective 257.5 kbit/s)...
+Hash of data verified.
+Compressed 760288 bytes to 473919...
+Writing at 0x00010000... (3 %)
+Writing at 0x0001c606... (6 %)
+Writing at 0x00025930... (10 %)
+Writing at 0x00030689... (13 %)
+Writing at 0x000361d1... (17 %)
+Writing at 0x0003c3b5... (20 %)
+Writing at 0x0004225a... (24 %)
+Writing at 0x0004802b... (27 %)
+Writing at 0x0004dcdd... (31 %)
+Writing at 0x00053782... (34 %)
+Writing at 0x00058a91... (37 %)
+Writing at 0x0005dbc4... (41 %)
+Writing at 0x000633af... (44 %)
+Writing at 0x00068bae... (48 %)
+Writing at 0x0006e1e7... (51 %)
+Writing at 0x00073d29... (55 %)
+Writing at 0x00079fa2... (58 %)
+Writing at 0x0007f85b... (62 %)
+Writing at 0x00085495... (65 %)
+Writing at 0x0008b0fd... (68 %)
+Writing at 0x00090c6d... (72 %)
+Writing at 0x00096986... (75 %)
+Writing at 0x0009bdf7... (79 %)
+Writing at 0x000a5641... (82 %)
+Writing at 0x000acd0e... (86 %)
+Writing at 0x000b2735... (89 %)
+Writing at 0x000b872e... (93 %)
+Writing at 0x000beccd... (96 %)
+Writing at 0x000c46a0... (100 %)
+Wrote 760288 bytes (473919 compressed) at 0x00010000 in 12.5 seconds (effective 487.7 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 103...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (103 compressed) at 0x00008000 in 0.1 seconds (effective 221.4 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...

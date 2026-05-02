@@ -1,0 +1,650 @@
+Command: /Users/brandon/.espressif/python_env/idf5.5_py3.9_env/bin/python /Users/brandon/esp/esp-idf/tools/idf_monitor.py -p /dev/cu.usbserial-110 -b 115200 --toolchain-prefix xtensa-esp32s2-elf- --target esp32s2 --revision 0 /Users/brandon/Projects/lightgate/build/lightgate.elf /Users/brandon/Projects/lightgate/build/bootloader/bootloader.elf -m '/Users/brandon/.espressif/python_env/idf5.5_py3.9_env/bin/python' '/Users/brandon/esp/esp-idf/tools/idf.py' '-p' '/dev/cu.usbserial-110'
+ESP-ROM:esp32s2-rc4-20191025
+Build:Oct 25 2019
+rst:0x1 (POWERON),boot:0x8 (SPI_FAST_FLASH_BOOT)
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3ffe5110,len:0x16a4
+load:0x4004a000,len:0xb18
+load:0x4004e000,len:0x33e4
+entry 0x4004a1c4
+[0;32mI (21) boot: ESP-IDF v5.5 2nd stage bootloader[0m
+[0;32mI (21) boot: compile time Apr 16 2026 18:54:04[0m
+[0;32mI (22) boot: chip revision: v1.0[0m
+[0;32mI (22) boot: efuse block revision: v0.2[0m
+[0;32mI (25) boot.esp32s2: SPI Speed      : 80MHz[0m
+[0;32mI (29) boot.esp32s2: SPI Mode       : DIO[0m
+[0;32mI (33) boot.esp32s2: SPI Flash Size : 2MB[0m
+[0;32mI (37) boot: Enabling RNG early entropy source...[0m
+[0;32mI (41) boot: Partition Table:[0m
+[0;32mI (44) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (50) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (57) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (63) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (70) boot: End of partition table[0m
+[0;32mI (73) esp_image: segment 0: paddr=00010020 vaddr=3f000020 size=19310h (103184) map[0m
+[0;32mI (101) esp_image: segment 1: paddr=00029338 vaddr=3ff9e000 size=00020h (    32) load[0m
+[0;32mI (102) esp_image: segment 2: paddr=00029360 vaddr=3ffcb360 size=03904h ( 14596) load[0m
+[0;32mI (109) esp_image: segment 3: paddr=0002cc6c vaddr=40024000 size=033ach ( 13228) load[0m
+[0;32mI (116) esp_image: segment 4: paddr=00030020 vaddr=40080020 size=7d9ech (514540) map[0m
+[0;32mI (225) esp_image: segment 5: paddr=000ada14 vaddr=400273ac size=13fa8h ( 81832) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (257) boot: Disabling RNG early entropy source...[0m
+[0;32mI (266) cache: Instruction cache 	: size 8KB, 4Ways, cache line size 32Byte[0m
+[0;32mI (266) cache: Data cache 		: size 8KB, 4Ways, cache line size 32Byte[0m
+[0;32mI (279) cpu_start: Unicore app[0m
+[0;32mI (287) cpu_start: Pro cpu start user code[0m
+[0;32mI (287) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (287) app_init: Application information:[0m
+[0;32mI (287) app_init: Project name:     lightgate[0m
+[0;32mI (291) app_init: App version:      aec7687-dirty[0m
+[0;32mI (296) app_init: Compile time:     Apr 24 2026 23:07:07[0m
+[0;32mI (301) app_init: ELF file SHA256:  f12201e49...[0m
+[0;32mI (305) app_init: ESP-IDF:          v5.5[0m
+[0;32mI (309) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (313) efuse_init: Max chip rev:     v1.99 [0m
+[0;32mI (317) efuse_init: Chip rev:         v1.0[0m
+[0;32mI (321) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (327) heap_init: At 3FFD2DA8 len 00029258 (164 KiB): RAM[0m
+[0;32mI (332) heap_init: At 3FFFC000 len 00003A10 (14 KiB): RAM[0m
+[0;32mI (337) heap_init: At 3FF9E020 len 00001FC8 (7 KiB): RTCRAM[0m
+[0;32mI (343) spi_flash: detected chip: generic[0m
+[0;32mI (346) spi_flash: flash io: dio[0m
+[0;33mW (349) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (362) main_task: Started on CPU0[0m
+[0;32mI (362) main_task: Calling app_main()[0m
+[0;32mI (382) wifi:wifi driver task: 3ffff5fc, prio:23, stack:6656, core=0[0m
+[0;32mI (382) wifi:wifi firmware version: f3dbad7[0m
+[0;32mI (392) wifi:wifi certification version: v7.0[0m
+[0;32mI (392) wifi:config NVS flash: enabled[0m
+[0;32mI (392) wifi:config nano formatting: disabled[0m
+[0;32mI (392) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (392) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (402) wifi:Init management short buffer num: 32[0m
+[0;32mI (402) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (412) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (412) wifi:Init static rx buffer num: 10[0m
+[0;32mI (412) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (422) wifi_init: rx ba win: 6[0m
+[0;32mI (422) wifi_init: accept mbox: 6[0m
+[0;32mI (422) wifi_init: tcpip mbox: 32[0m
+[0;32mI (432) wifi_init: udp mbox: 6[0m
+[0;32mI (432) wifi_init: tcp mbox: 6[0m
+[0;32mI (432) wifi_init: tcp tx win: 5760[0m
+[0;32mI (442) wifi_init: tcp rx win: 5760[0m
+[0;32mI (442) wifi_init: tcp mss: 1440[0m
+[0;32mI (442) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (452) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (452) phy_init: phy_version 2620,f8f9319,Feb  6 2025,14:35:09[0m
+[0;32mI (502) wifi:mode : sta (80:65:99:5e:28:d4)[0m
+[0;32mI (502) wifi:enable tsf[0m
+[0;32mI (502) ESPNOW: espnow [version: 2.0] init[0m
+[0;32mI (502) SENDER: ESP-NOW ready. Peer added.[0m
+[0;32mI (502) SENSOR: pattern[0]: unit=0 ch=2 atten=0 bw=12[0m
+[0;32mI (512) SENDER: TX started: ch=2 window=5ms consec=2 thresh=3.090V hyst=0.100V[0m
+[0;32mI (532) SENDER: BEAM BROKEN (v_min=0.010V) t_event_us=178810[0m
+ESP-NOW send to 80:65:99:5E:28:18 -> FAIL
+[0;32mI (772) SENDER: window=5ms samples=128 V[min=0.012 max=0.026 avg=0.015][0m
+[0;32mI (1032) SENDER: window=5ms samples=128 V[min=0.004 max=0.023 avg=0.015][0m
+[0;32mI (1282) SENDER: window=5ms samples=128 V[min=0.012 max=0.026 avg=0.016][0m
+[0;32mI (1542) SENDER: window=5ms samples=128 V[min=0.006 max=0.044 avg=0.016][0m
+[0;32mI (1792) SENDER: window=5ms samples=128 V[min=0.011 max=0.027 avg=0.015][0m
+[0;32mI (2052) SENDER: window=5ms samples=128 V[min=0.010 max=0.023 avg=0.015][0m
+[0;32mI (2312) SENDER: window=5ms samples=128 V[min=0.000 max=0.029 avg=0.015][0m
+[0;32mI (2562) SENDER: window=5ms samples=128 V[min=0.010 max=0.026 avg=0.015][0m
+[0;32mI (2822) SENDER: window=5ms samples=128 V[min=0.000 max=0.026 avg=0.016][0m
+[0;32mI (3072) SENDER: window=5ms samples=128 V[min=0.006 max=0.046 avg=0.015][0m
+[0;32mI (3332) SENDER: window=5ms samples=128 V[min=0.001 max=0.027 avg=0.015][0m
+[0;32mI (3592) SENDER: window=5ms samples=128 V[min=0.010 max=0.023 avg=0.015][0m
+[0;32mI (3842) SENDER: window=5ms samples=128 V[min=0.005 max=0.022 avg=0.015][0m
+[0;32mI (4102) SENDER: window=5ms samples=128 V[min=0.005 max=0.023 avg=0.015][0m
+[0;32mI (4352) SENDER: window=5ms samples=128 V[min=0.008 max=0.020 avg=0.015][0m
+[0;32mI (4612) SENDER: window=5ms samples=128 V[min=0.006 max=0.019 avg=0.015][0m
+[0;32mI (4872) SENDER: window=5ms samples=128 V[min=0.010 max=0.023 avg=0.015][0m
+[0;32mI (5122) SENDER: window=5ms samples=128 V[min=0.001 max=0.035 avg=0.015][0m
+[0;32mI (5382) SENDER: window=5ms samples=128 V[min=0.012 max=0.022 avg=0.015][0m
+[0;32mI (5632) SENDER: window=5ms samples=128 V[min=0.011 max=0.020 avg=0.016][0m
+[0;32mI (5892) SENDER: window=5ms samples=128 V[min=0.008 max=0.019 avg=0.015][0m
+[0;32mI (6152) SENDER: window=5ms samples=128 V[min=0.011 max=0.023 avg=0.015][0m
+[0;32mI (6402) SENDER: window=5ms samples=128 V[min=0.010 max=0.019 avg=0.015][0m
+[0;32mI (6662) SENDER: window=5ms samples=128 V[min=0.012 max=0.027 avg=0.016][0m
+[0;32mI (6912) SENDER: window=5ms samples=128 V[min=0.005 max=0.020 avg=0.015][0m
+[0;32mI (7172) SENDER: window=5ms samples=128 V[min=0.010 max=0.026 avg=0.016][0m
+[0;32mI (7432) SENDER: window=5ms samples=128 V[min=0.003 max=0.026 avg=0.015][0m
+[0;32mI (7682) SENDER: window=5ms samples=128 V[min=0.010 max=0.032 avg=0.015][0m
+[0;32mI (7942) SENDER: window=5ms samples=128 V[min=0.010 max=0.020 avg=0.015][0m
+[0;32mI (8192) SENDER: window=5ms samples=128 V[min=0.010 max=0.026 avg=0.015][0m
+[0;32mI (8452) SENDER: window=5ms samples=128 V[min=0.011 max=0.020 avg=0.015][0m
+[0;32mI (8712) SENDER: window=5ms samples=128 V[min=0.013 max=0.023 avg=0.015][0m
+[0;32mI (8962) SENDER: window=5ms samples=128 V[min=0.009 max=0.020 avg=0.015][0m
+[0;32mI (9222) SENDER: window=5ms samples=128 V[min=0.013 max=0.022 avg=0.015][0m
+[0;32mI (9472) SENDER: window=5ms samples=128 V[min=0.012 max=0.020 avg=0.015][0m
+ESP-ROM:esp32s2-rc4-20191025
+Build:Oct 25 2019
+rst:0x1 (POWERON),boot:0x8 (SPI_FAST_FLASH_BOOT)
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3ffe5110,len:0x16a4
+load:0x4004a000,len:0xb18
+load:0x4004e000,len:0x33e4
+entry 0x4004a1c4
+[0;32mI (21) boot: ESP-IDF v5.5 2nd stage bootloader[0m
+[0;32mI (21) boot: compile time Apr 16 2026 18:54:04[0m
+[0;32mI (22) boot: chip revision: v1.0[0m
+[0;32mI (22) boot: efuse block revision: v0.2[0m
+[0;32mI (25) boot.esp32s2: SPI Speed      : 80MHz[0m
+[0;32mI (29) boot.esp32s2: SPI Mode       : DIO[0m
+[0;32mI (33) boot.esp32s2: SPI Flash Size : 2MB[0m
+[0;32mI (37) boot: Enabling RNG early entropy source...[0m
+[0;32mI (41) boot: Partition Table:[0m
+[0;32mI (44) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (50) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (57) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (63) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (70) boot: End of partition table[0m
+[0;32mI (73) esp_image: segment 0: paddr=00010020 vaddr=3f000020 size=19310h (103184) map[0m
+[0;32mI (101) esp_image: segment 1: paddr=00029338 vaddr=3ff9e000 size=00020h (    32) load[0m
+[0;32mI (102) esp_image: segment 2: paddr=00029360 vaddr=3ffcb360 size=03904h ( 14596) load[0m
+[0;32mI (109) esp_image: segment 3: paddr=0002cc6c vaddr=40024000 size=033ach ( 13228) load[0m
+[0;32mI (116) esp_image: segment 4: paddr=00030020 vaddr=40080020 size=7d9ech (514540) map[0m
+[0;32mI (225) esp_image: segment 5: paddr=000ada14 vaddr=400273ac size=13fa8h ( 81832) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (257) boot: Disabling RNG early entropy source...[0m
+[0;32mI (266) cache: Instruction cache 	: size 8KB, 4Ways, cache line size 32Byte[0m
+[0;32mI (266) cache: Data cache 		: size 8KB, 4Ways, cache line size 32Byte[0m
+[0;32mI (279) cpu_start: Unicore app[0m
+[0;32mI (287) cpu_start: Pro cpu start user code[0m
+[0;32mI (287) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (287) app_init: Application information:[0m
+[0;32mI (287) app_init: Project name:     lightgate[0m
+[0;32mI (291) app_init: App version:      aec7687-dirty[0m
+[0;32mI (296) app_init: Compile time:     Apr 24 2026 23:07:07[0m
+[0;32mI (301) app_init: ELF file SHA256:  f12201e49...[0m
+[0;32mI (305) app_init: ESP-IDF:          v5.5[0m
+[0;32mI (309) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (313) efuse_init: Max chip rev:     v1.99 [0m
+[0;32mI (317) efuse_init: Chip rev:         v1.0[0m
+[0;32mI (321) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (327) heap_init: At 3FFD2DA8 len 00029258 (164 KiB): RAM[0m
+[0;32mI (332) heap_init: At 3FFFC000 len 00003A10 (14 KiB): RAM[0m
+[0;32mI (337) heap_init: At 3FF9E020 len 00001FC8 (7 KiB): RTCRAM[0m
+[0;32mI (343) spi_flash: detected chip: generic[0m
+[0;32mI (346) spi_flash: flash io: dio[0m
+[0;33mW (349) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (362) main_task: Started on CPU0[0m
+[0;32mI (362) main_task: Calling app_main()[0m
+[0;32mI (382) wifi:wifi driver task: 3ffff5fc, prio:23, stack:6656, core=0[0m
+[0;32mI (382) wifi:wifi firmware version: f3dbad7[0m
+[0;32mI (392) wifi:wifi certification version: v7.0[0m
+[0;32mI (392) wifi:config NVS flash: enabled[0m
+[0;32mI (392) wifi:config nano formatting: disabled[0m
+[0;32mI (392) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (392) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (402) wifi:Init management short buffer num: 32[0m
+[0;32mI (402) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (412) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (412) wifi:Init static rx buffer num: 10[0m
+[0;32mI (412) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (422) wifi_init: rx ba win: 6[0m
+[0;32mI (422) wifi_init: accept mbox: 6[0m
+[0;32mI (422) wifi_init: tcpip mbox: 32[0m
+[0;32mI (432) wifi_init: udp mbox: 6[0m
+[0;32mI (432) wifi_init: tcp mbox: 6[0m
+[0;32mI (432) wifi_init: tcp tx win: 5760[0m
+[0;32mI (442) wifi_init: tcp rx win: 5760[0m
+[0;32mI (442) wifi_init: tcp mss: 1440[0m
+[0;32mI (442) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (452) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (452) phy_init: phy_version 2620,f8f9319,Feb  6 2025,14:35:09[0m
+[0;32mI (502) wifi:mode : sta (80:65:99:5e:28:d4)[0m
+[0;32mI (502) wifi:enable tsf[0m
+[0;32mI (502) ESPNOW: espnow [version: 2.0] init[0m
+[0;32mI (502) SENDER: ESP-NOW ready. Peer added.[0m
+[0;32mI (502) SENSOR: pattern[0]: unit=0 ch=2 atten=0 bw=12[0m
+[0;32mI (512) SENDER: TX started: ch=2 window=5ms consec=2 thresh=3.090V hyst=0.100V[0m
+[0;32mI (532) SENDER: BEAM BROKEN (v_min=0.013V) t_event_us=179307[0m
+ESP-NOW send to 80:65:99:5E:28:18 -> FAIL
+[0;32mI (772) SENDER: window=5ms samples=128 V[min=0.015 max=0.023 avg=0.018][0m
+[0;32mI (1032) SENDER: window=5ms samples=128 V[min=0.013 max=0.021 avg=0.018][0m
+[0;32mI (1282) SENDER: window=5ms samples=128 V[min=0.014 max=0.029 avg=0.018][0m
+[0;32mI (1542) SENDER: window=5ms samples=128 V[min=0.013 max=0.026 avg=0.018][0m
+[0;32mI (1792) SENDER: window=5ms samples=128 V[min=0.013 max=0.023 avg=0.018][0m
+[0;32mI (2052) SENDER: window=5ms samples=128 V[min=0.015 max=0.021 avg=0.018][0m
+[0;32mI (2312) SENDER: window=5ms samples=128 V[min=0.010 max=0.029 avg=0.018][0m
+[0;32mI (2562) SENDER: window=5ms samples=128 V[min=0.009 max=0.023 avg=0.018][0m
+[0;32mI (2822) SENDER: window=5ms samples=128 V[min=0.014 max=0.021 avg=0.017][0m
+[0;32mI (3072) SENDER: window=5ms samples=128 V[min=0.014 max=0.023 avg=0.018][0m
+[0;32mI (3332) SENDER: window=5ms samples=128 V[min=0.013 max=0.023 avg=0.017][0m
+[0;32mI (3592) SENDER: window=5ms samples=128 V[min=0.011 max=0.026 avg=0.018][0m
+[0;32mI (3842) SENDER: window=5ms samples=128 V[min=0.000 max=0.023 avg=0.017][0m
+[0;32mI (4102) SENDER: window=5ms samples=128 V[min=0.014 max=0.026 avg=0.018][0m
+[0;32mI (4352) SENDER: window=5ms samples=128 V[min=0.002 max=0.026 avg=0.018][0m
+[0;32mI (4612) SENDER: window=5ms samples=128 V[min=0.000 max=0.027 avg=0.017][0m
+[0;32mI (4872) SENDER: window=5ms samples=128 V[min=0.011 max=0.029 avg=0.019][0m
+[0;32mI (5122) SENDER: window=5ms samples=128 V[min=0.013 max=0.026 avg=0.018][0m
+[0;32mI (5382) SENDER: window=5ms samples=128 V[min=0.001 max=0.069 avg=0.019][0m
+[0;32mI (5632) SENDER: window=5ms samples=128 V[min=0.011 max=0.031 avg=0.019][0m
+[0;32mI (5892) SENDER: window=5ms samples=128 V[min=0.000 max=0.027 avg=0.018][0m
+[0;32mI (6152) SENDER: window=5ms samples=128 V[min=0.006 max=0.054 avg=0.019][0m
+[0;32mI (6402) SENDER: window=5ms samples=128 V[min=0.002 max=0.032 avg=0.019][0m
+[0;32mI (6662) SENDER: window=5ms samples=128 V[min=0.005 max=0.027 avg=0.018][0m
+[0;32mI (6912) SENDER: window=5ms samples=128 V[min=0.010 max=0.023 avg=0.018][0m
+[0;32mI (7172) SENDER: window=5ms samples=128 V[min=0.013 max=0.026 avg=0.017][0m
+[0;32mI (7432) SENDER: window=5ms samples=128 V[min=0.013 max=0.036 avg=0.018][0m
+[0;32mI (7682) SENDER: window=5ms samples=128 V[min=0.001 max=0.026 avg=0.017][0m
+[0;32mI (7942) SENDER: window=5ms samples=128 V[min=0.013 max=0.027 avg=0.018][0m
+[0;32mI (8192) SENDER: window=5ms samples=128 V[min=0.013 max=0.027 avg=0.017][0m
+[0;32mI (8452) SENDER: window=5ms samples=128 V[min=0.013 max=0.023 avg=0.017][0m
+[0;32mI (8712) SENDER: window=5ms samples=128 V[min=0.000 max=0.023 avg=0.018][0m
+[0;32mI (8962) SENDER: window=5ms samples=128 V[min=0.010 max=0.026 avg=0.018][0m
+[0;32mI (9222) SENDER: window=5ms samples=128 V[min=0.010 max=0.027 avg=0.018][0m
+[0;32mI (9472) SENDER: window=5ms samples=128 V[min=0.005 max=0.023 avg=0.017][0m
+[0;32mI (9732) SENDER: window=5ms samples=128 V[min=0.014 max=0.026 avg=0.018][0m
+[0;32mI (9992) SENDER: window=5ms samples=128 V[min=0.000 max=0.028 avg=0.017][0m
+[0;32mI (10242) SENDER: window=5ms samples=128 V[min=0.006 max=0.022 avg=0.017][0m
+[0;32mI (10352) SENDER: Re-armed (v_min=3.300V)[0m
+[0;32mI (10362) SENDER: BEAM BROKEN (v_min=0.013V) t_event_us=10016497[0m
+ESP-NOW send to 80:65:99:5E:28:18 -> FAIL
+[0;32mI (10502) SENDER: window=5ms samples=128 V[min=0.001 max=0.022 avg=0.017][0m
+[0;32mI (10542) SENDER: Re-armed (v_min=3.300V)[0m
+[0;32mI (10752) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (10932) SENDER: BEAM BROKEN (v_min=0.016V) t_event_us=10579200[0m
+[0;32mI (10932) SENDER: Re-armed (v_min=3.300V)[0m
+ESP-NOW send to 80:65:99:5E:28:18 -> FAIL
+[0;32mI (10992) SENDER: BEAM BROKEN (v_min=0.015V) t_event_us=10643200[0m
+[0;32mI (11002) SENDER: Re-armed (v_min=3.300V)[0m
+[0;32mI (11012) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+ESP-NOW send to 80:65:99:5E:28:18 -> FAIL
+[0;32mI (11272) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (11522) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (11782) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (12032) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (12292) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (12552) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (12802) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (13062) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (13312) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (13572) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (13832) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (14082) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (14342) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (14592) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (14852) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (15112) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (15362) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (15622) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (15872) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (16132) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (16222) SENDER: BEAM BROKEN (v_min=0.000V) t_event_us=15872000[0m
+ESP-NOW send to 80:65:99:5E:28:18 -> FAIL
+[0;32mI (16392) SENDER: window=5ms samples=128 V[min=0.001 max=0.021 avg=0.015][0m
+[0;32mI (16642) SENDER: window=5ms samples=128 V[min=0.007 max=0.022 avg=0.016][0m
+[0;32mI (16902) SENDER: window=5ms samples=128 V[min=0.006 max=0.034 avg=0.017][0m
+[0;32mI (17152) SENDER: window=5ms samples=128 V[min=0.007 max=0.026 avg=0.017][0m
+[0;32mI (17412) SENDER: window=5ms samples=128 V[min=0.013 max=0.026 avg=0.017][0m
+[0;32mI (17672) SENDER: window=5ms samples=128 V[min=0.006 max=0.027 avg=0.017][0m
+[0;32mI (17922) SENDER: window=5ms samples=128 V[min=0.014 max=0.026 avg=0.017][0m
+[0;32mI (18182) SENDER: window=5ms samples=128 V[min=0.013 max=0.026 avg=0.017][0m
+[0;32mI (18432) SENDER: window=5ms samples=128 V[min=0.005 max=0.029 avg=0.017][0m
+[0;32mI (18692) SENDER: window=5ms samples=128 V[min=0.005 max=0.028 avg=0.016][0m
+[0;32mI (18952) SENDER: window=5ms samples=128 V[min=0.013 max=0.023 avg=0.017][0m
+[0;32mI (19202) SENDER: window=5ms samples=128 V[min=0.004 max=0.027 avg=0.017][0m
+[0;32mI (19462) SENDER: window=5ms samples=128 V[min=0.010 max=0.026 avg=0.017][0m
+[0;32mI (19712) SENDER: window=5ms samples=128 V[min=0.010 max=0.029 avg=0.017][0m
+[0;32mI (19972) SENDER: window=5ms samples=128 V[min=0.003 max=0.026 avg=0.017][0m
+[0;32mI (20232) SENDER: window=5ms samples=128 V[min=0.000 max=0.027 avg=0.017][0m
+[0;32mI (20482) SENDER: window=5ms samples=128 V[min=0.012 max=0.026 avg=0.017][0m
+[0;32mI (20742) SENDER: window=5ms samples=128 V[min=0.013 max=0.023 avg=0.017][0m
+[0;32mI (20992) SENDER: window=5ms samples=128 V[min=0.013 max=0.026 avg=0.017][0m
+[0;32mI (21252) SENDER: window=5ms samples=128 V[min=0.002 max=0.027 avg=0.017][0m
+[0;32mI (21512) SENDER: window=5ms samples=128 V[min=0.014 max=0.032 avg=0.017][0m
+[0;32mI (21692) SENDER: Re-armed (v_min=3.300V)[0m
+[0;32mI (21762) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (22022) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (22272) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (22532) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (22792) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (23042) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (23302) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (23552) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (23812) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (24072) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (24322) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (24582) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (24832) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (25092) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (25352) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (25602) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (25862) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (26112) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (26372) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (26632) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (26882) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (27142) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (27392) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (27652) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (27912) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (28162) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (28422) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (28672) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (28932) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (29192) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (29442) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (29702) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (29952) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (30212) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (30472) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (30722) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (30982) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (31232) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (31492) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (31752) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (32002) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (32262) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (32512) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (32772) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (33032) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (33282) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (33542) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (33792) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (34052) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (34312) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (34562) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (34822) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (35072) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (35332) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (35592) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (35842) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (36102) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (36352) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (36612) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (36872) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (37122) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (37382) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (37632) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (37892) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (38152) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (38402) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (38662) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (38912) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (39072) SENDER: BEAM BROKEN (v_min=0.004V) t_event_us=38720000[0m
+ESP-NOW send to 80:65:99:5E:28:18 -> FAIL
+[0;32mI (39172) SENDER: window=5ms samples=128 V[min=0.010 max=0.022 avg=0.015][0m
+[0;32mI (39432) SENDER: window=5ms samples=128 V[min=0.000 max=0.023 avg=0.016][0m
+[0;32mI (39682) SENDER: window=5ms samples=128 V[min=0.012 max=0.029 avg=0.017][0m
+[0;32mI (39832) SENDER: Re-armed (v_min=3.300V)[0m
+[0;32mI (39942) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (40192) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (40452) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (40622) SENDER: BEAM BROKEN (v_min=0.004V) t_event_us=40275200[0m
+ESP-NOW send to 80:65:99:5E:28:18 -> FAIL
+[0;32mI (40712) SENDER: window=5ms samples=128 V[min=0.011 max=0.026 avg=0.016][0m
+[0;32mI (40922) SENDER: Re-armed (v_min=3.300V)[0m
+[0;32mI (40962) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (41222) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (41412) SENDER: BEAM BROKEN (v_min=0.013V) t_event_us=41062400[0m
+[0;32mI (41422) SENDER: Re-armed (v_min=3.300V)[0m
+ESP-NOW send to 80:65:99:5E:28:18 -> FAIL
+[0;32mI (41472) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (41492) SENDER: BEAM BROKEN (v_min=0.008V) t_event_us=41145618[0m
+ESP-NOW send to 80:65:99:5E:28:18 -> FAIL
+[0;32mI (41632) SENDER: Re-armed (v_min=3.300V)[0m
+[0;32mI (41702) SENDER: BEAM BROKEN (v_min=0.015V) t_event_us=41356800[0m
+[0;32mI (41712) SENDER: Re-armed (v_min=3.300V)[0m
+[0;32mI (41732) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+ESP-NOW send to 80:65:99:5E:28:18 -> FAIL
+[0;32mI (41992) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (42132) SENDER: BEAM BROKEN (v_min=0.002V) t_event_us=41779200[0m
+ESP-NOW send to 80:65:99:5E:28:18 -> FAIL
+[0;32mI (42242) SENDER: window=5ms samples=128 V[min=0.004 max=0.026 avg=0.015][0m
+[0;32mI (42442) SENDER: Re-armed (v_min=3.300V)[0m
+[0;32mI (42502) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (42752) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (43012) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (43272) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (43522) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (43782) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (44032) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (44292) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (44552) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (44802) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (45062) SENDER: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300][0m
+[0;32mI (45102) SENDER: BEAM BROKEN (v_min=0.002V) t_event_us=44748800[0m
+ESP-NOW send to 80:65:99:5E:28:18 -> FAIL
+[0;32mI (45312) SENDER: window=5ms samples=128 V[min=0.007 max=0.027 avg=0.016][0m
+[0;32mI (45572) SENDER: window=5ms samples=128 V[min=0.010 max=0.027 avg=0.016][0m
+[0;32mI (45832) SENDER: window=5ms samples=128 V[min=0.002 max=0.029 avg=0.017][0m
+[0;32mI (46082) SENDER: window=5ms samples=128 V[min=0.006 max=0.027 avg=0.017][0m
+[0;32mI (46342) SENDER: window=5ms samples=128 V[min=0.002 max=0.023 avg=0.017][0m
+[0;32mI (46592) SENDER: window=5ms samples=128 V[min=0.011 max=0.023 avg=0.017][0m
+[0;32mI (46852) SENDER: window=5ms samples=128 V[min=0.013 max=0.023 avg=0.016][0m
+[0;32mI (47112) SENDER: window=5ms samples=128 V[min=0.006 max=0.026 avg=0.016][0m
+[0;32mI (47362) SENDER: window=5ms samples=128 V[min=0.010 max=0.022 avg=0.016][0m
+[0;32mI (47622) SENDER: window=5ms samples=128 V[min=0.010 max=0.030 avg=0.016][0m
+[0;32mI (47872) SENDER: window=5ms samples=128 V[min=0.010 max=0.026 avg=0.016][0m
+[0;32mI (48132) SENDER: window=5ms samples=128 V[min=0.013 max=0.026 avg=0.017][0m
+[0;32mI (48392) SENDER: window=5ms samples=128 V[min=0.012 max=0.027 avg=0.016][0m
+[0;32mI (48642) SENDER: window=5ms samples=128 V[min=0.003 max=0.026 avg=0.016][0m
+[0;32mI (48902) SENDER: window=5ms samples=128 V[min=0.001 max=0.027 avg=0.016][0m
+[0;32mI (49152) SENDER: window=5ms samples=128 V[min=0.006 max=0.031 avg=0.016][0m
+[0;32mI (49412) SENDER: window=5ms samples=128 V[min=0.000 max=0.055 avg=0.018][0m
+[0;32mI (49672) SENDER: window=5ms samples=128 V[min=0.009 max=0.029 avg=0.019][0m
+[0;32mI (49922) SENDER: window=5ms samples=128 V[min=0.010 max=0.026 avg=0.017][0m
+[0;32mI (50182) SENDER: window=5ms samples=128 V[min=0.006 max=0.027 avg=0.016][0m
+[0;32mI (50432) SENDER: window=5ms samples=128 V[min=0.013 max=0.029 avg=0.020][0m
+[0;32mI (50692) SENDER: window=5ms samples=128 V[min=0.011 max=0.019 avg=0.016][0m
+[0;32mI (50952) SENDER: window=5ms samples=128 V[min=0.013 max=0.021 avg=0.017][0m
+[0;32mI (51202) SENDER: window=5ms samples=128 V[min=0.013 max=0.022 avg=0.016][0m
+[0;32mI (51462) SENDER: window=5ms samples=128 V[min=0.010 max=0.021 avg=0.016][0m
+[0;32mI (51712) SENDER: window=5ms samples=128 V[min=0.010 max=0.020 avg=0.016][0m
+[0;32mI (51972) SENDER: window=5ms samples=128 V[min=0.013 max=0.019 avg=0.016][0m
+[0;32mI (52232) SENDER: window=5ms samples=128 V[min=0.013 max=0.026 avg=0.016][0m
+[0;32mI (52482) SENDER: window=5ms samples=128 V[min=0.013 max=0.021 avg=0.016][0m
+[0;32mI (52742) SENDER: window=5ms samples=128 V[min=0.014 max=0.026 avg=0.017][0m
+[0;32mI (52992) SENDER: window=5ms samples=128 V[min=0.001 max=0.026 avg=0.017][0m
+[0;32mI (53252) SENDER: window=5ms samples=128 V[min=0.013 max=0.023 avg=0.016][0m
+[0;32mI (53512) SENDER: window=5ms samples=128 V[min=0.003 max=0.023 avg=0.016][0m
+[0;32mI (53762) SENDER: window=5ms samples=128 V[min=0.007 max=0.026 avg=0.015][0m
+[0;32mI (54022) SENDER: window=5ms samples=128 V[min=0.013 max=0.035 avg=0.017][0m
+[0;32mI (54272) SENDER: window=5ms samples=128 V[min=0.011 max=0.030 avg=0.016][0m
+[0;32mI (54532) SENDER: window=5ms samples=128 V[min=0.010 max=0.023 avg=0.017][0m
+[0;32mI (54792) SENDER: window=5ms samples=128 V[min=0.004 max=0.023 avg=0.017][0m
+[0;32mI (55042) SENDER: window=5ms samples=128 V[min=0.011 max=0.032 avg=0.016][0m
+[0;32mI (55302) SENDER: window=5ms samples=128 V[min=0.010 max=0.026 avg=0.016][0m
+[0;32mI (55552) SENDER: window=5ms samples=128 V[min=0.013 max=0.029 avg=0.016][0m
+[0;32mI (55812) SENDER: window=5ms samples=128 V[min=0.013 max=0.020 avg=0.016][0m
+[0;32mI (56072) SENDER: window=5ms samples=128 V[min=0.009 max=0.026 avg=0.016][0m
+[0;32mI (56322) SENDER: window=5ms samples=128 V[min=0.010 max=0.029 avg=0.016][0m
+[0;32mI (56582) SENDER: window=5ms samples=128 V[min=0.011 max=0.021 avg=0.016][0m
+[0;32mI (56832) SENDER: window=5ms samples=128 V[min=0.011 max=0.022 avg=0.017][0m
+[0;32mI (57092) SENDER: window=5ms samples=128 V[min=0.014 max=0.022 avg=0.017][0m
+[0;32mI (924) LCD: draw text OK[0m
+[0;32mI (924) LCD: ================ LCD INIT END ==================[0m
+CSV_HEADER,event,session_id,seq,rx_time_us,trigger_time_us,dt_us,speed_mps,speed_kmh
+[0;32mI (934) RX: Buttons ready: START=4 STOP=5 CLEAR=6 (active-low)[0m
+[0;32mI (964) wifi:wifi driver task: 3ffff6b0, prio:23, stack:6656, core=0[0m
+[0;32mI (964) wifi:wifi firmware version: f3dbad7[0m
+[0;32mI (974) wifi:wifi certification version: v7.0[0m
+[0;32mI (974) wifi:config NVS flash: enabled[0m
+[0;32mI (974) wifi:config nano formatting: disabled[0m
+[0;32mI (974) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (974) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (984) wifi:Init management short buffer num: 32[0m
+[0;32mI (984) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (994) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (994) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1004) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1004) wifi_init: rx ba win: 6[0m
+[0;32mI (1004) wifi_init: accept mbox: 6[0m
+[0;32mI (1014) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1014) wifi_init: udp mbox: 6[0m
+[0;32mI (1014) wifi_init: tcp mbox: 6[0m
+[0;32mI (1014) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1024) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1024) wifi_init: tcp mss: 1440[0m
+[0;32mI (1024) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1034) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1034) phy_init: phy_version 2620,f8f9319,Feb  6 2025,14:35:09[0m
+[0;32mI (1084) wifi:mode : sta (80:65:99:5e:28:18)[0m
+[0;32mI (1084) wifi:enable tsf[0m
+[0;32mI (1094) ESPNOW: espnow [version: 2.0] init[0m
+[0;32mI (1094) RX: Receiver ready on channel 1[0m
+[0;32mI (1094) RX: STATE: CLEAR -> CLEAR[0m
+[0;32mI (1244) LCD: fill BLACK OK[0m
+[0;32mI (1344) LCD: draw text OK[0m
+CSV,CLEAR,0,0,-1,-1,-1,0.000,0.000
+[0;32mI (1344) SENSOR: pattern[0]: unit=0 ch=2 atten=0 bw=12[0m
+[0;32mI (1344) RX: Sensor started: ch=2 thresh=1.500V hyst=0.100V window=5ms consec=2[0m
+[0;32mI (38234) RX: STATE: CLEAR -> RUNNING[0m
+[0;32mI (38234) RX: Entered RUNNING; waiting for beam clear to arm[0m
+[0;32mI (38384) LCD: fill BLACK OK[0m
+[0;32mI (38524) LCD: draw text OK[0m
+CSV,START,1,0,-1,-1,-1,0.000,0.000
+[0;32mI (38734) RX: window=5ms samples=128 V[min=0.002 max=0.020 avg=0.013] armed=0[0m
+[0;32mI (39124) RX: window=5ms samples=128 V[min=0.008 max=0.020 avg=0.013] armed=0[0m
+[0;32mI (39504) RX: window=5ms samples=128 V[min=0.003 max=0.035 avg=0.015] armed=0[0m
+[0;32mI (39884) RX: window=5ms samples=128 V[min=0.000 max=0.028 avg=0.015] armed=0[0m
+[0;32mI (40274) RX: window=5ms samples=128 V[min=0.006 max=0.018 avg=0.013] armed=0[0m
+[0;32mI (40654) RX: window=5ms samples=128 V[min=0.010 max=0.016 avg=0.013] armed=0[0m
+[0;32mI (41044) RX: window=5ms samples=128 V[min=0.010 max=0.017 avg=0.013] armed=0[0m
+[0;32mI (41424) RX: window=5ms samples=128 V[min=0.010 max=0.016 avg=0.013] armed=0[0m
+[0;32mI (41804) RX: window=5ms samples=128 V[min=0.010 max=0.017 avg=0.013] armed=0[0m
+[0;32mI (42194) RX: window=5ms samples=128 V[min=0.010 max=0.017 avg=0.013] armed=0[0m
+[0;32mI (42574) RX: window=5ms samples=128 V[min=0.009 max=0.016 avg=0.013] armed=0[0m
+[0;32mI (42964) RX: window=5ms samples=128 V[min=0.010 max=0.017 avg=0.013] armed=0[0m
+[0;32mI (43344) RX: window=5ms samples=128 V[min=0.010 max=0.016 avg=0.013] armed=0[0m
+[0;32mI (43724) RX: window=5ms samples=128 V[min=0.010 max=0.018 avg=0.013] armed=0[0m
+[0;32mI (44114) RX: window=5ms samples=128 V[min=0.010 max=0.016 avg=0.013] armed=0[0m
+[0;32mI (44494) RX: window=5ms samples=128 V[min=0.010 max=0.018 avg=0.013] armed=0[0m
+[0;32mI (44884) RX: window=5ms samples=128 V[min=0.010 max=0.016 avg=0.013] armed=0[0m
+[0;32mI (45264) RX: window=5ms samples=128 V[min=0.010 max=0.019 avg=0.013] armed=0[0m
+[0;32mI (45644) RX: window=5ms samples=128 V[min=0.008 max=0.017 avg=0.013] armed=0[0m
+[0;32mI (46034) RX: window=5ms samples=128 V[min=0.009 max=0.019 avg=0.013] armed=0[0m
+[0;32mI (46414) RX: window=5ms samples=128 V[min=0.010 max=0.016 avg=0.013] armed=0[0m
+[0;32mI (46804) RX: window=5ms samples=128 V[min=0.010 max=0.016 avg=0.013] armed=0[0m
+[0;32mI (47184) RX: window=5ms samples=128 V[min=0.009 max=0.017 avg=0.012] armed=0[0m
+[0;32mI (47564) RX: window=5ms samples=128 V[min=0.000 max=0.016 avg=0.013] armed=0[0m
+[0;32mI (47954) RX: window=5ms samples=128 V[min=0.009 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (48334) RX: window=5ms samples=128 V[min=0.006 max=0.020 avg=0.013] armed=0[0m
+[0;32mI (48724) RX: window=5ms samples=128 V[min=0.010 max=0.016 avg=0.013] armed=0[0m
+[0;32mI (49104) RX: window=5ms samples=128 V[min=0.009 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (49484) RX: window=5ms samples=128 V[min=0.009 max=0.016 avg=0.013] armed=0[0m
+[0;32mI (49874) RX: window=5ms samples=128 V[min=0.010 max=0.016 avg=0.013] armed=0[0m
+[0;32mI (50114) RX: RX msg_type=1 seq=1 min_v=0.000 tx_ts=66764199 rx_time=49761850[0m
+[0;32mI (50254) RX: window=5ms samples=128 V[min=0.009 max=0.017 avg=0.012] armed=0[0m
+[0;32mI (50644) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (51024) RX: window=5ms samples=128 V[min=0.009 max=0.016 avg=0.013] armed=0[0m
+[0;32mI (51404) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (51794) RX: window=5ms samples=128 V[min=0.010 max=0.016 avg=0.013] armed=0[0m
+[0;32mI (52174) RX: window=5ms samples=128 V[min=0.009 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (52564) RX: window=5ms samples=128 V[min=0.002 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (52944) RX: window=5ms samples=128 V[min=0.008 max=0.023 avg=0.012] armed=0[0m
+[0;32mI (53024) RX: Armed (beam clear, v_min=3.300V)[0m
+[0;32mI (53084) RX: GATE TRIGGERED (V[min=0.006 max=0.017 avg=0.011]) t_trigger_us=52723129 rx_seq=1[0m
+[0;32mI (53084) RX: TIME DIFF: first_gate_rx=49.761850s receiver_gate=52.723129s dt=2.961279s, rx_min_v=0.000[0m
+[0;32mI (53244) LCD: fill BLACK OK[0m
+[0;32mI (53384) LCD: draw text OK[0m
+CSV,TIME_DIFF,1,1,49761850,52723129,2961279,2.961,10.661
+[0;32mI (53614) RX: window=5ms samples=128 V[min=0.001 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (54004) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (54384) RX: window=5ms samples=128 V[min=0.009 max=0.016 avg=0.013] armed=0[0m
+[0;32mI (54764) RX: window=5ms samples=128 V[min=0.006 max=0.019 avg=0.012] armed=0[0m
+[0;32mI (55154) RX: window=5ms samples=128 V[min=0.010 max=0.016 avg=0.013] armed=0[0m
+[0;32mI (55534) RX: window=5ms samples=128 V[min=0.007 max=0.022 avg=0.013] armed=0[0m
+[0;32mI (55924) RX: window=5ms samples=128 V[min=0.005 max=0.019 avg=0.012] armed=0[0m
+[0;32mI (56304) RX: window=5ms samples=128 V[min=0.009 max=0.019 avg=0.013] armed=0[0m
+[0;32mI (56684) RX: window=5ms samples=128 V[min=0.009 max=0.017 avg=0.012] armed=0[0m
+[0;32mI (57074) RX: window=5ms samples=128 V[min=0.005 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (57454) RX: window=5ms samples=128 V[min=0.008 max=0.022 avg=0.012] armed=0[0m
+[0;32mI (57844) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.013] armed=0[0m
+[0;32mI (58224) RX: window=5ms samples=128 V[min=0.008 max=0.022 avg=0.013] armed=0[0m
+[0;32mI (58604) RX: window=5ms samples=128 V[min=0.006 max=0.018 avg=0.013] armed=0[0m
+[0;32mI (58994) RX: window=5ms samples=128 V[min=0.008 max=0.022 avg=0.011] armed=0[0m
+[0;32mI (59374) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (59764) RX: window=5ms samples=128 V[min=0.001 max=0.022 avg=0.010] armed=0[0m
+[0;32mI (60144) RX: window=5ms samples=128 V[min=0.009 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (60524) RX: window=5ms samples=128 V[min=0.000 max=0.031 avg=0.011] armed=0[0m
+[0;32mI (60914) RX: window=5ms samples=128 V[min=0.002 max=0.026 avg=0.011] armed=0[0m
+[0;32mI (61294) RX: window=5ms samples=128 V[min=0.004 max=0.019 avg=0.012] armed=0[0m
+[0;32mI (61684) RX: window=5ms samples=128 V[min=0.000 max=0.024 avg=0.012] armed=0[0m
+[0;32mI (62064) RX: window=5ms samples=128 V[min=0.005 max=0.021 avg=0.013] armed=0[0m
+[0;32mI (62444) RX: window=5ms samples=128 V[min=0.006 max=0.023 avg=0.013] armed=0[0m
+[0;32mI (62834) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.013] armed=0[0m
+[0;32mI (63214) RX: window=5ms samples=128 V[min=0.006 max=0.018 avg=0.013] armed=0[0m
+[0;32mI (63304) RX: Armed (beam clear, v_min=3.300V)[0m
+[0;32mI (63404) RX: GATE TRIGGERED (V[min=0.003 max=0.016 avg=0.010]) t_trigger_us=63046329 rx_seq=1[0m
+[0;32mI (63414) RX: TIME DIFF: first_gate_rx=49.761850s receiver_gate=63.046329s dt=13.284479s, rx_min_v=0.000[0m
+[0;32mI (63574) LCD: fill BLACK OK[0m
+[0;32mI (63724) LCD: draw text OK[0m
+CSV,TIME_DIFF,1,1,49761850,63046329,13284479,13.284,47.824
+[0;32mI (63904) RX: window=5ms samples=128 V[min=0.000 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (64294) RX: window=5ms samples=128 V[min=0.006 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (64674) RX: window=5ms samples=128 V[min=0.000 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (65064) RX: window=5ms samples=128 V[min=0.004 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (65444) RX: window=5ms samples=128 V[min=0.006 max=0.023 avg=0.010] armed=0[0m
+[0;32mI (65584) RX: Armed (beam clear, v_min=3.300V)[0m
+[0;32mI (65824) RX: window=5ms samples=128 V[min=3.300 max=3.300 avg=3.300] armed=1[0m
+[0;32mI (65844) RX: GATE TRIGGERED (V[min=0.003 max=0.022 avg=0.010]) t_trigger_us=65484762 rx_seq=1[0m
+[0;32mI (65844) RX: TIME DIFF: first_gate_rx=49.761850s receiver_gate=65.484762s dt=15.722912s, rx_min_v=0.000[0m
+[0;32mI (66014) LCD: fill BLACK OK[0m
+[0;32mI (66164) LCD: draw text OK[0m
+CSV,TIME_DIFF,1,1,49761850,65484762,15722912,15.723,56.602
+[0;32mI (66514) RX: window=5ms samples=128 V[min=0.002 max=0.019 avg=0.014] armed=0[0m
+[0;32mI (66904) RX: window=5ms samples=128 V[min=0.010 max=0.021 avg=0.014] armed=0[0m
+[0;32mI (67284) RX: window=5ms samples=128 V[min=0.002 max=0.026 avg=0.014] armed=0[0m
+[0;32mI (67414) RX: Armed (beam clear, v_min=3.300V)[0m
+[0;32mI (67654) RX: GATE TRIGGERED (V[min=0.006 max=0.016 avg=0.011]) t_trigger_us=67295929 rx_seq=1[0m
+[0;32mI (67654) RX: TIME DIFF: first_gate_rx=49.761850s receiver_gate=67.295929s dt=17.534081s, rx_min_v=0.000[0m
+[0;32mI (67824) LCD: fill BLACK OK[0m
+[0;32mI (67974) LCD: draw text OK[0m
+CSV,TIME_DIFF,1,1,49761850,67295929,17534079,17.534,63.123
+[0;32mI (67974) RX: window=5ms samples=128 V[min=0.000 max=0.027 avg=0.014] armed=0[0m
+[0;32mI (68364) RX: window=5ms samples=128 V[min=0.002 max=0.016 avg=0.011] armed=0[0m
+[0;32mI (68744) RX: window=5ms samples=128 V[min=0.007 max=0.021 avg=0.011] armed=0[0m
+[0;32mI (69134) RX: window=5ms samples=128 V[min=0.003 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (69514) RX: window=5ms samples=128 V[min=0.003 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (69894) RX: window=5ms samples=128 V[min=0.007 max=0.018 avg=0.011] armed=0[0m
+[0;32mI (70284) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (70664) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.012] armed=0[0m
+[0;32mI (71054) RX: window=5ms samples=128 V[min=0.007 max=0.019 avg=0.012] armed=0[0m
+[0;32mI (71434) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (71814) RX: window=5ms samples=128 V[min=0.009 max=0.019 avg=0.012] armed=0[0m
+[0;32mI (72204) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (72584) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (72974) RX: window=5ms samples=128 V[min=0.004 max=0.019 avg=0.012] armed=0[0m
+[0;32mI (73354) RX: window=5ms samples=128 V[min=0.009 max=0.015 avg=0.012] armed=0[0m
+[0;32mI (73734) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.011] armed=0[0m
+[0;32mI (74124) RX: window=5ms samples=128 V[min=0.009 max=0.021 avg=0.012] armed=0[0m
+[0;32mI (74504) RX: window=5ms samples=128 V[min=0.010 max=0.020 avg=0.012] armed=0[0m
+[0;32mI (74894) RX: window=5ms samples=128 V[min=0.009 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (75274) RX: window=5ms samples=128 V[min=0.009 max=0.016 avg=0.011] armed=0[0m
+[0;32mI (75654) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (76044) RX: window=5ms samples=128 V[min=0.009 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (76424) RX: window=5ms samples=128 V[min=0.009 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (76814) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.012] armed=0[0m
+[0;32mI (77194) RX: window=5ms samples=128 V[min=0.010 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (77574) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (77964) RX: window=5ms samples=128 V[min=0.009 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (78344) RX: window=5ms samples=128 V[min=0.008 max=0.017 avg=0.012] armed=0[0m
+[0;32mI (78734) RX: window=5ms samples=128 V[min=0.010 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (79114) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.012] armed=0[0m
+[0;32mI (79494) RX: window=5ms samples=128 V[min=0.010 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (79884) RX: window=5ms samples=128 V[min=0.010 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (80264) RX: window=5ms samples=128 V[min=0.008 max=0.018 avg=0.012] armed=0[0m
+[0;32mI (80654) RX: window=5ms samples=128 V[min=0.009 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (81034) RX: window=5ms samples=128 V[min=0.007 max=0.017 avg=0.012] armed=0[0m
+[0;32mI (81414) RX: window=5ms samples=128 V[min=0.010 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (81804) RX: window=5ms samples=128 V[min=0.010 max=0.015 avg=0.012] armed=0[0m
+[0;32mI (82184) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (82574) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (82954) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.012] armed=0[0m
+[0;32mI (83334) RX: window=5ms samples=128 V[min=0.010 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (83724) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.012] armed=0[0m
+[0;32mI (84104) RX: window=5ms samples=128 V[min=0.005 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (84494) RX: window=5ms samples=128 V[min=0.009 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (84874) RX: window=5ms samples=128 V[min=0.009 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (85254) RX: window=5ms samples=128 V[min=0.009 max=0.015 avg=0.012] armed=0[0m
+[0;32mI (85644) RX: window=5ms samples=128 V[min=0.009 max=0.016 avg=0.012] armed=0[0m
+[0;32mI (86024) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.012] armed=0[0m
+[0;32mI (86414) RX: window=5ms samples=128 V[min=0.009 max=0.017 avg=0.012] armed=0[0m
+[0;32mI (86794) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.012] armed=0[0m

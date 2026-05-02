@@ -1,0 +1,1048 @@
+Command: /Users/brandon/.espressif/python_env/idf5.5_py3.9_env/bin/python /Users/brandon/esp/esp-idf/tools/idf_monitor.py -p /dev/cu.usbserial-110 -b 115200 --toolchain-prefix xtensa-esp32s2-elf- --target esp32s2 --revision 0 /Users/brandon/Projects/lightgate/build/lightgate.elf /Users/brandon/Projects/lightgate/build/bootloader/bootloader.elf -m '/Users/brandon/.espressif/python_env/idf5.5_py3.9_env/bin/python' '/Users/brandon/esp/esp-idf/tools/idf.py' '-p' '/dev/cu.usbserial-110'
+ESP-ROM:esp32s2-rc4-20191025
+Build:Oct 25 2019
+rst:0x1 (POWERON),boot:0x8 (SPI_FAST_FLASH_BOOT)
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3ffe5110,len:0x16a4
+load:0x4004a000,len:0xb18
+load:0x4004e000,len:0x33e4
+entry 0x4004a1c4
+[0;32mI (21) boot: ESP-IDF v5.5 2nd stage bootloader[0m
+[0;32mI (21) boot: compile time Apr 16 2026 18:54:04[0m
+[0;32mI (22) boot: chip revision: v1.0[0m
+[0;32mI (22) boot: efuse block revision: v0.2[0m
+[0;32mI (25) boot.esp32s2: SPI Speed      : 80MHz[0m
+[0;32mI (29) boot.esp32s2: SPI Mode       : DIO[0m
+[0;32mI (33) boot.esp32s2: SPI Flash Size : 2MB[0m
+[0;32mI (37) boot: Enabling RNG early entropy source...[0m
+[0;32mI (41) boot: Partition Table:[0m
+[0;32mI (44) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (50) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (57) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (63) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (70) boot: End of partition table[0m
+[0;32mI (73) esp_image: segment 0: paddr=00010020 vaddr=3f000020 size=1b970h (113008) map[0m
+[0;32mI (103) esp_image: segment 1: paddr=0002b998 vaddr=3ff9e000 size=00020h (    32) load[0m
+[0;32mI (104) esp_image: segment 2: paddr=0002b9c0 vaddr=3ffcd5f0 size=03a58h ( 14936) load[0m
+[0;32mI (111) esp_image: segment 3: paddr=0002f420 vaddr=40024000 size=00bf8h (  3064) load[0m
+[0;32mI (116) esp_image: segment 4: paddr=00030020 vaddr=40080020 size=80d24h (527652) map[0m
+[0;32mI (229) esp_image: segment 5: paddr=000b0d4c vaddr=40024bf8 size=189f4h (100852) load[0m
+[0;32mI (267) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (267) boot: Disabling RNG early entropy source...[0m
+[0;32mI (277) cache: Instruction cache 	: size 8KB, 4Ways, cache line size 32Byte[0m
+[0;32mI (277) cache: Data cache 		: size 8KB, 4Ways, cache line size 32Byte[0m
+[0;32mI (292) cpu_start: Unicore app[0m
+[0;32mI (299) cpu_start: Pro cpu start user code[0m
+[0;32mI (299) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (300) app_init: Application information:[0m
+[0;32mI (300) app_init: Project name:     lightgate[0m
+[0;32mI (304) app_init: App version:      aec7687-dirty[0m
+[0;32mI (308) app_init: Compile time:     Apr 24 2026 21:06:18[0m
+[0;32mI (313) app_init: ELF file SHA256:  ab3026e51...[0m
+[0;32mI (317) app_init: ESP-IDF:          v5.5[0m
+[0;32mI (321) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (325) efuse_init: Max chip rev:     v1.99 [0m
+[0;32mI (329) efuse_init: Chip rev:         v1.0[0m
+[0;32mI (333) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (339) heap_init: At 3FFD5418 len 00026BE8 (154 KiB): RAM[0m
+[0;32mI (344) heap_init: At 3FFFC000 len 00003A10 (14 KiB): RAM[0m
+[0;32mI (349) heap_init: At 3FF9E020 len 00001FC8 (7 KiB): RTCRAM[0m
+[0;32mI (356) spi_flash: detected chip: generic[0m
+[0;32mI (358) spi_flash: flash io: dio[0m
+[0;33mW (361) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (374) main_task: Started on CPU0[0m
+[0;32mI (374) main_task: Calling app_main()[0m
+[0;32mI (374) LCD: ================ LCD INIT START ================[0m
+[0;32mI (384) LCD: text = Receiver Boot[0m
+[0;32mI (384) LCD: pins: MOSI=35 CLK=36 CS=34 DC=33 RST=-1 BCKL=-1[0m
+[0;32mI (384) LCD: spi_bus_initialize OK[0m
+[0;32mI (394) LCD: esp_lcd_new_panel_io_spi OK[0m
+[0;32mI (394) ili9341: LCD panel create success, version: 2.0.2[0m
+[0;32mI (404) LCD: esp_lcd_new_panel_ili9341 OK[0m
+[0;32mI (404) LCD: LCD RESET should be tied externally to 3.3V[0m
+[0;32mI (514) LCD: esp_lcd_panel_init OK[0m
+[0;32mI (514) LCD: esp_lcd_panel_invert_color OK[0m
+[0;32mI (514) LCD: esp_lcd_panel_swap_xy OK[0m
+[0;32mI (514) LCD: esp_lcd_panel_mirror OK[0m
+[0;32mI (514) LCD: esp_lcd_panel_disp_on_off OK[0m
+[0;32mI (514) LCD: LCD LED should be tied externally to 3.3V[0m
+[0;32mI (674) LCD: fill BLACK OK[0m
+[0;32mI (924) LCD: draw text OK[0m
+[0;32mI (924) LCD: ================ LCD INIT END ==================[0m
+CSV_HEADER,event,session_id,seq,rx_time_us,trigger_time_us,dt_us,speed_mps,speed_kmh
+[0;32mI (934) RX: Buttons ready: START=4 STOP=5 CLEAR=6 (active-low)[0m
+[0;32mI (964) wifi:wifi driver task: 3ffff6b0, prio:23, stack:6656, core=0[0m
+[0;32mI (964) wifi:wifi firmware version: f3dbad7[0m
+[0;32mI (974) wifi:wifi certification version: v7.0[0m
+[0;32mI (974) wifi:config NVS flash: enabled[0m
+[0;32mI (974) wifi:config nano formatting: disabled[0m
+[0;32mI (974) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (974) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (984) wifi:Init management short buffer num: 32[0m
+[0;32mI (984) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (994) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (994) wifi:Init static rx buffer num: 10[0m
+[0;32mI (1004) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (1004) wifi_init: rx ba win: 6[0m
+[0;32mI (1004) wifi_init: accept mbox: 6[0m
+[0;32mI (1014) wifi_init: tcpip mbox: 32[0m
+[0;32mI (1014) wifi_init: udp mbox: 6[0m
+[0;32mI (1014) wifi_init: tcp mbox: 6[0m
+[0;32mI (1014) wifi_init: tcp tx win: 5760[0m
+[0;32mI (1024) wifi_init: tcp rx win: 5760[0m
+[0;32mI (1024) wifi_init: tcp mss: 1440[0m
+[0;32mI (1024) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (1034) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (1034) phy_init: phy_version 2620,f8f9319,Feb  6 2025,14:35:09[0m
+[0;32mI (1084) wifi:mode : sta (80:65:99:5e:28:18)[0m
+[0;32mI (1084) wifi:enable tsf[0m
+[0;32mI (1094) ESPNOW: espnow [version: 2.0] init[0m
+[0;32mI (1094) RX: Receiver ready on channel 1[0m
+[0;32mI (1094) RX: STATE: CLEAR -> CLEAR[0m
+[0;32mI (1244) LCD: fill BLACK OK[0m
+[0;32mI (1344) LCD: draw text OK[0m
+CSV,CLEAR,0,0,-1,-1,-1,0.000,0.000
+[0;32mI (1344) SENSOR: pattern[0]: unit=0 ch=2 atten=0 bw=12[0m
+[0;32mI (1344) RX: Sensor started: ch=2 thresh=1.500V hyst=0.100V window=5ms consec=2[0m
+[0;32mI (15734) RX: STATE: CLEAR -> RUNNING[0m
+[0;32mI (15734) RX: Entered RUNNING; waiting for beam clear to arm[0m
+[0;32mI (15884) LCD: fill BLACK OK[0m
+[0;32mI (16024) LCD: draw text OK[0m
+CSV,START,1,0,-1,-1,-1,0.000,0.000
+[0;32mI (16244) RX: window=5ms samples=128 V[min=0.000 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (16624) RX: window=5ms samples=128 V[min=0.000 max=0.020 avg=0.010] armed=0[0m
+[0;32mI (17004) RX: window=5ms samples=128 V[min=0.000 max=0.021 avg=0.010] armed=0[0m
+[0;32mI (17394) RX: window=5ms samples=128 V[min=0.000 max=0.018 avg=0.010] armed=0[0m
+[0;32mI (17774) RX: window=5ms samples=128 V[min=0.000 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (18164) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (18544) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (18924) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (19314) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (19694) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (20084) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.011] armed=0[0m
+[0;32mI (20464) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (20844) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (21234) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (21614) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (22004) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (22384) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (22764) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (23154) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (23534) RX: window=5ms samples=128 V[min=0.007 max=0.019 avg=0.011] armed=0[0m
+[0;32mI (23924) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (24304) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (24684) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (25074) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (25454) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (25844) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (26224) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (26604) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (26994) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.011] armed=0[0m
+[0;32mI (27374) RX: window=5ms samples=128 V[min=0.000 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (27764) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (28144) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (28524) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (28914) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (29294) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (29684) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (30064) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (30444) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (30834) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (31214) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (31604) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (31984) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (32364) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (32754) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (33134) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.011] armed=0[0m
+[0;32mI (33524) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (33904) RX: window=5ms samples=128 V[min=0.008 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (34284) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (34674) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (35054) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (35444) RX: window=5ms samples=128 V[min=0.007 max=0.017 avg=0.011] armed=0[0m
+[0;32mI (35824) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (36204) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (36594) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (36974) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (37364) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (37744) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (38124) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (38514) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (38894) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (39284) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (39664) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (40044) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (40434) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (40814) RX: window=5ms samples=128 V[min=0.003 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (41204) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (41584) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.011] armed=0[0m
+[0;32mI (41964) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (42354) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (42734) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (43124) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (43504) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (43884) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (44274) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (44654) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.011] armed=0[0m
+[0;32mI (45044) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.011] armed=0[0m
+[0;32mI (45424) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (45804) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (46194) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (46574) RX: window=5ms samples=128 V[min=0.008 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (46964) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (47344) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (47724) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (48114) RX: window=5ms samples=128 V[min=0.008 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (48494) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (48884) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (49264) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (49644) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (50034) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (50414) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (50804) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (51184) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (51564) RX: window=5ms samples=128 V[min=0.003 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (51954) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (52334) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (52724) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (53104) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (53484) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.011] armed=0[0m
+[0;32mI (53874) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (54254) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (54644) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (55024) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (55404) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (55794) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (56174) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (56564) RX: window=5ms samples=128 V[min=0.008 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (56944) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (57324) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (57714) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (58094) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (58484) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (58864) RX: window=5ms samples=128 V[min=0.007 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (59244) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.011] armed=0[0m
+[0;32mI (59634) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (60014) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.011] armed=0[0m
+[0;32mI (60404) RX: window=5ms samples=128 V[min=0.008 max=0.017 avg=0.011] armed=0[0m
+[0;32mI (60784) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (61164) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (61554) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (61934) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (62324) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (62704) RX: window=5ms samples=128 V[min=0.007 max=0.019 avg=0.011] armed=0[0m
+[0;32mI (63084) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.011] armed=0[0m
+[0;32mI (63474) RX: window=5ms samples=128 V[min=0.005 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (63854) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (64244) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (64624) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (65004) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (65394) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (65774) RX: window=5ms samples=128 V[min=0.002 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (66164) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (66544) RX: window=5ms samples=128 V[min=0.005 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (66924) RX: window=5ms samples=128 V[min=0.006 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (67314) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (67694) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (68084) RX: window=5ms samples=128 V[min=0.002 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (68464) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (68844) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (69234) RX: window=5ms samples=128 V[min=0.007 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (69614) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (70004) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (70384) RX: window=5ms samples=128 V[min=0.006 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (70764) RX: window=5ms samples=128 V[min=0.006 max=0.018 avg=0.010] armed=0[0m
+[0;32mI (71154) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (71534) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (71924) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.011] armed=0[0m
+[0;32mI (72304) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.011] armed=0[0m
+[0;32mI (72684) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (73074) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (73454) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (73844) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (74224) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (74604) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (74994) RX: window=5ms samples=128 V[min=0.003 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (75374) RX: window=5ms samples=128 V[min=0.004 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (75764) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (76144) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (76524) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (76914) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (77294) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (77684) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (78064) RX: window=5ms samples=128 V[min=0.004 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (78444) RX: window=5ms samples=128 V[min=0.007 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (78834) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (79214) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (79604) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (79984) RX: window=5ms samples=128 V[min=0.004 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (80364) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (80754) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (81134) RX: window=5ms samples=128 V[min=0.006 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (81524) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (81904) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (82284) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (82674) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (83054) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (83444) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (83824) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (84204) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.011] armed=0[0m
+[0;32mI (84594) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (84974) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (85364) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (85744) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (86124) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.011] armed=0[0m
+[0;32mI (86514) RX: window=5ms samples=128 V[min=0.003 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (86894) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (87284) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (87664) RX: window=5ms samples=128 V[min=0.005 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (88044) RX: window=5ms samples=128 V[min=0.002 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (88434) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (88814) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (89204) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (89584) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (89964) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (90354) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (90734) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.011] armed=0[0m
+[0;32mI (91124) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (91504) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (91884) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (92274) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.011] armed=0[0m
+[0;32mI (92654) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (93044) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (93424) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (93804) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (94194) RX: window=5ms samples=128 V[min=0.008 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (94574) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (94964) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (95344) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (95724) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.011] armed=0[0m
+[0;32mI (96114) RX: window=5ms samples=128 V[min=0.008 max=0.019 avg=0.011] armed=0[0m
+[0;32mI (96494) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (96884) RX: window=5ms samples=128 V[min=0.006 max=0.018 avg=0.010] armed=0[0m
+[0;32mI (97264) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (97644) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (98034) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.011] armed=0[0m
+[0;32mI (98414) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (98804) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.011] armed=0[0m
+[0;32mI (99184) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (99564) RX: window=5ms samples=128 V[min=0.005 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (99954) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (100334) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (100724) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.011] armed=0[0m
+[0;32mI (101104) RX: window=5ms samples=128 V[min=0.008 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (101484) RX: window=5ms samples=128 V[min=0.005 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (101874) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (102254) RX: window=5ms samples=128 V[min=0.007 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (102644) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (103024) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (103404) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (103794) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (104174) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (104564) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (104944) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.011] armed=0[0m
+[0;32mI (105324) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (105714) RX: window=5ms samples=128 V[min=0.009 max=0.014 avg=0.011] armed=0[0m
+[0;32mI (106094) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (106484) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (106864) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (107244) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (107634) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (108014) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (108404) RX: window=5ms samples=128 V[min=0.007 max=0.019 avg=0.011] armed=0[0m
+[0;32mI (108784) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (109164) RX: window=5ms samples=128 V[min=0.007 max=0.017 avg=0.011] armed=0[0m
+[0;32mI (109554) RX: window=5ms samples=128 V[min=0.005 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (109934) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (110324) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (110704) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (111084) RX: window=5ms samples=128 V[min=0.005 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (111474) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (111854) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (112244) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.011] armed=0[0m
+[0;32mI (112624) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (113004) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (113394) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (113774) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (114164) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (114544) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (114924) RX: window=5ms samples=128 V[min=0.005 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (115314) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (115694) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (116084) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (116464) RX: window=5ms samples=128 V[min=0.002 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (116844) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (117234) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (117614) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (118004) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (118384) RX: window=5ms samples=128 V[min=0.008 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (118764) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (119154) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (119534) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (119924) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.011] armed=0[0m
+[0;32mI (120304) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (120684) RX: window=5ms samples=128 V[min=0.008 max=0.017 avg=0.011] armed=0[0m
+[0;32mI (121074) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (121454) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (121844) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (122224) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (122604) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (122994) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (123374) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (123764) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (124144) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (124524) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (124914) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (125294) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (125684) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (126064) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.011] armed=0[0m
+[0;32mI (126444) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (126834) RX: window=5ms samples=128 V[min=0.003 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (127214) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (127604) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (127984) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (128364) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (128754) RX: window=5ms samples=128 V[min=0.006 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (129134) RX: window=5ms samples=128 V[min=0.005 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (129524) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (129904) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.011] armed=0[0m
+[0;32mI (130284) RX: window=5ms samples=128 V[min=0.007 max=0.018 avg=0.010] armed=0[0m
+[0;32mI (130674) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (131054) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (131444) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (131824) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (132204) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (132594) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (132974) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (133364) RX: window=5ms samples=128 V[min=0.003 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (133744) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (134124) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (134514) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (134894) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (135284) RX: window=5ms samples=128 V[min=0.002 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (135664) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (136044) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (136434) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (136814) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (137204) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (137584) RX: window=5ms samples=128 V[min=0.004 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (137964) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (138354) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (138734) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (139124) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (139504) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (139884) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (140274) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (140654) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (141044) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (141424) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (141804) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (142194) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (142574) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (142964) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (143344) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (143724) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (144114) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (144494) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (144884) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (145264) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (145644) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (146034) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (146414) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (146804) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (147184) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (147564) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (147954) RX: window=5ms samples=128 V[min=0.006 max=0.018 avg=0.010] armed=0[0m
+[0;32mI (148334) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (148724) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (149104) RX: window=5ms samples=128 V[min=0.005 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (149484) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (149874) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (150254) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (150644) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (151024) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (151404) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (151794) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (152174) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (152564) RX: window=5ms samples=128 V[min=0.002 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (152944) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (153324) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (153714) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (154094) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (154484) RX: window=5ms samples=128 V[min=0.008 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (154864) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (155244) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (155634) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (156014) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (156404) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (156784) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (157164) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (157554) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (157934) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (158324) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (158704) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (159084) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (159474) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (159854) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (160244) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (160624) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (161004) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (161394) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (161774) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (162164) RX: window=5ms samples=128 V[min=0.005 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (162544) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (162924) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (163314) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (163694) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (164084) RX: window=5ms samples=128 V[min=0.009 max=0.013 avg=0.011] armed=0[0m
+[0;32mI (164464) RX: window=5ms samples=128 V[min=0.005 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (164844) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (165234) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (165614) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (166004) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (166384) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (166764) RX: window=5ms samples=128 V[min=0.007 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (167154) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (167534) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (167924) RX: window=5ms samples=128 V[min=0.000 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (168304) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (168684) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (169074) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (169454) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (169844) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (170224) RX: window=5ms samples=128 V[min=0.003 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (170604) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (170994) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (171374) RX: window=5ms samples=128 V[min=0.004 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (171764) RX: window=5ms samples=128 V[min=0.006 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (172144) RX: window=5ms samples=128 V[min=0.008 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (172524) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (172914) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (173294) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (173684) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (174064) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (174444) RX: window=5ms samples=128 V[min=0.008 max=0.019 avg=0.011] armed=0[0m
+[0;32mI (174834) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (175214) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (175604) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (175984) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (176364) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (176754) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (177134) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (177524) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (177904) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (178284) RX: window=5ms samples=128 V[min=0.003 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (178674) RX: window=5ms samples=128 V[min=0.004 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (179054) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (179444) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (179824) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (180204) RX: window=5ms samples=128 V[min=0.006 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (180594) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (180974) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (181364) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (181744) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (182124) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (182514) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (182894) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (183284) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (183664) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (184044) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (184434) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (184814) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (185204) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (185584) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (185964) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (186354) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (186734) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (187124) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (187504) RX: window=5ms samples=128 V[min=0.006 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (187884) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (188274) RX: window=5ms samples=128 V[min=0.005 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (188654) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (189044) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (189424) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (189804) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (190194) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (190574) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (190964) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (191344) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (191724) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (192114) RX: window=5ms samples=128 V[min=0.006 max=0.018 avg=0.010] armed=0[0m
+[0;32mI (192494) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (192884) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (193264) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (193644) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (194034) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (194414) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (194804) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (195184) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (195564) RX: window=5ms samples=128 V[min=0.008 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (195954) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (196334) RX: window=5ms samples=128 V[min=0.003 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (196724) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (197104) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (197484) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (197874) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (198254) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (198644) RX: window=5ms samples=128 V[min=0.006 max=0.023 avg=0.010] armed=0[0m
+[0;32mI (199024) RX: window=5ms samples=128 V[min=0.007 max=0.021 avg=0.010] armed=0[0m
+[0;32mI (199404) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (199794) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (200174) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (200564) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (200944) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (201324) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (201714) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (202094) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (202484) RX: window=5ms samples=128 V[min=0.005 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (202864) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (203244) RX: window=5ms samples=128 V[min=0.004 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (203634) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (204014) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (204404) RX: window=5ms samples=128 V[min=0.007 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (204784) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (205164) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (205554) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (205934) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (206324) RX: window=5ms samples=128 V[min=0.001 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (206704) RX: window=5ms samples=128 V[min=0.004 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (207084) RX: window=5ms samples=128 V[min=0.003 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (207474) RX: window=5ms samples=128 V[min=0.008 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (207854) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (208244) RX: window=5ms samples=128 V[min=0.005 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (208624) RX: window=5ms samples=128 V[min=0.009 max=0.014 avg=0.011] armed=0[0m
+[0;32mI (209004) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (209394) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (209774) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (210164) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (210544) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (210924) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (211314) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (211694) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (212084) RX: window=5ms samples=128 V[min=0.008 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (212464) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (212844) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (213234) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (213614) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (214004) RX: window=5ms samples=128 V[min=0.004 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (214384) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (214764) RX: window=5ms samples=128 V[min=0.008 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (215154) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (215534) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (215924) RX: window=5ms samples=128 V[min=0.005 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (216304) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (216684) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (217074) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (217454) RX: window=5ms samples=128 V[min=0.003 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (217844) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (218224) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (218604) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (218994) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (219374) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (219764) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (220144) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (220524) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (220914) RX: window=5ms samples=128 V[min=0.006 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (221294) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (221684) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (222064) RX: window=5ms samples=128 V[min=0.005 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (222444) RX: window=5ms samples=128 V[min=0.004 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (222834) RX: window=5ms samples=128 V[min=0.002 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (223214) RX: window=5ms samples=128 V[min=0.003 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (223604) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (223984) RX: window=5ms samples=128 V[min=0.009 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (224364) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (224754) RX: window=5ms samples=128 V[min=0.006 max=0.020 avg=0.010] armed=0[0m
+[0;32mI (225134) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (225524) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (225904) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (226284) RX: window=5ms samples=128 V[min=0.002 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (226674) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (227054) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (227444) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (227824) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (228204) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (228594) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (228974) RX: window=5ms samples=128 V[min=0.003 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (229364) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (229744) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (230124) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (230514) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (230894) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (231284) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (231664) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (232044) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (232434) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (232814) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (233204) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (233584) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (233964) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (234354) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (234734) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (235124) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (235504) RX: window=5ms samples=128 V[min=0.006 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (235884) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (236274) RX: window=5ms samples=128 V[min=0.007 max=0.020 avg=0.010] armed=0[0m
+[0;32mI (236654) RX: window=5ms samples=128 V[min=0.006 max=0.021 avg=0.010] armed=0[0m
+[0;32mI (237044) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (237424) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (237804) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (238194) RX: window=5ms samples=128 V[min=0.005 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (238574) RX: window=5ms samples=128 V[min=0.003 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (238964) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (239344) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (239724) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (240114) RX: window=5ms samples=128 V[min=0.007 max=0.021 avg=0.010] armed=0[0m
+[0;32mI (240494) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.011] armed=0[0m
+[0;32mI (240884) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (241264) RX: window=5ms samples=128 V[min=0.008 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (241644) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (242034) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (242414) RX: window=5ms samples=128 V[min=0.003 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (242804) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (243184) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (243564) RX: window=5ms samples=128 V[min=0.003 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (243954) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (244334) RX: window=5ms samples=128 V[min=0.006 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (244724) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (245104) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (245484) RX: window=5ms samples=128 V[min=0.007 max=0.020 avg=0.011] armed=0[0m
+[0;32mI (245874) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (246254) RX: window=5ms samples=128 V[min=0.008 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (246644) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (247024) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (247404) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (247794) RX: window=5ms samples=128 V[min=0.002 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (248174) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (248564) RX: window=5ms samples=128 V[min=0.006 max=0.018 avg=0.010] armed=0[0m
+[0;32mI (248944) RX: window=5ms samples=128 V[min=0.006 max=0.018 avg=0.010] armed=0[0m
+[0;32mI (249324) RX: window=5ms samples=128 V[min=0.007 max=0.018 avg=0.010] armed=0[0m
+[0;32mI (249714) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (250094) RX: window=5ms samples=128 V[min=0.008 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (250484) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (250864) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (251244) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (251634) RX: window=5ms samples=128 V[min=0.005 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (252014) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (252404) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (252784) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (253164) RX: window=5ms samples=128 V[min=0.005 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (253554) RX: window=5ms samples=128 V[min=0.004 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (253934) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (254324) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (254704) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (255084) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (255474) RX: window=5ms samples=128 V[min=0.002 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (255854) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (256244) RX: window=5ms samples=128 V[min=0.003 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (256624) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (257004) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (257394) RX: window=5ms samples=128 V[min=0.003 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (257774) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (258164) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (258544) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.011] armed=0[0m
+[0;32mI (258924) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (259314) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (259694) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (260084) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (260464) RX: window=5ms samples=128 V[min=0.003 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (260844) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (261234) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (261614) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (262004) RX: window=5ms samples=128 V[min=0.007 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (262384) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (262764) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (263154) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.011] armed=0[0m
+[0;32mI (263534) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (263924) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (264304) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (264684) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (265074) RX: window=5ms samples=128 V[min=0.005 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (265454) RX: window=5ms samples=128 V[min=0.006 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (265844) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (266224) RX: window=5ms samples=128 V[min=0.004 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (266604) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (266994) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (267374) RX: window=5ms samples=128 V[min=0.008 max=0.018 avg=0.011] armed=0[0m
+[0;32mI (267764) RX: window=5ms samples=128 V[min=0.005 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (268144) RX: window=5ms samples=128 V[min=0.007 max=0.021 avg=0.010] armed=0[0m
+[0;32mI (268524) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.011] armed=0[0m
+[0;32mI (268914) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (269294) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (269684) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (270064) RX: window=5ms samples=128 V[min=0.005 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (270444) RX: window=5ms samples=128 V[min=0.003 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (270834) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (271214) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (271604) RX: window=5ms samples=128 V[min=0.000 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (271984) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (272364) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (272754) RX: window=5ms samples=128 V[min=0.006 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (273134) RX: window=5ms samples=128 V[min=0.008 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (273524) RX: window=5ms samples=128 V[min=0.005 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (273904) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (274284) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (274674) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (275054) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (275444) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (275824) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (276204) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (276594) RX: window=5ms samples=128 V[min=0.000 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (276974) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (277364) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (277744) RX: window=5ms samples=128 V[min=0.005 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (278124) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (278514) RX: window=5ms samples=128 V[min=0.005 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (278894) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (279284) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (279664) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (280044) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (280434) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (280814) RX: window=5ms samples=128 V[min=0.005 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (281204) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (281584) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (281964) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (282354) RX: window=5ms samples=128 V[min=0.008 max=0.026 avg=0.010] armed=0[0m
+[0;32mI (282734) RX: window=5ms samples=128 V[min=0.004 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (283124) RX: window=5ms samples=128 V[min=0.005 max=0.020 avg=0.010] armed=0[0m
+[0;32mI (283504) RX: window=5ms samples=128 V[min=0.008 max=0.018 avg=0.010] armed=0[0m
+[0;32mI (283884) RX: window=5ms samples=128 V[min=0.007 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (284274) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (284654) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (285044) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (285424) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (285804) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (286194) RX: window=5ms samples=128 V[min=0.006 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (286574) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (286964) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (287344) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (287724) RX: window=5ms samples=128 V[min=0.006 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (288114) RX: window=5ms samples=128 V[min=0.006 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (288494) RX: window=5ms samples=128 V[min=0.006 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (288884) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (289264) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (289644) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (290034) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (290414) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (290804) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (291184) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (291564) RX: window=5ms samples=128 V[min=0.004 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (291954) RX: window=5ms samples=128 V[min=0.005 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (292334) RX: window=5ms samples=128 V[min=0.005 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (292724) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (293104) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (293484) RX: window=5ms samples=128 V[min=0.006 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (293874) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (294254) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (294644) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (295024) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (295404) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (295794) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (296174) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (296564) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (296944) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (297324) RX: window=5ms samples=128 V[min=0.006 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (297714) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (298094) RX: window=5ms samples=128 V[min=0.002 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (298484) RX: window=5ms samples=128 V[min=0.005 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (298864) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (299244) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (299634) RX: window=5ms samples=128 V[min=0.008 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (300014) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (300404) RX: window=5ms samples=128 V[min=0.000 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (300784) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (301164) RX: window=5ms samples=128 V[min=0.001 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (301554) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (301934) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (302324) RX: window=5ms samples=128 V[min=0.003 max=0.018 avg=0.010] armed=0[0m
+[0;32mI (302704) RX: window=5ms samples=128 V[min=0.004 max=0.024 avg=0.010] armed=0[0m
+[0;32mI (303084) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (303474) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (303854) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (304244) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (304624) RX: window=5ms samples=128 V[min=0.002 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (305004) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.011] armed=0[0m
+[0;32mI (305394) RX: window=5ms samples=128 V[min=0.008 max=0.016 avg=0.011] armed=0[0m
+[0;32mI (305774) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (306164) RX: window=5ms samples=128 V[min=0.000 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (306544) RX: window=5ms samples=128 V[min=0.007 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (306924) RX: window=5ms samples=128 V[min=0.003 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (307314) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (307694) RX: window=5ms samples=128 V[min=0.006 max=0.018 avg=0.010] armed=0[0m
+[0;32mI (308084) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (308464) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (308844) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (309234) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (309614) RX: window=5ms samples=128 V[min=0.002 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (310004) RX: window=5ms samples=128 V[min=0.006 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (310384) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (310764) RX: window=5ms samples=128 V[min=0.004 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (311154) RX: window=5ms samples=128 V[min=0.006 max=0.018 avg=0.010] armed=0[0m
+[0;32mI (311534) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (311924) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (312304) RX: window=5ms samples=128 V[min=0.005 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (312684) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.011] armed=0[0m
+[0;32mI (313074) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (313454) RX: window=5ms samples=128 V[min=0.007 max=0.026 avg=0.011] armed=0[0m
+[0;32mI (313844) RX: window=5ms samples=128 V[min=0.006 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (314224) RX: window=5ms samples=128 V[min=0.008 max=0.017 avg=0.011] armed=0[0m
+[0;32mI (314604) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (314994) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (315374) RX: window=5ms samples=128 V[min=0.003 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (315604) RX: RX msg_type=1 seq=2 min_v=0.006 tx_ts=663033008 rx_time=315252662[0m
+[0;32mI (315764) RX: window=5ms samples=128 V[min=0.008 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (316144) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (316524) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (316914) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (317294) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (317684) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (318064) RX: window=5ms samples=128 V[min=0.005 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (318444) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (318834) RX: window=5ms samples=128 V[min=0.004 max=0.026 avg=0.010] armed=0[0m
+[0;32mI (319214) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (319604) RX: window=5ms samples=128 V[min=0.000 max=0.026 avg=0.010] armed=0[0m
+[0;32mI (319984) RX: window=5ms samples=128 V[min=0.000 max=0.020 avg=0.010] armed=0[0m
+[0;32mI (320364) RX: window=5ms samples=128 V[min=0.003 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (320754) RX: window=5ms samples=128 V[min=0.000 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (321134) RX: window=5ms samples=128 V[min=0.003 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (321524) RX: window=5ms samples=128 V[min=0.006 max=0.026 avg=0.010] armed=0[0m
+[0;32mI (321904) RX: window=5ms samples=128 V[min=0.002 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (322284) RX: window=5ms samples=128 V[min=0.000 max=0.026 avg=0.010] armed=0[0m
+[0;32mI (322674) RX: window=5ms samples=128 V[min=0.003 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (323054) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (323444) RX: window=5ms samples=128 V[min=0.005 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (323824) RX: window=5ms samples=128 V[min=0.007 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (324204) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (324594) RX: window=5ms samples=128 V[min=0.005 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (324974) RX: window=5ms samples=128 V[min=0.007 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (325364) RX: window=5ms samples=128 V[min=0.000 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (325494) RX: Armed (beam clear, v_min=3.300V)[0m
+[0;32mI (325554) RX: GATE TRIGGERED (V[min=0.006 max=3.300 avg=1.835]) t_trigger_us=325196630 rx_seq=2[0m
+[0;32mI (325564) RX: TIME DIFF: first_gate_rx=315.252662s receiver_gate=325.196630s dt=9.943968s, rx_min_v=0.006[0m
+[0;32mI (325724) LCD: fill BLACK OK[0m
+[0;32mI (325854) LCD: draw text OK[0m
+CSV,TIME_DIFF,1,2,315252662,325196630,9943968,9.944,35.798
+[0;32mI (325864) RX: Armed (beam clear, v_min=3.300V)[0m
+[0;32mI (325884) RX: GATE TRIGGERED (V[min=0.005 max=0.016 avg=0.010]) t_trigger_us=325523030 rx_seq=2[0m
+[0;32mI (325884) RX: TIME DIFF: first_gate_rx=315.252662s receiver_gate=325.523030s dt=10.270368s, rx_min_v=0.006[0m
+[0;32mI (326044) LCD: fill BLACK OK[0m
+[0;32mI (326204) LCD: draw text OK[0m
+CSV,TIME_DIFF,1,2,315252662,325523030,10270368,10.270,36.973
+[0;32mI (326344) RX: window=5ms samples=128 V[min=0.004 max=0.014 avg=0.009] armed=0[0m
+[0;32mI (326724) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (327104) RX: window=5ms samples=128 V[min=0.002 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (327494) RX: window=5ms samples=128 V[min=0.007 max=0.026 avg=0.010] armed=0[0m
+[0;32mI (327874) RX: window=5ms samples=128 V[min=0.004 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (328264) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (328644) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (329024) RX: window=5ms samples=128 V[min=0.001 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (329414) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (329794) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (330184) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (330564) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (330944) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (331334) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (331714) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (332104) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (332484) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (332864) RX: window=5ms samples=128 V[min=0.005 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (333254) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (333634) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (334024) RX: window=5ms samples=128 V[min=0.003 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (334404) RX: window=5ms samples=128 V[min=0.003 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (334784) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (335174) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (335554) RX: window=5ms samples=128 V[min=0.005 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (335944) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (336324) RX: window=5ms samples=128 V[min=0.004 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (336704) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (337094) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (337474) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (337864) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (338244) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (338624) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (339014) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (339394) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (339784) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (340164) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (340544) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (340934) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (341314) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (341704) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (342084) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (342464) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (342854) RX: window=5ms samples=128 V[min=0.000 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (343234) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (343624) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (344004) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (344384) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (344774) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (345154) RX: window=5ms samples=128 V[min=0.005 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (345544) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (345924) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (346304) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (346694) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (347074) RX: window=5ms samples=128 V[min=0.005 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (347464) RX: window=5ms samples=128 V[min=0.003 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (347844) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (348224) RX: window=5ms samples=128 V[min=0.004 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (348614) RX: window=5ms samples=128 V[min=0.002 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (348994) RX: window=5ms samples=128 V[min=0.003 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (349384) RX: window=5ms samples=128 V[min=0.007 max=0.026 avg=0.010] armed=0[0m
+[0;32mI (349764) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (350144) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (350534) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (350914) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (351304) RX: window=5ms samples=128 V[min=0.006 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (351684) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (352064) RX: window=5ms samples=128 V[min=0.000 max=0.021 avg=0.010] armed=0[0m
+[0;32mI (352454) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (352834) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.011] armed=0[0m
+[0;32mI (353224) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (353604) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (353984) RX: window=5ms samples=128 V[min=0.007 max=0.018 avg=0.010] armed=0[0m
+[0;32mI (354374) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (354754) RX: window=5ms samples=128 V[min=0.005 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (355144) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (355524) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (355904) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (356294) RX: window=5ms samples=128 V[min=0.005 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (356674) RX: window=5ms samples=128 V[min=0.005 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (357064) RX: window=5ms samples=128 V[min=0.006 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (357444) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (357824) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (358214) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (358594) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (358984) RX: window=5ms samples=128 V[min=0.006 max=0.018 avg=0.010] armed=0[0m
+[0;32mI (359364) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (359744) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (360134) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (360514) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (360904) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (361284) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (361664) RX: window=5ms samples=128 V[min=0.006 max=0.026 avg=0.010] armed=0[0m
+[0;32mI (362054) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (362434) RX: window=5ms samples=128 V[min=0.006 max=0.019 avg=0.010] armed=0[0m
+[0;32mI (362824) RX: window=5ms samples=128 V[min=0.006 max=0.026 avg=0.010] armed=0[0m
+[0;32mI (363204) RX: window=5ms samples=128 V[min=0.002 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (363584) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (363974) RX: window=5ms samples=128 V[min=0.007 max=0.017 avg=0.010] armed=0[0m
+[0;32mI (364354) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (364744) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (365124) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (365504) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (365894) RX: window=5ms samples=128 V[min=0.007 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (366274) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (366664) RX: window=5ms samples=128 V[min=0.007 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (367044) RX: window=5ms samples=128 V[min=0.002 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (367424) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (367814) RX: window=5ms samples=128 V[min=0.004 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (368194) RX: window=5ms samples=128 V[min=0.006 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (368584) RX: window=5ms samples=128 V[min=0.007 max=0.016 avg=0.010] armed=0[0m
+[0;32mI (368964) RX: window=5ms samples=128 V[min=0.006 max=0.015 avg=0.010] armed=0[0m
+[0;32mI (369344) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (369734) RX: window=5ms samples=128 V[min=0.008 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (370114) RX: window=5ms samples=128 V[min=0.006 max=0.014 avg=0.010] armed=0[0m
+[0;32mI (370504) RX: window=5ms samples=128 V[min=0.006 max=0.013 avg=0.010] armed=0[0m
+[0;32mI (370884) RX: window=5ms samples=128 V[min=0.007 max=0.014 avg=0.010] armed=0[0m
