@@ -3,12 +3,27 @@
 ![diagram](biggest.png)
 
 
-## Overview (As of rn)
+Pull down to GND
 
-- **Sender**: reads sensor data, detects voltage threshold events, and transmits messages  
-- **Receiver**: listens for ESP-NOW messages, records time the message was received t_m, records time the sensor voltage went below threshold(gate was triggered) t_f. Calculates speed as v = d/t, d = distance between gates (3m rn). So v = 3m/(t_f - t_m)
 
-The device role is selected at **build time** using `menuconfig`.
+- GPIO 4, SOLO MODE 
+- GPIO 5, JOINT MODE 
+- GPIO 6, Calibration MODE
+
+## pressing the same button again (or any button from an active state) returns to CLEAR **
+
+## Solo Mode 
+- 300ms debounce time 
+- lap time = (time beam is broken) - (last time it was broken)
+
+## Joint Mode 
+- no dounce
+- sender and receiver gates set up
+
+## Calibration Mode 
+- Sensor voltage displayed on screen sampled at 2Hz
+- Use to calibrate laser 
+
 
 ---
 
