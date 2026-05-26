@@ -8,6 +8,7 @@
 - simplify code 
 - Enough memory to display up to 3 laps?
 
+## Buttons
 Pull down to GND
 
 
