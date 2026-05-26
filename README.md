@@ -1,7 +1,12 @@
-# lightgate
+# Light Gates
 
-![diagram](biggest.png)
-
+![diagram](holy.png)
+![diagram](wiring.png)
+![diagram](screen.png)
+### TODO 
+- Get rid of the sender/receiver mode selection and just make 2 respective repos 
+- simplify code 
+- Enough memory to display up to 3 laps?
 
 ## Overview (As of rn)
 
@@ -38,8 +43,14 @@ App config
 
 
 
-### Project Architecture
-High-level Flow
+# Project Architecture
+
+### 2.8inch SPI Module ILI9341 SKU:MSP2807 Screen
+#### Code configures the NON-touch screen version :(
+Uses SPI Protocol 
+- ESP32 → SPI bus → ILI9341 LCD controller.
+![diagram](screen_pins.png)
+### High-level Flow
 
 - main.c is the program entry point
 - A single role is chosen at build time
