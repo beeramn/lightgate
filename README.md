@@ -65,6 +65,15 @@ App config
 #### Code configures the NON-touch screen version :(
 Uses SPI Protocol 
 - ESP32 → SPI bus → ILI9341 LCD controller.
+- PIN_NUM_MOSI    35
+- PIN_NUM_CLK     36
+- PIN_NUM_CS      34
+- PIN_NUM_DC      33
+- PIN_NUM_RST     -1      // tie LCD RESET physically to 3.3V
+- PIN_NUM_BCKL    -1      // tie LCD LED physically to 3.3V
+
+#define LCD_H_RES       320
+#define LCD_V_RES       240
 ![diagram](screen_pins.png)
 ### High-level Flow
 
